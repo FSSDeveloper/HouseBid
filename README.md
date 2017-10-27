@@ -1,4 +1,4 @@
-# csc648-fall17-teamNN
+# csc648-fall17-team04
 
 - TODO
 
