@@ -24,17 +24,44 @@
 			.noBorderBottom{
 				border-bottom: none;
 			}
+			.padding-left{
+				padding-left: 20px;
+			}
+			.sideNav{
+				background-color: #3fa1ec;
+			}
 		</style>
 		<title>Team Profile </title>
 	</head>
-	<body style="background-color: #efefef;">
+	<body>
 		<nav class="navbar navbar-dark bg-dark">
 			<h2 style="text-align:center;color:#ddd;">Welcome To L4 Profile </h2>
 		</nav>
-		<div class="container"> 
+		<div class="container" style="margin: 0px !important;"> 
 			<div class="row">
-				<div class="col-md-12"> 
-					<div class="card noBorderBottom">
+				<div class="col-md-4" style="padding: 0px;"> 
+					<div class="card sideNav" style="border:none;height: 91vh;border-right: 1px solid #dcdcdc;">
+						<img class="profilePic card-img-top" src="../images/vj.jpg" alt="Card image cap">
+						  <div class="card-body" style="margin:auto;">
+						    <h4 class="card-title">VIJAY BHASKAR P </h4>
+						    <p class="card-text" style="text-align: center;">UI/UX Web Developer</p>
+						    <p class="card-text"> Student ID:  </p>
+						  </div>
+					</div>
+				</div>
+				<div class="col-md-8"> 
+					<div class="card" style="border:none;padding: 20px;">
+						<h4> Role </h4>
+							<p class="padding-left"> Front-End Developer,Front-End Lead</p>
+
+						<h4> Skills </h4>
+							<p class="padding-left"> <b> Markup Languages </b>: HTML, XML, JSON.</p>
+							<p class="padding-left"> <b> Scripting Languages</b>: JavaScript, Jquery. </p>
+							<p class="padding-left"> <b>Frameworks</b>: AngularJS, ReactJS, Angular Material. </p>
+							<p class="padding-left"> <b>Languages</b>: Java. </p>
+						<h4> Education:</h4>
+							<p class="padding-left"> Bachelor of Technology from Jawaharlal Nehru Technological University</p>
+							<p class="padding-left"> GPA 2,3 </p>
 					</div>
 				</div>
 			</div>
