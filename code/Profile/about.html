@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<style type="text/css">
 			.profileCard {
-				   box-shadow:1px 1px 1px 1px #efefef
+				   box-shadow:1px 1px 1px 0.5px #868e96
 			}
 			.profilePic {
 				height: 200px;
@@ -19,25 +19,37 @@
 			.profileCard .card-body{
 				text-align: center;
 			}
-			.noBorderTop{
-				border-top: none;
+			.noBorder{
+				border: none;
+				background-color: transparent;
 			}
-			.noBorderBottom{
-				border-bottom: none;
+			.mainBody{
+				background-image: url("./images/4297.jpg");
+    			background-repeat: repeat;
 			}
 		</style>
 		<title>Team Profile </title>
 	</head>
-	<body style="background-color: #efefef;">
-		<nav class="navbar navbar-dark bg-dark">
+	<body class="mainBody">
+		<!-- <nav class="navbar navbar-dark bg-dark">
 			<h2 style="text-align:center;color:#ddd;">Welcome To L4 Profile </h2>
-		</nav>
+		</nav> -->
+		<div class="jumbotron jumbotron-fluid">
+		  <div class="container">
+		    <h1 class="display-4">Welcome to our Team Profile</h1>
+		    <h2>Global Software Development </h2>
+		    <h3> Winter 2017 </h3>
+		    <h3> Section 02 </h3>
+		    <h3> Team 20 </h3>
+		    <p class="lead">Team of awesome developers from 3 countries.</p>
+		  </div>
+		</div>
 		<div class="container"> 
 			<div class="row">
-				<div class="col-md-12"> 
-					<div class="card noBorderBottom">
+				<div class="col-sm-12 col-md-12"> 
+					<div class="card noBorder">
 						<div class="row"> 
-							<div class="col-md-3"> </div>
+							<div class="col-sm-12 col-md-3"> </div>
 								<div class="col-md-6"> 
 									<div class="card-body"> 
 										<div class="card profileCard">
@@ -54,11 +66,11 @@
 						</div> 
 					</div>
 				</div> 
-				<div class="col-md-12"> 
-					<div class="card noBorderTop">
+				<div class="col-sm-12 col-md-12"> 
+					<div class="card noBorder">
 						<div class="card-body">
 							<div class="row" style="padding:5px 0px 20px 0px;">
-								<div class="col-md-5"> 
+								<div class="col-sm-12 col-md-5"> 
 									<div class="profileCard card">
 									  <img class="profilePic card-img-top" src="./images/imam_bux.jpg" alt="Card image cap">
 										  <div class="card-body">
@@ -68,8 +80,8 @@
 										  </div>
 									</div>
 								</div>
-								<div class="col-md-2"> </div> 
-								<div class="col-md-5"> 
+								<div class="col-sm-12 col-md-2" style="padding: 10px 0 20px 0;"> </div> 
+								<div class="col-sm-12 col-md-5"> 
 									<div class="profileCard card">
 									  <img class="profilePic card-img-top" src="./images/vj.jpg" alt="Card image cap">
 										  <div class="card-body">
@@ -81,7 +93,7 @@
 								</div>	
 							</div>
 							<div class="row" style="padding:5px 0px 20px 0px;"> 
-								<div class="col-md-5"> 
+								<div class="col-sm-12 col-md-5"> 
 									<div class="profileCard card">
 									  <img class="profilePic card-img-top" src="./images/test.png" alt="Card image cap">
 										  <div class="card-body">
@@ -91,8 +103,8 @@
 										  </div>
 									</div>
 								</div>
-								<div class="col-md-2"> </div>
-								<div class="col-md-5"> 
+								<div class="col-sm-12 col-md-2" style="padding: 10px 0 20px 0;"> </div>
+								<div class="col-sm-12 col-md-5"> 
 									<div class="profileCard card">
 									  <img class="profilePic card-img-top" src="./images/test.png" alt="Card image cap">
 										  <div class="card-body">
