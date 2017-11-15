@@ -1,0 +1,18 @@
+.rowClass {
+    background: url(./imgages/homeBanner.jpg) no-repeat center center; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover; 
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      position: relative;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
