@@ -1,5 +1,5 @@
 .rowClass {
-    background: url(./public/images/homeBanner.jpg) no-repeat center center; 
+    background: url(../images/homeBanner.jpg) no-repeat center center; 
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -15,4 +15,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.searchBtnDiv{
+  margin:auto;
+  margin-bottom: 0px;
 }
