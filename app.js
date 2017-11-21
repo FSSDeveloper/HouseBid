@@ -7,6 +7,8 @@ var fileUpload = require('express-fileupload');
 // local modules
 var listing = require("./core/listing");
 var user = require("./core/user");
+var message = require("./core/message");
+
 
 // initializing express server
 var app = express();
@@ -31,7 +33,7 @@ app.use(function (req, res, next) {
 // HOMEPAGE
 app.use(express.static("./"));
 
-/** START - CUSTOMER **/
+/** START - USER **/
 app.post("/signup", function (req, res) {
     var body = req.body;
     var image = req.files.image;
@@ -50,13 +52,23 @@ app.post("/login", function (req, res) {
     user.login(body, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
-            // res.json(err);
         } else {
             res.json(data);
         }
     });
 });
-/** END - CUSTOMER **/
+app.post("/user/profile", function (req, res) {
+    var userId = req.body.userId;
+    console.log("Profile request received.");
+    user.getUserById(userId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+/** END - USER **/
 
 /** START - LISTING **/
 app.get("/search", function (req, res) {
@@ -71,7 +83,8 @@ app.get("/search", function (req, res) {
         }
     });
 });
-app.get("/listing", function (req, res) {
+// Gets listing if GET request
+app.get("/agent/listing", function (req, res) {
     var listingId = req.query.listingId;
     console.log("Listing ID: " + listingId);
     listing.getListingByListingId(listingId, function (err, data) {
@@ -82,7 +95,78 @@ app.get("/listing", function (req, res) {
         }
     });
 });
+app.get("/agent/listings", function (req, res) {
+    var userId = req.query.userId;
+    listing.getListingsByUserId(userId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Adds listing if POST request
+app.post("/agent/listing", function (req, res) {
+    var body = req.body;
+    console.log("Add Profile request received.");
+    listing.addListing(body, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Delete Listing
+app.del("/agent/listing", function (req, res) {
+    var listingId = req.body.listingId;
+    console.log("Add Profile request received.");
+    listing.deleteListingByListingId(listingId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
 /** END - LISTING **/
+
+/** START - MESSAGE **/
+// Adds message if POST
+app.post("/user/message", function (req, res) {
+    var message = req.body;
+    console.log("Add Message request received.");
+    message.addMessage(message, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Gets message if GET
+app.get("/user/message", function (req, res) {
+    var messageId = req.query.messageId;
+    message.getMessageByMessageId(messageId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Inbox (All sent and received messages)
+app.get("/user/messages", function (req, res) {
+    var userId = req.query.userId;
+    message.getMessagesByUserId(userId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+/** START - MESSAGE **/
 
 /*******************************************************************************************
  *                                      ROUTERS END

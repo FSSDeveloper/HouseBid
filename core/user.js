@@ -3,7 +3,7 @@ var con = dbConnection.getConnection();
 
 function login(user, callback) {
     var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = \"" + user.email + "\" AND password = \"" + user.password + "\"";
-    console.log("Query to be inserted: " + sql);
+    console.log("Query to be executed: " + sql);
     con.query(sql, function (err, result) {
         if (err) callback(err, null);
         else callback(null, result);
@@ -29,7 +29,7 @@ function signUp(user, image, callback) {
 
 function getUserById(userId, callback) {
     var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE user_id = " + userId;
-    console.log("Query to be inserted: " + sql);
+    console.log("Query to be executed: " + sql);
     con.query(sql, function (err, result) {
         if (err) callback(err, null);
         else callback(null, result);
@@ -38,3 +38,4 @@ function getUserById(userId, callback) {
 
 module.exports.signUp = signUp;
 module.exports.login = login;
+module.exports.getUserById = getUserById;
