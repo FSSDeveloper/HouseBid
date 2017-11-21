@@ -1,9 +1,6 @@
 var dbConnection = require("./db-connection");
 
-// Database Credentials
 var con = dbConnection.getConnection();
-// Connects to Database
-con.connect();
 
 function getListings(city, location, callback) {
     var sql = "SELECT * FROM listing";
@@ -21,7 +18,6 @@ function getListings(city, location, callback) {
     }
     console.log("Query to be executed: " + sql);
 
-    var data;
     con.query(sql, function (err, result) {
         if (err) callback(err, null);
         else callback(null, result);
@@ -29,9 +25,6 @@ function getListings(city, location, callback) {
 }
 
 function getListingsByAgentId(agentId) {
-    var con = dbConnection.getConnection();
-    con.connect(function(err) {
-        if (err) throw err;
         console.log("Database Connected");
         var sql = "SELECT * FROM listing WHERE agent_id = " + agentId;
         console.log("Query to be executed: " + sql);
@@ -39,27 +32,18 @@ function getListingsByAgentId(agentId) {
             if (err) throw err;
             console.log(result);
         });
-        con.end();
-    });
 }
 
-function getListingByListingId(listingId) {
-    var con = dbConnection.getConnection();
-    con.connect(function(err) {
-        if (err) throw err;
-        console.log("Database Connected");
-        var sql = "SELECT * FROM listing WHERE listing_id = " + listingId;
-        console.log("Query to be executed: " + sql);
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log(result);
-        });
+function getListingByListingId(listingId, callback) {
+    var sql = "SELECT * FROM listing WHERE listing_id = " + listingId;
+    console.log("Query to be executed: " + sql);
+    con.query(sql, function (err, result) {
+        if (err) callback(err, null);
+        else callback(null, result);
     });
 }
 
 function deleteListingByListingId(listingId) {
-    var con = dbConnection.getConnection();
-    con.connect(function(err) {
         if (err) throw err;
         console.log("Database Connected");
         var sql = "UPDATE listing SET status = 2 " + listingId;
@@ -68,23 +52,20 @@ function deleteListingByListingId(listingId) {
             if (err) throw err;
             console.log(result);
         });
-    });
 }
 
 function addListing(listing) {
-    var con = dbConnection.getConnection();
-    con.connect(function(err) {
         if (err) throw err;
         console.log("Database Connected");
-        var sql = "INSERT INTO listing (title, description, price, is_biddable, area, status, agent_id, listed_date, customer_id) " +
+        var sql = "INSERT INTO listing (title, description, price, is_biddable, area, status, agent_id, listed_date, customer_id, baths, beds) " +
             "VALUES(\"" + listing.title + "\", \"" + listing.description + "\", " + listing.price + ", " + listing.isBiddable + ", " +
-            listing.area + ", 1, " + listing.agentId + ", now(), " + listing.customerId + ")";
+            listing.area + ", 1, " + listing.agentId + ", now(), " + listing.customerId + ", " + listing.baths + ", " + listing.beds +")";
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) throw err;
             console.log(result);
         });
-    });
 }
 
 module.exports.getListings = getListings;
+module.exports.getListingByListingId = getListingByListingId;
