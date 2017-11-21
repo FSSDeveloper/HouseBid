@@ -1,11 +1,18 @@
 {
-  "name": "package.json",
+  "name": "HouseBid",
   "version": "1.0.0",
   "description": "Real Estate Web application",
-  "main": "index.js",
+  "main": "app.js",
+  "engines": {
+    "node": "8.8.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CSC-648-SFSU/csc648-fall17-team20-FarzanehSabzi.git"
   },
   "author": "",
   "license": "ISC",
@@ -14,9 +21,9 @@
     "gulp-sass": "^3.1.0"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "mysql": "^2.15.0"
+    "body-parser": "1.18.2",
+    "express": "4.16.2",
+    "express-session": "1.15.6",
+    "mysql": "2.15.0"
   }
 }
