@@ -1,43 +1,187 @@
+
 $(window).load(function () { // makes sure the whole site is loaded
     $('#status').fadeOut(); // will first fade out the loading animation
     $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
     $('body').delay(350).css({'overflow': 'visible'});
 })
 $(document).ready(function () {
+	var apiCalled = false;
+	
+	$(window).on('hashchange', function(){
+        
+        if(location.hash){
+            
+            hash = location.hash.substring(1);
+            console.log('parameters present', hash.indexOf('search'));
+            // var params = hash.split('&');
+           
+            switch(true){
+                case(hash.indexOf('search') == '0'):
+                    console.log('search');
+                    if(!apiCalled){
+                    	searchListings();
+                    }
 
+                    break;
+                case(hash.indexOf('listingId') == '0'):
+                    console.log('listingId');
 
-    $("#homeSearchBtn").click(function(){
-        $('#debbalaDiv').hide();
-        var city = $('#searchCity').val();
-        var location = $('#searchLocation').val();
-        console.log('city and location',city,location);
-        $.ajax({
-            url: "http://localhost:3000/search?city="+city+"&location="+location,
-            success: function(result){
-                console.log('result',result);
-                var appnd = document.getElementById('appendHere');
+                    getListingDetails(hash.split('=')[1]);
+                    break;
+                default:
+                    console.log('home');
+                    $("#uiView").load("./public/pages/homeContent.html", function(){
+                    });
+            };
+        }else if(location.pathname == '/index.html'){
+
+          loadHomePage();
+            
+        }
+    }).trigger('hashchange');
+
+    function loadHomePage(){
+        $( "#header-content" ).load( "partials/_header.html", function() {
+        //$('html, body').animate({scrollTop: '0px'}, 300);
+            window.scrollTo(0, 0);
+        });
+        $( "#footer-content" ).load( "partials/_footer.html", function() {
+        
+        });
+        console.log($('.homeImage'));
+        // $('.homeImage').attr('src','./public/images/slide1/slider-image-1.jpg');
+
+        $("#loadSliderContent").load("./public/pages/homeSlider.html", function(){
+        	console.log('inside loadHomePage');
+            $('#addBodyContent').attr("style","background-color: #FCFCFC; padding-bottom: 15px;display:block;visibility:visible;");
+        	$('#homeSlider').attr('style','display:block;visibility:visible;');
+           
+            $('#homeSearchBtn').click(function(){
+                
+                searchListings();
+
+            })
+        });
+    }
+
+    loadHomePage();
+    
+
+    function searchListings(){
+    	apiCalled = true;
+    		var searchLocation = $('#searchLocation').val();
+            console.log("searchLocation",searchLocation);
+                var city = $('#city').val();
+                console.log("city",city,"location",location);
+                var url = window.location.href;
+                if(city || searchLocation){
+                	window.location.hash = "search?city="+city+"&location="+searchLocation;
+                	var searchUrl = "search?city="+city+"&location="+searchLocation;
+                }else if(location.hash){
+                	var hash = location.hash.substring(1);
+                	var searchUrl = hash;
+                }
+    		$.ajax({url:"http://localhost:3000/"+searchUrl, success: function(response){
+            console.log('api called result',response);
+            apicalled = false;
+            $('#uiView').load("./public/pages/searchListings.html", function(){
+                $('#addBodyContent').attr("style","display:none;");
+                
+                for(var i=0; i < response.length; i++){
+                    var template = $('#searchListingTemplate').clone();
+                    var searchIdx = "searchListingTemplate"+i;
+                    template.attr('id',searchIdx);
+                    console.log("response[i]",template.find("#listingPrice"));
+                    template.attr('style',"display:block;visibility:visible;margin:10px;");
+                    template.find('#listingId')[0].innerHTML = response[i].listing_id;
+                    template.find("#listingTitle")[0].innerHTML = response[i].title;
+                    template.find("#listingArea")[0].innerHTML = "500m2";
+                    template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
+                    template.find("#listingDescription")[0].innerHTML = response[i].description;
+                     template.appendTo(".appendHere");
+                }
+
+                // var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+    
+                // for(var i=0;i < listingDetailsLinks.length;i++) {
+                //     listingDetailsLinks[i].addEventListener("click", function() {
+                //         var element = document.getElementById(this.id);
+                //         var idx = element.getAttribute("data");
+                //         getListingDetails(idx);
+                //     });
+                // };
+            });
+            var appnd = document.getElementById('appendHere');
                 // var data = JSON.parse(result);
                 // console.log("data",data);
-                for (var i = 0; i < result.length; i++) {
-                        // var idText = "searchCard"+i;
-                        var template = $('#searchCardTemplate').clone();
-                         //var template = document.getElementById('searchCardTemplate').content.cloneNode(true);
-                        console.log("template",template);
-                        // template.attr('id',idText);
-                        template.attr('class',"searchIdx");
-                        template.attr('style',"display:block;");
-                        // var cardTitle = template.find(".card-title");
-                        // cardTitle[0].innerHTML = data[i].title;
-                        // console.log("card-title",cardTitle);
-                        template.find(".card-title")[0].innerHTML = result[i].title;
-                        template.find(".card-text")[0].innerHTML = result[i].price;
-                        // template[0].childNodes[1].innerHTML = data[i].title;
-                        // template.appendChild(appnd);
-                        template.appendTo("#appendHere");
-                    }
-                }
+                // for (var i = 0; i < result.length; i++) {
+                //         // var idText = "searchCard"+i;
+                //         var template = $('#searchCardTemplate').clone();
+                //          //var template = document.getElementById('searchCardTemplate').content.cloneNode(true);
+                //         console.log("template",template);
+                //         // template.attr('id',idText);
+                //         template.attr('class',"searchIdx");
+                //         template.attr('style',"display:block;");
+                //         // var cardTitle = template.find(".card-title");
+                //         // cardTitle[0].innerHTML = data[i].title;
+                //         // console.log("card-title",cardTitle);
+                //         template.find(".card-title")[0].innerHTML = result[i].title;
+                //         template.find(".card-text")[0].innerHTML = result[i].price;
+                //         // template[0].childNodes[1].innerHTML = data[i].title;
+                //         // template.appendChild(appnd);
+                //         template.appendTo("#appendHere");
+                //     }
+        }});
+    	
+    };
+
+    function getListingDetails(val){
+       
+        var url = window.location.href;
+        window.location.hash = '?listingId='+val;
+
+        $.ajax({url: "/listings.json", success: function(response){
+            
+            $('#body-content').load("partials/_single.html", function(){
+                
+                
             });
-   });
+        }});
+    }; 
+
+
+   //  $("#homeSearchBtn2").click(function(){
+   //      $('#debbalaDiv').hide();
+   //      var city = $('#searchCity').val();
+   //      var location = $('#searchLocation').val();
+   //      console.log('city and location',city,location);
+   //      $.ajax({
+   //          url: "http://localhost:3000/search?city="+city+"&location="+location,
+   //          success: function(result){
+   //              console.log('result',result);
+   //              var appnd = document.getElementById('appendHere');
+   //              // var data = JSON.parse(result);
+   //              // console.log("data",data);
+   //              for (var i = 0; i < result.length; i++) {
+   //                      // var idText = "searchCard"+i;
+   //                      var template = $('#searchCardTemplate').clone();
+   //                       //var template = document.getElementById('searchCardTemplate').content.cloneNode(true);
+   //                      console.log("template",template);
+   //                      // template.attr('id',idText);
+   //                      template.attr('class',"searchIdx");
+   //                      template.attr('style',"display:block;");
+   //                      // var cardTitle = template.find(".card-title");
+   //                      // cardTitle[0].innerHTML = data[i].title;
+   //                      // console.log("card-title",cardTitle);
+   //                      template.find(".card-title")[0].innerHTML = result[i].title;
+   //                      template.find(".card-text")[0].innerHTML = result[i].price;
+   //                      // template[0].childNodes[1].innerHTML = data[i].title;
+   //                      // template.appendChild(appnd);
+   //                      template.appendTo("#appendHere");
+   //                  }
+   //              }
+   //          });
+   // });
    $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
         window.scrollTo(0, 0);
@@ -81,8 +225,7 @@ $(document).ready(function () {
         autoPlay: 5000,
         paginationSpeed: 100,
         singleItem: true,
-        mouseDrag: false,
-        transitionStyle: "fade"
+        mouseDrag: false
                 // "singleItem:true" is a shortcut for:
                 // items : 1, 
                 // itemsDesktop : false,

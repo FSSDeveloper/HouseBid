@@ -33,47 +33,74 @@
 	</head>
 	<body>
 		<div id="header"> </div>
-		<!-- <div class="container-fluid">
-			<div>
-		     	<div style="height:10vh"></div>
-		      	<div style="height:70vh" class="img-fluid rowClass"> 
-			        <div class="row align-items-center"> 
-			          <div class="col-2"> </div>
-			          <div class="col-8" style="margin-top: 15%;"> 
-			          	<div class="row"> 
-			          		<div class="col-1"> </div>
-			          		<div class="col-10">
-			          			<h1 style="font-family: 'Poppins', sans-serif;color:white;">FIND A <span style="font-family: 'Bowlby One SC', cursive;"> HOUSE </span> , MAKE IT <span style="font-family: 'Bowlby One SC', cursive;"> HOME </span>
-					          	</h1>
-					            <div class="card" style="width: 80%;color:white">
-					                <div class="card-body" style="color:black;">
-					                <form class="form-inline"> 
-					                	<div class="form-group"> 
-					                		<label for="searchCity">City</label>
-										    <input type="text" class="form-control" name="city" id="searchCity" aria-describedby="searchCity" placeholder="Enter City">
-										</div>
-										<span style="margin-right: 20px;"> </span>
-										<div class="form-group">
-										    <label for="searchLocation">Location</label>
-										    <input type="text" name="location" class="form-control" id="searchLocation" aria-describedby="searchLocation" placeholder="Enter Location">
-					                	</div>
-					                	<div class="form-group searchBtnDiv"> 
-					                		<button type="button" class="btn btn-primary searchBtn" id="homeSearchBtn"> Search</button>
-					                	</div>
-					                </form>
-					                </div>
-					            </div>	
-			          		</div>
-			          		<div class="col-1"> </div>
-			          	</div>
-			          </div>
-			          <div class="col-2"> </div>
-			        </div>
-		      	</div>
-		      <div style="height:10vh">  </div>
-		    </div>
-		    <div class="row" id="appendHere"> </div>
-		</div> -->
+		<div id="uiView">
+				<div class="slider-area" id="homeSlider" style="display:hidden;">
+				    <div class="slider">
+				        <div id="bg-slider" class="owl-carousel owl-theme">
+				            <div class="item"><img src="./public/images/homeBanner.jpg" alt="Home 1"></div>
+				        </div>
+				        <div id="loadSliderContent"> </div>
+				    </div>
+				</div>
+		 </div>
+
+		 <div id="addBodyContent" class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;display: none;" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
+                        <!-- /.feature title -->
+                        <h2>Our Customers Said  </h2> 
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row testimonial">
+                        <div class="col-md-12">
+                            <div id="testimonial-slider">
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
+                                        <h4><strong>John, </strong><i>Engineer</i></h4>
+                                    </div>
+                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
+                                        <img src="./public/images/client-face1.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
+                                        <h4><strong>Smith, </strong><i>Doctor</i></h4>
+                                    </div>
+                                    <div class="client-face">
+                                        <img src="./public/images/client-face2.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
+                                        <h4><strong>Doe, </strong><i>Professor</i></h4>
+                                    </div>
+                                    <div class="client-face">
+                                        <img src="./public/images/client-face1.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
+                                        <h4><strong>Jane, </strong><i>Software Engineer</i></h4>
+                                    </div>
+                                    <div class="client-face">
+                                        <img src="./public/images/client-face2.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+		<div class="row" id="appendHere"> </div>
 		<div id="footer"> </div>
 
 		<!-- Template Section -->
