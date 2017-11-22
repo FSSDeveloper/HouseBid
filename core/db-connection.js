@@ -9,6 +9,10 @@ var con = mysql.createConnection({
 });
 
 function getConnection() {
+    if(!con){
+        // Connects to Database
+        con.connect();
+    }
     return con;
 };
 
