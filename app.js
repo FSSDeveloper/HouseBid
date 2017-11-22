@@ -9,9 +9,13 @@ var listing = require("./core/listing");
 var user = require("./core/user");
 var message = require("./core/message");
 
-
+// setting port
+var port = process.env.PORT || '3000';
 // initializing express server
 var app = express();
+app.set('port', port);
+
+
 
 // default settings
 app.use(bodyParser.json());
@@ -118,7 +122,7 @@ app.post("/agent/listing", function (req, res) {
     });
 });
 // Delete Listing
-app.del("/agent/listing", function (req, res) {
+app.delete("/agent/listing", function (req, res) {
     var listingId = req.body.listingId;
     console.log("Add Profile request received.");
     listing.deleteListingByListingId(listingId, function (err, data) {
@@ -173,8 +177,9 @@ app.get("/user/messages", function (req, res) {
  * *****************************************************************************************
  */
 
-// server starts at port 3000
-app.listen(3000);
-console.log("\n========================================");
-console.log("Express Server is listening at port 3000");
-console.log("========================================\n\n");
+// server starts set at environment or 8000
+app.listen(port, function() {
+    console.log("\n========================================");
+    console.log("Express Server is listening at port " + port);
+    console.log("========================================\n\n");
+});
