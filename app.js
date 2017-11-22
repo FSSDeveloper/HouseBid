@@ -99,6 +99,17 @@ app.get("/agent/listing", function (req, res) {
         }
     });
 });
+app.get("/listing", function (req, res) {
+    var listingId = req.query.listingId;
+    console.log("Listing ID: " + listingId);
+    listing.getListingByListingId(listingId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
 app.get("/agent/listings", function (req, res) {
     var userId = req.query.userId;
     listing.getListingsByUserId(userId, function (err, data) {
