@@ -7,13 +7,13 @@ function getListings(city, location, callback) {
     if(city || location) {
         sql += " WHERE";
         if(city) {
-            sql += (" city = '" + city + "'");
+            sql += (" city LIKE '%" + city + "%'");
         }
         if(location) {
             if(city) {
                 sql += " AND"
             }
-            sql += (" location = '" + location + "'");
+            sql += (" location LIKE '%" + location + "%'");
         }
     }
     console.log("Query to be executed: " + sql);
