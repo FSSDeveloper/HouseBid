@@ -4,23 +4,24 @@ module.exports = {
    * http://pm2.keymetrics.io/docs/usage/application-declaration/
    */
   apps : [
-
-    // First application
-    {
-      name      : 'API',
+{
+      name      : 'HouseBid',
       script    : 'app.js',
+      watch: true,	      
       env: {
-        COMMON_VARIABLE: 'true'
+        COMMON_VARIABLE: 'true',
+	NODE_ENV: 'development'
       },
       env_production : {
-        NODE_ENV: 'production'
+        NODE_ENV: 'production',
+        PORT: 17020,
+	APP_CONX: '/fa17g20',
+        SQL_HOST: 'localhost',
+        SQL_USR: 'fa17g20',
+        SQL_PWS: 'fa17g20',
+        SQL_DB: 'fa17g20'
+      
       }
-    },
-
-    // Second application
-    {
-      name      : 'WEB',
-      script    : 'web.js'
     }
   ],
 
@@ -31,18 +32,18 @@ module.exports = {
   deploy : {
     production : {
       user : 'node',
-      host : '212.83.163.1',
+      host : 'localhost',
       ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
+      repo : 'https://github.com/CSC-648-SFSU/csc648-fall17-team20-FarzanehSabzi.git',
+      path : '',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     },
     dev : {
       user : 'node',
-      host : '212.83.163.1',
-      ref  : 'origin/master',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/development',
+      host : 'localhost',
+      ref  : 'origin/stagging',
+      repo : 'https://github.com/CSC-648-SFSU/csc648-fall17-team20-FarzanehSabzi.git',
+      path : '',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env dev',
       env  : {
         NODE_ENV: 'dev'
