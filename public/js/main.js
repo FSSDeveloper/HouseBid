@@ -23,10 +23,10 @@ $(document).ready(function () {
                     }
 
                     break;
-                case(hash.indexOf('listingId') == '0'):
+                case(hash.indexOf('listing') == '0'):
                     console.log('listingId');
 
-                    getListingDetails(hash.split('=')[1]);
+                    getListingDetails(hash.split(':')[1]);
                     break;
                 default:
                     console.log('home');
@@ -92,6 +92,8 @@ $(document).ready(function () {
                     var searchIdx = "searchListingTemplate"+i;
                     template.attr('id',searchIdx);
                     console.log("response[i]",template.find("#listingPrice"));
+                    template.attr("data",response[i].listing_id);
+                    template.attr("class","view-listing-details well col-sm-6 col-md-4 p0");
                     template.attr('style',"display:block;visibility:visible;margin:10px;");
                     template.find('#listingId')[0].innerHTML = response[i].listing_id;
                     template.find("#listingTitle")[0].innerHTML = response[i].title;
@@ -100,26 +102,35 @@ $(document).ready(function () {
                     template.find("#listingDescription")[0].innerHTML = response[i].description;
                      template.appendTo(".appendHere");
                 }
+                var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+    
+                for(var i=0;i < listingDetailsLinks.length;i++) {
+                    listingDetailsLinks[i].addEventListener("click", function() {
+                        var element = document.getElementById(this.id);
+                        var idx = element.getAttribute("data");
+                        getListingDetails(idx);
+                    });
+                }
             });
             var appnd = document.getElementById('appendHere');
         }});
     	
     };
 
-    function getListingDetails(val){
+    function getListingDetails(listingId){
        
         var url = window.location.href;
-        window.location.hash = '?listingId='+val;
+        window.location.hash = '?listing='+listingId;
 
-        $.ajax({url: "/listings.json", success: function(response){
-            
-            $('#body-content').load("partials/_single.html", function(){
+        $.ajax({url: "/listing?listingId="+listingId, success: function(response){
+            console.log("response after listing details",response);
+            // $('#body-content').load("partials/_single.html", function(){
                 
                 
-            });
+            // });
         }});
     }; 
-    
+
    $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
         window.scrollTo(0, 0);
