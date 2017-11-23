@@ -1,87 +1,103 @@
-var dbConnection = require("./db-connection");
-
-var con = dbConnection.getConnection();
+var mysql = require("./db-connection").pool;
 
 function getListings(city, location, callback) {
-    var sql = "SELECT * FROM listing";
-    if(city || location) {
-        sql += " WHERE";
-        if(city) {
-            sql += (" city LIKE '%" + city + "%'");
-        }
-        if(location) {
-            if(city) {
-                sql += " AND"
+    mysql.getConnection(function(err, con) {
+        var sql = "SELECT * FROM listing";
+        if (city || location) {
+            sql += " WHERE";
+            if (city) {
+                sql += (" city LIKE '%" + city + "%'");
             }
-            sql += (" location LIKE '%" + location + "%'");
+            if (location) {
+                if (city) {
+                    sql += " AND"
+                }
+                sql += (" location LIKE '%" + location + "%'");
+            }
         }
-    }
-    console.log("Query to be executed: " + sql);
+        console.log("Query to be executed: " + sql);
 
-    con.query(sql, function (err, result) {
-        if (err) callback(err, null);
-        else callback(null, result);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
     });
 }
 
 function getListingsByUserId(agentId, callback) {
+    mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing WHERE user_id = " + agentId;
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
             else callback(null, result);
         });
+        con.release();
+    });
 }
 
 function getListingByListingId(listingId, callback) {
-    var sql = "SELECT * FROM listing WHERE listing_id = " + listingId;
-    console.log("Query to be executed: " + sql);
-    con.query(sql, function (err, result) {
-        if (err) callback(err, null);
-        else callback(null, result);
+    mysql.getConnection(function(err, con) {
+        var sql = "SELECT * FROM listing WHERE listing_id = " + listingId;
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
     });
 }
 
 function deleteListingByListingId(listingId) {
-    deleteListingImagesByListingId(listingId);
-    var sql = "DELETE FROM listing WHERE listing_id = " + listingId;
-    console.log("Query to be executed: " + sql);
-    con.query(sql, function (err, result) {
-        if (err) callback(err, null);
-        else callback(null, result);
+    mysql.getConnection(function(err, con) {
+        deleteListingImagesByListingId(listingId);
+        var sql = "DELETE FROM listing WHERE listing_id = " + listingId;
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
     });
 }
 
 function deleteListingImagesByListingId(listingId) {
-    var sql = "DELETE FROM listing_images WHERE listing_id = " + listingId;
-    console.log("Query to be executed: " + sql);
-    con.query(sql, function (err, result) {
-        if (err) callback(err, null);
-        else callback(null, result);
+    mysql.getConnection(function(err, con) {
+        var sql = "DELETE FROM listing_images WHERE listing_id = " + listingId;
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
     });
 }
 
 function addListing(listing, callback) {
-    var sql = "INSERT INTO listing SET ?",
-        values = {
-            title : listing.title,
-            description : listing.description,
-            price : listing.price,
-            is_biddable : listing.isBiddable,
-            area : listing.area,
-            status: listing.status,
-            address: listing.address,
-            expiry_date : listing.expiryDate,
-            agent_id: listing.agentId,
-            customer_id: listing.customerId,
-            city : listing.city,
-            location : listing.location,
-            baths: listing.baths,
-            beds: listing.baths
-        };
-    con.query(sql, values, function (err, result) {
-        if (err) callback(err, null);
-        else callback(null, result);
+    mysql.getConnection(function(err, con) {
+        var sql = "INSERT INTO listing SET ?",
+            values = {
+                title: listing.title,
+                description: listing.description,
+                price: listing.price,
+                is_biddable: listing.isBiddable,
+                area: listing.area,
+                status: listing.status,
+                address: listing.address,
+                expiry_date: listing.expiryDate,
+                agent_id: listing.agentId,
+                customer_id: listing.customerId,
+                city: listing.city,
+                location: listing.location,
+                baths: listing.baths,
+                beds: listing.baths
+            };
+        con.query(sql, values, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
     });
 }
 

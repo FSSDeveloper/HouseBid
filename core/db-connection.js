@@ -1,19 +1,13 @@
-var mysql = require("mysql");
+var mysql = require('mysql');
 
-var con = mysql.createConnection({
-    host:   "localhost",
-    port:   3306,
-    user:   "root",
-    password:   "root",
-    database:   "mydb"
+var pool  = mysql.createPool({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'root',
+    database : 'mydb'
 });
+var con = function () {
 
-function getConnection() {
-    if(!con){
-        // Connects to Database
-        con.connect();
-    }
-    return con;
 };
 
-module.exports.getConnection = getConnection;
+module.exports.pool = pool;
