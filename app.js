@@ -52,7 +52,7 @@ app.post("/signup", function (req, res) {
         }
     });
 });
-app.post("/login", function (req, res) {
+app.post("/user/login", function (req, res) {
     var body = req.body;
     console.log("Login data received.");
     user.login(body, function (err, data) {
@@ -91,6 +91,17 @@ app.get("/search", function (req, res) {
 });
 // Gets listing if GET request
 app.get("/agent/listing", function (req, res) {
+    var listingId = req.query.listingId;
+    console.log("Listing ID: " + listingId);
+    listing.getListingByListingId(listingId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+app.get("/listing", function (req, res) {
     var listingId = req.query.listingId;
     console.log("Listing ID: " + listingId);
     listing.getListingByListingId(listingId, function (err, data) {

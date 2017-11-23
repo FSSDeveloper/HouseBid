@@ -23,7 +23,7 @@ $(document).ready(function () {
                     }
 
                     break;
-                case(hash.indexOf('listingId') == '0'):
+                case(hash.indexOf('listing') == '0'):
                     console.log('listingId');
 
                     getListingDetails(hash.split('=')[1]);
@@ -85,6 +85,12 @@ $(document).ready(function () {
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./public/pages/searchListings.html", function(){
+
+                $('#ListingPageSearchBtn').click(function(){
+                
+                    searchListings();
+
+                })
                 $('#addBodyContent').attr("style","display:none;");
                 
                 for(var i=0; i < response.length; i++){
@@ -92,13 +98,23 @@ $(document).ready(function () {
                     var searchIdx = "searchListingTemplate"+i;
                     template.attr('id',searchIdx);
                     console.log("response[i]",template.find("#listingPrice"));
-                    template.attr('style',"display:block;visibility:visible;margin:10px;");
+                    template.attr("data",response[i].listing_id);
+                    template.attr("class","view-listing-details col-sm-6 col-md-4");
                     template.find('#listingId')[0].innerHTML = response[i].listing_id;
                     template.find("#listingTitle")[0].innerHTML = response[i].title;
-                    template.find("#listingArea")[0].innerHTML = "500m2";
+                    template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                     template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                     template.find("#listingDescription")[0].innerHTML = response[i].description;
                      template.appendTo(".appendHere");
+                }
+                var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+    
+                for(var i=0;i < listingDetailsLinks.length;i++) {
+                    listingDetailsLinks[i].addEventListener("click", function() {
+                        var element = document.getElementById(this.id);
+                        var idx = element.getAttribute("data");
+                        getListingDetails(idx);
+                    });
                 }
             });
             var appnd = document.getElementById('appendHere');
@@ -106,20 +122,35 @@ $(document).ready(function () {
     	
     };
 
-    function getListingDetails(val){
-       
+    function getListingDetails(listingId){
+       console.log("listingId",listingId);
         var url = window.location.href;
-        window.location.hash = '?listingId='+val;
+        window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: "/listings.json", success: function(response){
-            
-            $('#body-content').load("partials/_single.html", function(){
-                
-                
+        $.ajax({url: "/listing?listingId="+listingId, success: function(response){
+            console.log("response after listing details",response);
+            $('#uiView').load("./public/pages/listingDetails.html", function(){
+
+                $("#addBodyContent").attr("style","display:none;");
+                var template = $("#listingDetailsDiv");
+                console.log("template",template);
+                template.find("#listingTitle")[0].innerHTML = response[0].title;
+                template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                template.find("#listingDescription")[0].innerHTML = response[0].description;
+                template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
+                template.find("#listingBaths")[0].innerHTML = response[0].baths;
+                template.find("#listingBeds")[0].innerHTML = response[0].beds;
+                template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+
+
+
+
+
             });
+            
         }});
     }; 
-    
+
    $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
         window.scrollTo(0, 0);
@@ -155,7 +186,68 @@ $(document).ready(function () {
 
     });
 
+
+        //Login Function
+
+    $('#loginBtn').click(function()
+        {
+            logMeIn();
+        });
+
+    function logMeIn()
+    {
+        var emails = $('#email').val();
+        var passwords = $('#password').val();
+        console.log("Email is: "+ emails + "Password is:"+ passwords);
+        $('#lbl').html(email);
+
+        // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
+        // }});
+
+        $.ajax({
+            url: "/user/login",
+            type: "POST",
+            data: {
+                email: emails,
+                password: passwords
+            },
+            success: function(data) {
+            console.log("data after success login",data);
+            alert("Login successful");
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("Login Failed!");
+            }
+        });
+    }
+
+    //SignUp Function
+
+    $('#signUp').click(function()
+    {
+        signMeUp();
+    });
+
+    function signMeUp()
+    {
+        var regName = $('#regName').val();
+        var regEmail = $('#regEmail').val();
+        var regPsw = $('#regPsw').val();
+
+        console.log("Name is:"+ regName +"Email"+ regEmail + "Psw" + regPsw);
+    }
+
+
 });
+
+
+
+
 $(document).ready(function () {
     $("#bg-slider").owlCarousel({
         navigation: false, // Show next and prev buttons

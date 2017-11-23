@@ -1088,7 +1088,7 @@ font-weight: 500;
 page-header
 ======================================================*/
 .page-head{
-    background: #494C53 url("../../assets/img/page-header.jpg") 
+    background: #494C53 url("../../public/images/page-header.jpg") 
         no-repeat scroll center top / cover;
     color:#FFF;
     position: relative;
@@ -3043,4 +3043,11 @@ padding: 10px;
 }
 #map {
     height: 300px;
+}
+.listingContainer{
+    margin:20px !important;
+    margin-right: 5px !important;
+}
+.view-listing-details:hover{
+    cursor: pointer;
 }
