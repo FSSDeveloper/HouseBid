@@ -50,7 +50,7 @@ app.post("/signup", function (req, res) {
         }
     });
 });
-app.post("/login", function (req, res) {
+app.post("/user/login", function (req, res) {
     var body = req.body;
     console.log("Login data received.");
     user.login(body, function (err, data) {

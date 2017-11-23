@@ -186,7 +186,67 @@ $(document).ready(function () {
 
     });
 
+
+        //Login Function
+
+    $('#loginBtn').click(function()
+        {
+            logMeIn();
+        });
+
+    function logMeIn()
+    {
+        var emails = $('#email').val();
+        var passwordS = $('#password').val();
+        console.log("Email is: "+ emails + "Password is:"+ passwordS);
+        $('#lbl').html(email);
+
+        // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
+        // }});
+
+        $.ajax({
+            url: "/user/login",
+            type: "POST",
+            data: {
+                email: emails,
+                password: passwordS
+            },
+            success: function(data) {
+                alert("Success"+ data);
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+               alert("LUN");
+            }
+        });
+    }
+
+    //SignUp Function
+
+    $('#signUp').click(function()
+    {
+        signMeUp();
+    });
+
+    function signMeUp()
+    {
+        var regName = $('#regName').val();
+        var regEmail = $('#regEmail').val();
+        var regPsw = $('#regPsw').val();
+
+        console.log("Name is:"+ regName +"Email"+ regEmail + "Psw" + regPsw);
+    }
+
+
 });
+
+
+
+
 $(document).ready(function () {
     $("#bg-slider").owlCarousel({
         navigation: false, // Show next and prev buttons
