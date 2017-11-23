@@ -197,8 +197,8 @@ $(document).ready(function () {
     function logMeIn()
     {
         var emails = $('#email').val();
-        var passwordS = $('#password').val();
-        console.log("Email is: "+ emails + "Password is:"+ passwordS);
+        var passwords = $('#password').val();
+        console.log("Email is: "+ emails + "Password is:"+ passwords);
         $('#lbl').html(email);
 
         // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
@@ -209,10 +209,11 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 email: emails,
-                password: passwordS
+                password: passwords
             },
             success: function(data) {
-                alert("Success"+ data);
+            console.log("data after success login",data);
+            alert("Login successful");
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
                   //  REDIRECT TO INDEX.HTML
@@ -220,7 +221,7 @@ $(document).ready(function () {
 
             },
             error: function(data, status, er) {
-               alert("LUN");
+                alert("Login Failed!");
             }
         });
     }
