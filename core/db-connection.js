@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-var con = mysql.createConnection({
+var pool = mysql.createPool({
     host:   process.env.SQL_HOST,
     port:   3306,
     user:   process.env.SQL_USR,
@@ -11,4 +11,4 @@ var con = function () {
 
 };
 
-module.exports.getConnection = getConnection;
+module.exports.pool = pool;
