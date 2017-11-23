@@ -26,7 +26,7 @@ $(document).ready(function () {
                 case(hash.indexOf('listing') == '0'):
                     console.log('listingId');
 
-                    getListingDetails(hash.split(':')[1]);
+                    getListingDetails(hash.split('=')[1]);
                     break;
                 default:
                     console.log('home');
@@ -85,6 +85,12 @@ $(document).ready(function () {
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./public/pages/searchListings.html", function(){
+
+                $('#ListingPageSearchBtn').click(function(){
+                
+                    searchListings();
+
+                })
                 $('#addBodyContent').attr("style","display:none;");
                 
                 for(var i=0; i < response.length; i++){
@@ -93,11 +99,10 @@ $(document).ready(function () {
                     template.attr('id',searchIdx);
                     console.log("response[i]",template.find("#listingPrice"));
                     template.attr("data",response[i].listing_id);
-                    template.attr("class","view-listing-details well col-sm-6 col-md-4 p0");
-                    template.attr('style',"display:block;visibility:visible;margin:10px;");
+                    template.attr("class","view-listing-details col-sm-6 col-md-4");
                     template.find('#listingId')[0].innerHTML = response[i].listing_id;
                     template.find("#listingTitle")[0].innerHTML = response[i].title;
-                    template.find("#listingArea")[0].innerHTML = "500m2";
+                    template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                     template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                     template.find("#listingDescription")[0].innerHTML = response[i].description;
                      template.appendTo(".appendHere");
@@ -118,16 +123,31 @@ $(document).ready(function () {
     };
 
     function getListingDetails(listingId){
-       
+       console.log("listingId",listingId);
         var url = window.location.href;
-        window.location.hash = '?listing='+listingId;
+        window.location.hash = 'listing?listingId='+listingId;
 
         $.ajax({url: "/listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
-            // $('#body-content').load("partials/_single.html", function(){
-                
-                
-            // });
+            $('#uiView').load("./public/pages/listingDetails.html", function(){
+
+                $("#addBodyContent").attr("style","display:none;");
+                var template = $("#listingDetailsDiv");
+                console.log("template",template);
+                template.find("#listingTitle")[0].innerHTML = response[0].title;
+                template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                template.find("#listingDescription")[0].innerHTML = response[0].description;
+                template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
+                template.find("#listingBaths")[0].innerHTML = response[0].baths;
+                template.find("#listingBeds")[0].innerHTML = response[0].beds;
+                template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+
+
+
+
+
+            });
+            
         }});
     }; 
 
