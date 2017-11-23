@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var mysql = require('mysql');
 
 var con = mysql.createConnection({
     host:   process.env.SQL_HOST,
@@ -7,13 +7,8 @@ var con = mysql.createConnection({
     password:   process.env.SQL_PWS,
     database:   process.env.SQL_DB
 });
+var con = function () {
 
-function getConnection() {
-    if(!con){
-        // Connects to Database
-        con.connect();
-    }
-    return con;
 };
 
 module.exports.getConnection = getConnection;
