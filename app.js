@@ -25,6 +25,8 @@ app.use(fileUpload());
 // logs every type of request on server console
 app.use(function (req, res, next) {
     console.log(req.method + " request for " + req.url);
+    res.header("Access-Control-Allow-Origin", "*");	
+    req.url = req.url.replace(process.env.APP_CONX , "" );
     next();
 });
 
