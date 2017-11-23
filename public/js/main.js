@@ -81,7 +81,7 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-    		$.ajax({url:"/"+searchUrl, success: function(response){
+    		$.ajax({url:"/fa17g20/"+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./public/pages/searchListings.html", function(){
@@ -127,7 +127,7 @@ $(document).ready(function () {
         var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: "/listing?listingId="+listingId, success: function(response){
+        $.ajax({url: "/fa17g20/listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./public/pages/listingDetails.html", function(){
 
@@ -205,7 +205,7 @@ $(document).ready(function () {
         // }});
 
         $.ajax({
-            url: "/user/login",
+            url: "/fa17g20/user/login",
             type: "POST",
             data: {
                 email: emails,
