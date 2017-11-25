@@ -1,21 +1,27 @@
-<div class="container"> 
+<div class="container agentDashboardDiv"> 
 	<ul class="nav nav-pills" role="tablist">
 	  <li role="presentation" id="navInbox" class="active"><a id="agentInboxBtn">Inbox</a></li>
 	  <li role="presentation" id="navMl"><a id="agentMlBtn">Manage Listings</a></li>
 	  <li role="presentation" id="navPl"><a id="agentPlBtn">Post Listings</a></li>
 	  <li role="presentation" id="navProfile"><a id="agentProfileBtn">Profile</a></li>
 	</ul>
-	<div class="well row" id="agentInbox" style="display: none;"> 
-		<div class="col-md-6"> 
-			<h1> Inbox </h1>
+	<div class="row" id="agentInbox" style="display: none;"> 
+		<div class="col-md-4 chatList well" > 
+			<div class="list-group" id="appendChatList">
+			  <a id="chatListItemTemplate" class="list-group-item active" style="display: none;">
+			    <span class="chatItemText"> </span>
+			  </a>
+			</div>
 		</div>
-		<div class="col-md-6"> 
+		<div class="col-md-1"> </div>
+		<div class="col-md-5  well" id="chatDetails"> 
 			<h1> Template </h1>
 		</div>
 		
 	</div>
 	<div class="well row" id="agentMl" style="display: none;"> 
-		<div class="col-md-6"> 
+		<div class="col-md-7"> 
+
 			<h1> Manage  </h1>
 		</div>
 		<div class="col-md-6"> 

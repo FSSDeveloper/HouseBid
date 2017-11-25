@@ -3069,3 +3069,18 @@ padding: 10px;
 #navPl:hover{
     cursor: pointer;
 }
+.list-group-item:hover{
+    cursor: pointer;
+}
+.agentDashboardDiv .well{
+    margin:10px;
+}
+.agentDashboardDiv .nav-pills{
+    margin: 10px;
+}
+.customerDashboardDiv .well{
+    margin:10px;
+}
+.customerDashboardDiv .nav-pills{
+    margin: 10px;
+}

@@ -8,8 +8,13 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = true;
     var apiEndPoint ="";
-    var dashboardType="customer"; 
-
+    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    console.log("userObj",userObj);
+    if(userObj.user_type == 1){
+        var dashboardType="customer"; 
+    }else {
+        var dashboardType="agent"; 
+    }
     if(isLocal){
         apiEndPoint = "http://localhost:3000/";
     }else{
@@ -35,7 +40,7 @@ $(document).ready(function () {
                     }
                     break;
                 case(hash.indexOf('agent') == '15'):
-                    agentDashboard();
+                        agentDashboard();
                     break;
                 // default:
                 //     console.log('profile');
@@ -144,6 +149,45 @@ $(document).ready(function () {
         $("#agentPl").attr("style","display:none;");
         $("#agentProfile").attr("style","display:none;");
 
+        //api call to get all the messages
+        $.ajax({url:"../js/testmessages.json", success: function(response){
+            console.log("response",response);
+            for(var i=0;i < response.length;i++) {
+                var template = $('#chatListItemTemplate').clone();
+                template.attr("class","list-group-item");
+                template.attr("data",response[i].id);
+                template.attr("id","chatItem"+i);
+                template.find(".chatItemText")[0].innerHTML = response[i].name;
+                template.attr("style","dsiplay:block;");
+                template.appendTo("#appendChatList");
+            }
+            var chatListingLinks = document.getElementsByClassName("list-group-item");
+            console.log("chatListingLinks",chatListingLinks);
+            for(var i=0;i < chatListingLinks.length;i++) {
+                chatListingLinks[i].addEventListener("click", function() {
+                    var element = document.getElementById(this.id);
+                    var idx = element.getAttribute("data");
+                    getChatDetails(idx,response);
+                   // getListingDetails(idx);
+
+                });
+            }
+            
+            function getChatDetails(idx,response){
+                var chatListingLinks = document.getElementsByClassName("list-group-item");
+                 for(var i=0;i < chatListingLinks.length;i++) {
+                    if(idx == i){
+                        chatListingLinks[i].classList.add("active");  
+                    }else{
+                        chatListingLinks[i].classList.remove("active");
+                    }
+                    
+                 }
+                console.log("idx",idx,document.getElementById("chatDetails"));
+                document.getElementById("chatDetails").innerHTML = response[idx].message;
+            }
+        }
+        });
     }
     //agent Manage Listing
     function agentManageListing(){

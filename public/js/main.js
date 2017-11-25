@@ -198,13 +198,12 @@ $(document).ready(function () {
         var emails = $('#email').val();
         var passwords = $('#password').val();
         console.log("Email is: "+ emails + "Password is:"+ passwords);
-        $('#lbl').html(email);
 
         // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
         // }});
 
         $.ajax({
-            url: apiEndPoint+"/user/login",
+            url: apiEndPoint+"user/login",
             type: "POST",
             data: {
                 email: emails,
@@ -212,7 +211,9 @@ $(document).ready(function () {
             },
             success: function(data) {
             console.log("data after success login",data);
-            alert("Login successful");
+            if(data){
+                localStorage.setItem('userObj', JSON.stringify(data[0]));
+            }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
                   //  REDIRECT TO INDEX.HTML
