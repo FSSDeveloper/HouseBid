@@ -235,11 +235,80 @@ $(document).ready(function () {
 
     function signMeUp()
     {
-        var regName = $('#regName').val();
-        var regEmail = $('#regEmail').val();
-        var regPsw = $('#regPsw').val();
+        var regName = $('#name').val();
+        var regEmail = $('#email').val();
+        var regPsw = $('#password').val();
+        var rptPass = $('#rptPass').val();
+        var contact = $('#contact').val();
+        var addr = $('#addr').val();
 
-        console.log("Name is:"+ regName +"Email"+ regEmail + "Psw" + regPsw);
+        var formValidation = true;
+
+        if(regName === undefined || regName === '') {
+            $('#nameError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#nameError').addClass('hide');
+        }
+
+        if(regEmail === undefined || regEmail === '') {
+            $('#emailError').removeClass('hide').text("required");
+            formValidation = false;
+        } else if( !validateEmail(regEmail)){
+            $('#emailError').removeClass('hide').text("Incorrect Format");
+            formValidation = false;
+        } else {
+            $('#emailError').addClass('hide');
+        }
+
+        if(regPsw === undefined || regPsw === '') {
+            $('#passError').removeClass('hide').text("required");
+            formValidation = false;
+        } else{
+            $('#passError').addClass('hide');
+        }
+
+        if(rptPass === undefined || rptPass === '') {
+            $('#rpError').removeClass('hide').text("required");
+            formValidation = false;
+        } else{
+            $('#rpError').addClass('hide');
+        }
+
+        if(regPsw !== rptPass) {
+            $('#rpError').removeClass('hide').text("Password and Confirm Password didnot match");
+            formValidation = false;
+        } else{
+            $('#rpError').addClass('hide');
+        }
+
+        if(formValidation) {
+            $.ajax({
+                url: "https://sfsuse.com/fa17g20/signup",
+                type: "POST",
+                data: {
+                    name: regName,
+                    email: regEmail,
+                    password: regPsw,
+                    cpassword: rptPass,
+                    contact: contact,
+                    address: addr,
+                    usertype: 1
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function(data, status, er) {
+                alert("Error Occured please try again later");
+            }
+            })
+        }
+
+    }
+
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 
 
