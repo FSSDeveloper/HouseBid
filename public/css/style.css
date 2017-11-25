@@ -3084,3 +3084,102 @@ padding: 10px;
 .customerDashboardDiv .nav-pills{
     margin: 10px;
 }
+.group { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+.group input               {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+  background-color: transparent;
+}
+.group input:focus         { outline:none; }
+
+/* LABEL ======================================= */
+.group label                {
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.group input:focus ~ label, input:valid ~ label        {
+  top:-20px;
+  font-size:14px;
+  color:#FFC500;
+}
+
+/* BOTTOM BARS ================================= */
+.bar    { position:relative; display:block; width:300px; }
+.bar:before, .bar:after     {
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#FFC500; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+.group input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+.group input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#FFC500; }
+  to    { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#FFC500; }
+  to    { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#FFC500; }
+  to    { width:0; background:transparent; }
+}
+.formItems .btn-group{
+    background-color: transparent;
+}
+.bootstrap-select button.dropdown-toggle{
+    color:#000;
+    font-weight: 500;
+}

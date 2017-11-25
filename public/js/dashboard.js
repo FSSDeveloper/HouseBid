@@ -10,7 +10,7 @@ $(document).ready(function () {
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("userObj",userObj);
-    if(userObj.user_type == 1){
+    if(userObj.user_type !== 1){
         var dashboardType="customer"; 
     }else {
         var dashboardType="agent"; 
