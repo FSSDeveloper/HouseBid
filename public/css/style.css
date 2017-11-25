@@ -3051,3 +3051,21 @@ padding: 10px;
 .view-listing-details:hover{
     cursor: pointer;
 }
+#navInbox:hover{
+    cursor: pointer;
+}
+#navRL:hover{
+    cursor: pointer;
+}
+#navProfile:hover{
+    cursor: pointer;
+}
+#navInbox:hover{
+    cursor: pointer;
+}
+#navMl:hover{
+    cursor: pointer;
+}
+#navPl:hover{
+    cursor: pointer;
+}

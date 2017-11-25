@@ -6,6 +6,14 @@ $(window).load(function () { // makes sure the whole site is loaded
 })
 $(document).ready(function () {
 	var apiCalled = false;
+    var isLocal = true;
+    var apiEndPoint ="";
+
+    if(isLocal){
+        apiEndPoint = "http://localhost:3000/";
+    }else{
+        apiEndPoint = window.location.origin+window.location.pathname;
+    }
 	
 	$(window).on('hashchange', function(){
         
@@ -41,15 +49,6 @@ $(document).ready(function () {
     }).trigger('hashchange');
 
     function loadHomePage(){
-        $( "#header-content" ).load( "partials/_header.html", function() {
-        //$('html, body').animate({scrollTop: '0px'}, 300);
-            window.scrollTo(0, 0);
-        });
-        $( "#footer-content" ).load( "partials/_footer.html", function() {
-        
-        });
-        console.log($('.homeImage'));
-        // $('.homeImage').attr('src','./public/images/slide1/slider-image-1.jpg');
 
         $("#loadSliderContent").load("./public/pages/homeSlider.html", function(){
         	console.log('inside loadHomePage');
@@ -81,7 +80,7 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-    		$.ajax({url:"/fa17g20/"+searchUrl, success: function(response){
+    		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./public/pages/searchListings.html", function(){
@@ -127,7 +126,7 @@ $(document).ready(function () {
         var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: "/fa17g20/listing?listingId="+listingId, success: function(response){
+        $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./public/pages/listingDetails.html", function(){
 
@@ -151,7 +150,7 @@ $(document).ready(function () {
         }});
     }; 
 
-   $( "#header" ).load( "./public/pages/header.html", function() {
+     $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
         window.scrollTo(0, 0);
     });
@@ -205,7 +204,7 @@ $(document).ready(function () {
         // }});
 
         $.ajax({
-            url: "/fa17g20/user/login",
+            url: apiEndPoint+"/user/login",
             type: "POST",
             data: {
                 email: emails,
