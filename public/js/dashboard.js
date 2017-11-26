@@ -191,6 +191,36 @@ $(document).ready(function () {
     }
     //agent Manage Listing
     function agentManageListing(){
+        //temp*--- calling search api for data, replace with actual api call 
+        var searchUrl = "search?city=fulda"+"&location="; 
+        $.ajax({url:apiEndPoint+searchUrl, success: function(response){
+            console.log("response in Agent Ml ",response);
+            for(var i=0; i < response.length; i++){
+                var template = $('#searchListingTemplate').clone();
+                var searchIdx = "searchListingTemplate"+i;
+                template.attr('id',searchIdx);
+                console.log("response[i]",template.find("#listingPrice"));
+                template.attr("data",response[i].listing_id);
+                template.attr("class","view-listing-details col-sm-6 col-md-4");
+                template.find('#listingId')[0].innerHTML = response[i].listing_id;
+                template.find("#listingTitle")[0].innerHTML = response[i].title;
+                template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
+                template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
+                template.find("#listingDescription")[0].innerHTML = response[i].description;
+                template.appendTo("#appendListings");
+            }
+            var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+    
+            for(var i=0;i < listingDetailsLinks.length;i++) {
+                listingDetailsLinks[i].addEventListener("click", function() {
+                    var element = document.getElementById(this.id);
+                    var idx = element.getAttribute("data");
+                    getListingDetails(idx);
+                });
+            }
+        }});
+            var appnd = document.getElementById('appendHere');
+
         $('#agentMl').attr("style","display:block;visiblity:visible;");
         $("#agentInbox").attr("style","display:none;");
         $("#agentPl").attr("style","display:none;");

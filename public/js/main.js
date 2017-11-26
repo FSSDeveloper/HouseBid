@@ -284,7 +284,7 @@ $(document).ready(function () {
 
         if(formValidation) {
             $.ajax({
-                url: "https://sfsuse.com/fa17g20/signup",
+                url: apiEndPoint+"signup",
                 type: "POST",
                 data: {
                     name: regName,

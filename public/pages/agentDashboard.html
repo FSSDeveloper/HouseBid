@@ -20,15 +20,41 @@
 		
 	</div>
 	<div class="well row" id="agentMl" style="display: none;"> 
-		<div class="col-md-7"> 
-
-			<h1> Manage  </h1>
+		<div class="col-md-12" id="appendListings"> 
+			<div style="display: none;"> 
+                <div class="col-sm-6 col-md-4" id="searchListingTemplate" >
+                    <div class="box-two proerty-item">
+                        <div class="item-thumb">
+                            <a ><img src="./public/images/demo/property-3.jpg"></a>
+                        </div>
+                        <div class="item-entry overflow">
+                            <h5 style="padding:5px;"> <b> Listing ID: </b> <p id="listingId" style="display:inline;"> </p> </h5>
+                            <h5  style="padding:5px;"> <b id="listingTitle"> </b> </h5>      
+                            <div class="dot-hr"></div>
+                            <div style="padding: 5px;"> 
+                                <div class="row"> 
+                                    <div class="col-md-6" style="display:inline-flex;"> 
+                                        <p> <b> Area : </b> <p id="listingArea" style="margin:auto;">  </p>
+                                    </div>
+                                    <div class="col-md-6" style="display:inline-flex;"> 
+                                      <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
+                                    </div>
+                                </div>
+                                <p> <b> Description : </b> </p>
+                                 <p id="listingDescription"> </p>
+                                <div class="property-icon">
+                                    <img src="./public/images/icon/bed.png">(5)|
+                                    <img src="./public/images/icon/shawer.png">(2)|
+                                    <img src="./public/images/icon/cars.png">(1)  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
-		<div class="col-md-6"> 
-			<h1> Listing </h1>
-		</div>
-		
 	</div>
+	
 	<div class="well row wow fadeIn" id="agentPl" style="display: none;" data-wow-delay=".9s"> 
 
 		<div class="col-md-12">
@@ -130,20 +156,53 @@
 			
 		</div>
 	</div>
-	<fieldset>
-		
-	</fieldset>
-	<div class="form-group"> 
-    	<div class="checkbox">
-		  <label><input type="checkbox" value="">Option 1</label>
-		</div>
-    </div>
 	<div class="well row" id="agentProfile" style="display: none;"> 
-		<div class="col-md-6"> 
-			<h1> agent </h1>
-		</div>
-		<div class="col-md-6"> 
-			<h1> Profile </h1>
+		<div class="col-md-12">
+			<div class="box-for overflow">
+                <div class="col-md-12 col-xs-12 register-blocks">
+                    <h2>New Profile : </h2> 
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="nameError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="emailError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="passError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Repeat Password</label>
+                        <input type="password" class="form-control" id="rptPass" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id=rpError></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addr">Address</label>
+                        <input type="text" class="form-control" id="addr" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact</label>
+                        <input type="text" class="form-control" id="contact" required>
+                    </div>
+                    <div class="text-center">
+                        <button id="signUp" type="submit" class="btn btn-default">Update</button>
+                    </div>
+                </div>
+            </div>
 		</div>
 		
 	</div>
