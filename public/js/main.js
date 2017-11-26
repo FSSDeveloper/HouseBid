@@ -195,8 +195,8 @@ $(document).ready(function () {
 
     function logMeIn()
     {
-        var emails = $('#email').val();
-        var passwords = $('#password').val();
+        var emails = $('#loginEmail').val();
+        var passwords = $('#loginPassword').val();
         console.log("Email is: "+ emails + "Password is:"+ passwords);
 
         // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
