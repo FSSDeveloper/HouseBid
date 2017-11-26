@@ -50,29 +50,45 @@ $(document).ready(function () {
         }
     }).trigger('hashchange');
 
+
+    function getCustomerDashboardData(){
+        customerInbox();
+        customerRequestListing();
+        customerProfile();
+    }
+
     //Customer Dashboard
     function customerDashboard(){
         $( "#uiView" ).load( "../pages/customerDashboard.html", function() {
-            customerInbox();
+           getCustomerDashboardData();
+           $('#customerInbox').attr("style","display:block;visiblity:visible;");
+            $("#customerRfl").attr("style","display:none;");
+            $("#customerProfile").attr("style","display:none;");
+
             $('#cusInboxBtn').click(function() {
                 $('#navInbox').attr("class","active");
                 $('#navRL').attr("class","inActive");
-               document.getElementById("navProfile").classList.remove("active");
-
-               customerInbox();
+                document.getElementById("navProfile").classList.remove("active");
+                $('#customerInbox').attr("style","display:block;visiblity:visible;");
+                $("#customerRfl").attr("style","display:none;");
+                $("#customerProfile").attr("style","display:none;");
 
             });
             $('#cusRLBtn').click(function() {
                 $('#navInbox').attr("class","inActive");
                 $('#navRL').attr("class","active");
                 document.getElementById("navProfile").classList.remove("active");
-               customerRequestListing();
+                $("#customerRfl").attr("style","display:block;");
+                $("#customerInbox").attr("style","display:none;");
+                $("#customerProfile").attr("style","display:none;");
             });
             $('#cusProfileBtn').click(function() {
                 $('#navInbox').attr("class","inActive");
                 $('#navRL').attr("class","inActive");
                 document.getElementById("navProfile").classList.add("active");
-                customerProfile();
+                $("#customerProfile").attr("style","display:block;");
+                $("#customerInbox").attr("style","display:none;");
+                $("#customerRfl").attr("style","display:none;");
             });
         });
     };
@@ -80,24 +96,23 @@ $(document).ready(function () {
 
     //Customer Inbox tab
     function customerInbox(){
-        console.log("inside inbox functiojjkjhhjjjhn");
-        $('#customerInbox').attr("style","display:block;visiblity:visible;");
-        $("#customerRfl").attr("style","display:none;");
-        $("#customerProfile").attr("style","display:none;");
 
     }
     //Customer Requesting Listing
     function customerRequestListing(){
-        console.log("inside requestListing function");
-        $("#customerRfl").attr("style","display:block;");
-        $("#customerInbox").attr("style","display:none;");
-        $("#customerProfile").attr("style","display:none;");
     }
     //Customer Profile
     function customerProfile(){
-        $("#customerProfile").attr("style","display:block;");
-        $("#customerInbox").attr("style","display:none;");
-        $("#customerRfl").attr("style","display:none;");
+       
+    }
+
+
+    function getAgentDashboardData() {
+        agentInbox();
+        agentManageListing();
+        agentPostListing();
+        agentProfile();
+
     }
 
 
@@ -105,50 +120,64 @@ $(document).ready(function () {
     //Agent Dashboard 
     function agentDashboard(){
         $( "#uiView" ).load( "../pages/agentDashboard.html", function() {
+            getAgentDashboardData();
+            $('#agentInbox').attr("style","display:block;visiblity:visible;");
+            $("#agentMl").attr("style","display:none;");
+            $("#agentPl").attr("style","display:none;");
+            $("#agentProfile").attr("style","display:none;");
         
-            agentInbox();
             $('#agentInboxBtn').click(function() {
+                $('#agentInbox').attr("style","display:block;visiblity:visible;");
+                $("#agentMl").attr("style","display:none;");
+                $("#agentPl").attr("style","display:none;");
+                $("#agentProfile").attr("style","display:none;");
 
                 $('#navInbox').attr("class","active");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","inActive");
                document.getElementById("navProfile").classList.remove("active");
-               agentInbox();
             });
             $('#agentMlBtn').click(function() {
+                $('#agentMl').attr("style","display:block;visiblity:visible;");
+                $("#agentInbox").attr("style","display:none;");
+                $("#agentPl").attr("style","display:none;");
+                $("#agentProfile").attr("style","display:none;");
+                
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","active");
                 $('#navPl').attr("class","inActive");
-               document.getElementById("navProfile").classList.remove("active");
-                agentManageListing();
+               document.getElementById("navProfile").classList.remove("active");     
             });
 
             $('#agentPlBtn').click(function() {
+                $('#agentPl').attr("style","display:block;visiblity:visible;");
+                $("#agentMl").attr("style","display:none;");
+                $("#agentInbox").attr("style","display:none;");
+                $("#agentProfile").attr("style","display:none;");
+                
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","active");
                document.getElementById("navProfile").classList.remove("active");
-               agentPostListing();
             });
 
             $('#agentProfileBtn').click(function() {
+                $('#agentProfile').attr("style","display:block;visiblity:visible;");
+                $("#agentMl").attr("style","display:none;");
+                $("#agentPl").attr("style","display:none;");
+                $("#agentInbox").attr("style","display:none;");
+                
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","inActive");
                 document.getElementById("navProfile").classList.add("active");
-                agentProfile();
             });
         });
-
     }
 
     //agent Inbox tab
     function agentInbox(){
-        $('#agentInbox').attr("style","display:block;visiblity:visible;");
-        $("#agentrMl").attr("style","display:none;");
-        $("#agentPl").attr("style","display:none;");
-        $("#agentProfile").attr("style","display:none;");
-
+        console.log("in agent inbox function");
         //api call to get all the messages
         $.ajax({url:"../js/testmessages.json", success: function(response){
             console.log("response",response);
@@ -221,24 +250,15 @@ $(document).ready(function () {
         }});
             var appnd = document.getElementById('appendHere');
 
-        $('#agentMl').attr("style","display:block;visiblity:visible;");
-        $("#agentInbox").attr("style","display:none;");
-        $("#agentPl").attr("style","display:none;");
-        $("#agentProfile").attr("style","display:none;");
+        
     }
     //agent Profile
     function agentProfile(){
-        $('#agentProfile').attr("style","display:block;visiblity:visible;");
-        $("#agentMl").attr("style","display:none;");
-        $("#agentPl").attr("style","display:none;");
-        $("#agentInbox").attr("style","display:none;");
+        
     }
     // agent Post Listing
     function agentPostListing(){
-        $('#agentPl').attr("style","display:block;visiblity:visible;");
-        $("#agentMl").attr("style","display:none;");
-        $("#agentInbox").attr("style","display:none;");
-        $("#agentProfile").attr("style","display:none;");
+        
     }
 
 
