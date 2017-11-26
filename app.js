@@ -42,7 +42,7 @@ app.use(express.static("./"));
 /** START - USER **/
 app.post("/signup", function (req, res) {
     var body = req.body;
-    var image = req.files.image;
+    var image = req.files ? req.files.image : null;
     console.log("Signup data received.");
     user.signUp(body, image, function (err, data) {
         if (err) {
