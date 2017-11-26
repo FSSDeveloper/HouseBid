@@ -36,11 +36,11 @@ $(document).ready(function () {
                 case(hash.indexOf('customer') == '15'):
                     console.log('customer');
                     if(!apiCalled){
-                    	customerDashboard();
+                    	
                     }
                     break;
                 case(hash.indexOf('agent') == '15'):
-                        agentDashboard();
+                        
                     break;
                 // default:
                 //     console.log('profile');
@@ -49,6 +49,13 @@ $(document).ready(function () {
             };
         }
     }).trigger('hashchange');
+
+    if(userObj.user_type !== 1){
+        customerDashboard();
+    }
+    else{
+        agentDashboard();
+    }
 
 
     function getCustomerDashboardData(){
@@ -179,7 +186,8 @@ $(document).ready(function () {
     function agentInbox(){
         console.log("in agent inbox function");
         //api call to get all the messages
-        $.ajax({url:"../js/testmessages.json", success: function(response){
+        var url ="user/messages:"+userObj.user_id;
+        $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
             for(var i=0;i < response.length;i++) {
                 var template = $('#chatListItemTemplate').clone();
