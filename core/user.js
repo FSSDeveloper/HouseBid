@@ -21,8 +21,8 @@ function signUp(user, image, callback) {
                 password: user.password,
                 contact: user.contact,
                 address: user.address,
-                image: image ? image.data : null,
-                user_type: user.usertype
+                image: image.image ? image.image.data : null,
+                user_type: user.userType
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);

@@ -227,14 +227,28 @@ $(document).ready(function () {
     }
 
     //SignUp Function
-
-    $('#signUp').click(function()
-    {
-        signMeUp();
+    $('#signUpForm').submit(function(event) {
+        event.preventDefault();
+        if(validateForm()) {
+            var formData = new FormData(this);
+            $.ajax({
+                url: apiEndPoint + "signup",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function() {
+                    alert("Error occured. Please try again later");
+                }
+            });
+        }
     });
 
-    function signMeUp()
-    {
+    // Validates sign up form fields
+    function validateForm() {
         var regName = $('#name').val();
         var regEmail = $('#email').val();
         var regPsw = $('#password').val();
@@ -276,34 +290,13 @@ $(document).ready(function () {
         }
 
         if(regPsw !== rptPass) {
-            $('#rpError').removeClass('hide').text("Password and Confirm Password didnot match");
+            $('#rpError').removeClass('hide').text("Password and Confirm Password did not match");
             formValidation = false;
         } else{
             $('#rpError').addClass('hide');
         }
 
-        if(formValidation) {
-            $.ajax({
-                url: apiEndPoint+"signup",
-                type: "POST",
-                data: {
-                    name: regName,
-                    email: regEmail,
-                    password: regPsw,
-                    cpassword: rptPass,
-                    contact: contact,
-                    address: addr,
-                    usertype: 1
-                },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function(data, status, er) {
-                alert("Error Occured please try again later");
-            }
-            })
-        }
-
+        return formValidation;
     }
 
     function validateEmail(email) {

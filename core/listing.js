@@ -91,7 +91,7 @@ function addListing(listing, callback) {
                 city: listing.city,
                 location: listing.location,
                 baths: listing.baths,
-                beds: listing.baths
+                beds: listing.beds
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
