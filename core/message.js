@@ -13,7 +13,7 @@ function getMessageByMessageId(messageId, callback) {
 
 function getMessagesByUserId(userId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM message WHERE send_id = " + userId + " OR receiver_id = " + userId;
+        var sql = "SELECT * FROM message WHERE sender_id = " + userId + " OR receiver_id = " + userId;
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
