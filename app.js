@@ -47,6 +47,11 @@ app.post("/signup", function (req, res) {
     user.signUp(body, image, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
+            if(err.code === "ER_DUP_ENTRY") {
+                res.status(500).send({error: err.code});
+            } else {
+                res.sendStatus(500);
+            }
         } else {
             res.json(data);
         }

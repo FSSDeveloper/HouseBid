@@ -240,8 +240,13 @@ $(document).ready(function () {
                 success: function (response) {
                     console.log(response);
                 },
-                error: function() {
-                    alert("Error occured. Please try again later");
+                error: function(response) {
+                    if(response.responseJSON.error === "ER_DUP_ENTRY"){
+                        $('#emailError').removeClass('hide').text("Email address already exists.");
+                        $('#email').focus();
+                    } else {
+                        alert("Error occured. Please try again later");
+                    }
                 }
             });
         }
