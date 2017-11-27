@@ -8,6 +8,8 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = true;
     var apiEndPoint ="";
+    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    console.log("local storage",localStorage);
 
     if(isLocal){
         apiEndPoint = "http://localhost:3000/";
@@ -152,6 +154,24 @@ $(document).ready(function () {
 
      $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
+
+        if(localStorage.length > 0){
+            console.log("in if part");
+            $("#loginButton").hide();
+            $("#logoutButton").show();
+        }else{
+            console.log("in else part");
+            $("#loginButton").show();
+            $("#logoutButton").hide();
+        }
+
+        $("#logoutButton").click(function() {
+            console.log("in logut button");
+            localStorage.removeItem("userObj");
+            $("#loginButton").show();
+            $("#logoutButton").hide();
+        })
+
         window.scrollTo(0, 0);
     });
     
@@ -213,6 +233,7 @@ $(document).ready(function () {
             console.log("data after success login",data);
             if(data){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
+                location.href=apiEndPoint+"index.html";
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);

@@ -61,7 +61,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" required>
+						      <input type="text" id="postTitle" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Title</label>
@@ -69,7 +69,7 @@
 						</div>
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" required>
+						      <input type="text" id="postCity" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>City</label>
@@ -79,7 +79,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" required>
+						      <input type="text" id="postLocation" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Location</label>
@@ -87,7 +87,7 @@
 						</div>
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" required>
+						      <input type="text" id="postAddress" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Address</label>
@@ -97,7 +97,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" required>
+						      <input type="text" id="postPrice" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Price</label>
@@ -105,7 +105,7 @@
 						</div>
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" required>
+						      <input type="text" id="postArea" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Area</label>
@@ -113,33 +113,55 @@
 						</div>
 					</div>
 					<div class="row"> 
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="Date" id="postExpiryDate" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Expiry Date</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number" id="postBeds" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Beds</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number"  id="postBaths" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Baths</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
 						<div class="col-md-6"> 
 							<fieldset>
-					    		<label for="statusSel"> Status:</label>
-						    	<select id="statusSel" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
-			                        <option>Active</option>
-			                        <option>Expired</option>
-			                        <option>Sold</option>
+					    		<label for="postStatus"> Status:</label>
+						    	<select id="postStatus" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
+			                        <option value="0">Active</option>
+			                        <option value="1">Expired</option>
+			                        <option value="2">Sold</option>
 		                    	</select>
 					    	</fieldset>
 						</div>
 						<div class="col-md-3">
 					        <div class="checkbox">
-					            <label> <input type="checkbox" checked> Biddable</label>
+					            <label> <input type="checkbox" id="postBiddable" checked> Biddable</label>
 					        </div> 
 					    </div>
 					</div>
 					<div class="row"> 
 						<div class="col-md-6">
 							<div class="form-group">
-		                        <label for="message">Description</label>
-		                        <textarea id="message" class="form-control"></textarea>
+		                        <label for="postDescription">Description</label>
+		                        <textarea  id="postDescription" class="form-control"></textarea>
 	                    	</div>
 						</div>
-						<div class="col-md-6"> </div>
-					</div>
-					<div class="row"> 
-						<div class="col-md-6"> </div>
 						<div class="col-md-6"> </div>
 					</div>
 					<div class="row"> 
@@ -149,7 +171,7 @@
 				</form>
 			</div>
 			<div class="pull-right"> 
-				<button class="btn btn-default">Post</button>
+				<button class="btn btn-default" id="postAgentListingBtn">Post</button>
 			</div>
 			
 		</div>

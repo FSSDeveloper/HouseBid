@@ -117,7 +117,6 @@ $(document).ready(function () {
     function getAgentDashboardData() {
         agentInbox();
         agentManageListing();
-        agentPostListing();
         agentProfile();
 
     }
@@ -161,7 +160,9 @@ $(document).ready(function () {
                 $("#agentMl").attr("style","display:none;");
                 $("#agentInbox").attr("style","display:none;");
                 $("#agentProfile").attr("style","display:none;");
-                
+                $("#postAgentListingBtn").click(function(){
+                    agentPostListing();
+                });
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","active");
@@ -186,7 +187,7 @@ $(document).ready(function () {
     function agentInbox(){
         console.log("in agent inbox function");
         //api call to get all the messages
-        var url ="user/messages:"+userObj.user_id;
+        var url ="user/messages?userId="+userObj.user_id;
         $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
             for(var i=0;i < response.length;i++) {
@@ -266,7 +267,51 @@ $(document).ready(function () {
     }
     // agent Post Listing
     function agentPostListing(){
-        
+        var isBiddable = document.getElementById("postBiddable").value;
+        var bidFlag = 0;
+        if(isBiddable == "on"){
+            bidFlag = 0;
+        }else{
+            bidFlag = 1;
+        }
+        var dataObj = {
+            title:document.getElementById("postTitle").value,
+            description:document.getElementById("postDescription").value,
+            price:parseInt(document.getElementById("postPrice").value),
+            isBiddable:bidFlag,
+            area:parseInt(document.getElementById("postArea").value),
+            status:parseInt(document.getElementById("postStatus").value),
+            address:document.getElementById("postAddress").value,
+            expiryDate:document.getElementById("postExpiryDate").value,
+            agentId:2,
+            customerId:6,
+            city:document.getElementById("postCity").value,
+            location:document.getElementById("postLocation").value,
+            baths:parseInt(document.getElementById("postBaths").value),
+            beds:parseInt(document.getElementById("postBeds").value)
+
+        }
+        console.log("Data Obj post listing",dataObj);
+        $.ajax({
+            url: apiEndPoint+"agent/listing",
+            type: "POST",
+            data: dataObj,
+            success: function(data) {
+            console.log("data after success login",data);
+            if(data){
+                localStorage.setItem('userObj', JSON.stringify(data[0]));
+            }
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("Login Failed!");
+            }
+        });
+
     }
 
 
