@@ -151,7 +151,7 @@ $(document).ready(function () {
                         $("#contactBtn").show();
                        template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
                     }
-                    
+
                 }else{
                         $("#contactBtn").attr("style","display:none;");
                         template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
@@ -283,6 +283,7 @@ $(document).ready(function () {
             console.log("data after success login",data);
             if(data){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
+                alert("Login Successful!!");
                 location.href=apiEndPoint+"index.html";
             }
               //  IF DATA IS NOT EMPTY

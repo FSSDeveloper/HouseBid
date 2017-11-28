@@ -192,10 +192,11 @@ $(document).ready(function () {
             console.log("response",response);
             for(var i=0;i < response.length;i++) {
                 var template = $('#chatListItemTemplate').clone();
+
                 template.attr("class","list-group-item");
-                template.attr("data",response[i].id);
+                template.attr("data",i);
                 template.attr("id","chatItem"+i);
-                template.find(".chatItemText")[0].innerHTML = response[i].name;
+                template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
                 template.attr("style","dsiplay:block;");
                 template.appendTo("#appendChatList");
             }
@@ -222,7 +223,13 @@ $(document).ready(function () {
                     
                  }
                 console.log("idx",idx,document.getElementById("chatDetails"));
-                document.getElementById("chatDetails").innerHTML = response[idx].message;
+                for(var x=0;x<response[idx].length;i++){
+                    var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                    var respArr = response[idx];
+                    template.find("#chatMessage")[0].innerHTML = respArr[x].message;
+                    template.appendTo("#chatDetails");
+                }
+               // document.getElementById("chatDetails").innerHTML = response[idx].message;
             }
         }
         });
