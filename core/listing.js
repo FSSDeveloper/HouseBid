@@ -39,7 +39,7 @@ function getListingsByUserId(agentId, callback) {
 
 function getListingByListingId(listingId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM listing WHERE listing_id = " + listingId;
+        var sql = "SELECT l.*, a.name 'agent_name', a.email 'agent_email', a.contact 'agent_contact', a.address 'agent_address' FROM listing l, user a WHERE listing_id = " + listingId + " and l.agent_id = a.user_id";
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
