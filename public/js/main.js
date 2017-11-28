@@ -131,7 +131,7 @@ $(document).ready(function () {
         $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./public/pages/listingDetails.html", function(){
-
+                $("#chatDiv").hide();
                 $("#addBodyContent").attr("style","display:none;");
                 var template = $("#listingDetailsDiv");
                 var bidabble = "";
@@ -150,8 +150,27 @@ $(document).ready(function () {
                 }
                 template.find("#listingBiddable")[0].innerHTML = bidabble;
 
-                $("#sendMessageBtn").click(function(){
-                    
+                $("#contactBtn").click(function(){
+                    $("#chatDiv").show();
+
+                    $("#sendMessageBtn").click(function() {
+                        var message = $("#chatMessage").val();
+                        $.ajax({
+                            url: apiEndPoint+"user/message",
+                            type: "POST",
+                            data: {
+                                message: message,
+                                senderId: userObj.user_id,
+                                listingId:response[0].listing_id
+                            },
+                            success: function(data) {
+                            console.log("message sent",data);
+                            },
+                            error: function(data, status, er) {
+                                console.log("Error",data);
+                            }
+                        });
+                    })
                 });
 
 

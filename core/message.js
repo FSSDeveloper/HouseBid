@@ -40,7 +40,7 @@ function addMessage(message, callback) {
             values = {
                 message: message.message,
                 sender_id: message.senderId,
-                receiver_id: message.receiverId
+                listing_id: message.listingId
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);

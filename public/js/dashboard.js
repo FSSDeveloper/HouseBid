@@ -10,7 +10,7 @@ $(document).ready(function () {
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("userObj",userObj);
-    if(userObj.user_type !== 1){
+    if(userObj.user_type == 1){
         var dashboardType="customer"; 
     }else {
         var dashboardType="agent"; 
@@ -50,7 +50,7 @@ $(document).ready(function () {
         }
     }).trigger('hashchange');
 
-    if(userObj.user_type !== 1){
+    if(userObj.user_type == 1){
         customerDashboard();
     }
     else{
@@ -283,7 +283,7 @@ $(document).ready(function () {
             status:parseInt(document.getElementById("postStatus").value),
             address:document.getElementById("postAddress").value,
             expiryDate:document.getElementById("postExpiryDate").value,
-            agentId:2,
+            agentId:userObj.user_id,
             customerId:6,
             city:document.getElementById("postCity").value,
             location:document.getElementById("postLocation").value,
