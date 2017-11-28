@@ -137,11 +137,29 @@ $(document).ready(function () {
                 var bidabble = "";
                 console.log("template",template);
                 template.find("#listingTitle")[0].innerHTML = response[0].title;
-                template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
                 template.find("#listingDescription")[0].innerHTML = response[0].description;
                 template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
+
+                template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
+                template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
+                template.find("#listingAgentPhone")[0].innerHTML = response[0].agent_contact;
+                template.find("#listingAgentAddress")[0].innerHTML = response[0].agent_address;
+                if(userObj){
+                    if(userObj.user_type == 1){
+                        $("#contactBtn").show();
+                       template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                    }
+                    
+                }else{
+                        $("#contactBtn").attr("style","display:none;");
+                        template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                    }
+
+                //template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                
+
                 template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
                 if(response[0].is_biddable == 0){
                     bidabble = "No";
@@ -201,6 +219,7 @@ $(document).ready(function () {
             $("#loginButton").show();
             $("#logoutButton").hide();
             $("#dashboardTab").hide();
+            window.location.href=apiEndPoint;
         })
 
         window.scrollTo(0, 0);

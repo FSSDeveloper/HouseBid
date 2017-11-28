@@ -156,9 +156,9 @@ app.delete("/agent/listing", function (req, res) {
 /** START - MESSAGE **/
 // Adds message if POST
 app.post("/user/message", function (req, res) {
-    var message = req.body;
+    var messageBody = req.body;
     console.log("Add Message request received.");
-    message.addMessage(message, function (err, data) {
+    message.addMessage(messageBody, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
