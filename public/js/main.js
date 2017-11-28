@@ -134,6 +134,7 @@ $(document).ready(function () {
 
                 $("#addBodyContent").attr("style","display:none;");
                 var template = $("#listingDetailsDiv");
+                var bidabble = "";
                 console.log("template",template);
                 template.find("#listingTitle")[0].innerHTML = response[0].title;
                 template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
@@ -142,6 +143,16 @@ $(document).ready(function () {
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
                 template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+                if(response[0].is_biddable == 0){
+                    bidabble = "No";
+                }else{
+                    bidabble = "Yes";
+                }
+                template.find("#listingBiddable")[0].innerHTML = bidabble;
+
+                $("#sendMessageBtn").click(function(){
+                    
+                });
 
 
 
@@ -156,13 +167,13 @@ $(document).ready(function () {
         //$('html, body').animate({scrollTop: '0px'}, 300);
 
         if(localStorage.length > 0){
-            console.log("in if part");
             $("#loginButton").hide();
             $("#logoutButton").show();
+            $("#dashboardTab").show();
         }else{
-            console.log("in else part");
             $("#loginButton").show();
             $("#logoutButton").hide();
+            $("#dashboardTab").hide();
         }
 
         $("#logoutButton").click(function() {
@@ -170,6 +181,7 @@ $(document).ready(function () {
             localStorage.removeItem("userObj");
             $("#loginButton").show();
             $("#logoutButton").hide();
+            $("#dashboardTab").hide();
         })
 
         window.scrollTo(0, 0);

@@ -299,7 +299,6 @@ $(document).ready(function () {
             success: function(data) {
             console.log("data after success login",data);
             if(data){
-                localStorage.setItem('userObj', JSON.stringify(data[0]));
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
