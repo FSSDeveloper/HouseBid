@@ -180,7 +180,7 @@ app.get("/user/message", function (req, res) {
 // Inbox (All sent and received messages)
 app.get("/user/messages", function (req, res) {
     var userId = req.query.userId;
-    message.getMessagesByUserId(userId, function (err, data) {
+    message.getMessagesByAgentId(userId, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
