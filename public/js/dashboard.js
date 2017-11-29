@@ -190,6 +190,7 @@ $(document).ready(function () {
         var url ="user/messages?userId="+userObj.user_id;
         $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
+            var currentChatObj = "";
             for(var i=0;i < response.length;i++) {
                 var template = $('#chatListItemTemplate').clone();
 
@@ -212,7 +213,33 @@ $(document).ready(function () {
                 });
             }
             
+            $("#newChatSendBtn").click(function() {
+
+               var newChatMsg = $("#newChatMessage").val();
+               console.log("current Object",currentChatObj,newChatMsg);
+               $.ajax({
+                            url: apiEndPoint+"user/message",
+                            type: "POST",
+                            data: {
+                                message: newChatMsg,
+                                senderId: userObj.user_id,
+                                listingId:currentChatObj[0].listing_id
+                            },
+                            success: function(data) {
+                            console.log("message sent",data);
+                            newChatMsg = "";
+                            },
+                            error: function(data, status, er) {
+                                console.log("Error",data);
+                            }
+                        });
+
+            })
             function getChatDetails(idx,response){
+                    
+                currentChatObj = "";
+                //$("#chatDetails").innerHTML = "";
+                document.getElementById("chatDetails").innerHTML = " ";
                 var chatListingLinks = document.getElementsByClassName("list-group-item");
                  for(var i=0;i < chatListingLinks.length;i++) {
                     if(idx == i){
@@ -223,11 +250,21 @@ $(document).ready(function () {
                     
                  }
                 console.log("idx",idx,document.getElementById("chatDetails"));
-                for(var x=0;x<response[idx].length;i++){
-                    var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                for(var x=0;x<response[idx].length;x++){
                     var respArr = response[idx];
-                    template.find("#chatMessage")[0].innerHTML = respArr[x].message;
-                    template.appendTo("#chatDetails");
+                    currentChatObj = response[idx];
+                    var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                    if(userObj.user_id == respArr[x].sender_id){
+                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;");
+                        //chatBoxTemplate.attr("class","pull-right")
+                        }else{
+                            chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                          //  chatBoxTemplate.attr("class","pull-left");
+                        }
+                    
+                    console.log("response array",respArr[x]);
+                    chatBoxTemplate.find("#chatMessage")[0].innerHTML = respArr[x].message;
+                    chatBoxTemplate.appendTo("#chatDetails");
                 }
                // document.getElementById("chatDetails").innerHTML = response[idx].message;
             }
