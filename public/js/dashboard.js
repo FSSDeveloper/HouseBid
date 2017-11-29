@@ -22,7 +22,12 @@ $(document).ready(function () {
     }
 
 
-    window.location.hash = "dashboard?type="+dashboardType;
+
+
+
+
+
+    window.location.hash = "dashboard?type=customer";
 	
 	$(window).on('hashchange', function(){
         
@@ -104,9 +109,108 @@ $(document).ready(function () {
     //Customer Inbox tab
     function customerInbox(){
 
+
     }
-    //Customer Requesting Listing
+
+    //Author Farrukh: For Agent Id
+
+     $.ajax({
+            url: apiEndPoint+"user/agents",
+            type: "GET", // By default GET,
+            success: function(data) {
+                //console.log("bid"+isBiddable);
+                //console.log("agent ID" + agent_id);
+            console.log("data after success login"+data);
+
+          
+
+           $.each(data, function(obj) {
+
+                
+                 $('#statusSel').append($('<option>', {value:data[obj].user_id, text:data[obj].name}));
+
+            });
+
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("data Failed!");
+            }
+        });
+
+
+
+    //Customer Requesting Listing: Author Farukh
     function customerRequestListing(){
+        console.log("inside requestListing function");
+        $("#customerRfl").attr("style","display:block;");
+        $("#customerInbox").attr("style","display:none;");
+        $("#customerProfile").attr("style","display:none;");
+
+        $('#sendRequest').click(function()
+        {
+            sendingRequest();
+        });
+
+        function sendingRequest()
+        {
+            console.log("I am sending it");
+
+            var cust_title = $('#custTitle').val();
+            var cust_city = $('#custCity').val();
+            var cust_address = $('#custAddress').val();
+            var cust_location = $('#custLoc').val();
+            var cust_Price = $('#custPrice').val();
+            var cust_Area = $('#custArea').val();
+            var cust_Bid = $('#custBid').val();
+            var cust_Msg = $('#cust_message').val();
+            //var cust_agent = $('#sfStateHomes').val();
+
+
+            //console.log("Agent is"+ cust_agent);
+
+
+        $.ajax({
+            url: apiEndPoint+"agent/listing",
+            type: "POST",
+            data: {
+                title: cust_title,
+                city: cust_city,
+                address: cust_address,
+                location: cust_location,
+                price: cust_Price,
+                area: cust_Area,
+                isBiddable: cust_Bid,
+                description: cust_Msg,
+                status: 2,
+                agentId: 7 
+
+            },
+            success: function(data) {
+                //console.log("bid"+isBiddable);
+                //console.log("agent ID" + agent_id);
+            console.log("data after success login",data);
+            if(data){
+                localStorage.setItem('Customer Request', JSON.stringify(data[0]));
+            }
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("data Failed!");
+            }
+        });
+
+
+        }
+
     }
     //Customer Profile
     function customerProfile(){
