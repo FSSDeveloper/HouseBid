@@ -22,7 +22,12 @@ $(document).ready(function () {
     }
 
 
-    window.location.hash = "dashboard?type="+dashboardType;
+
+
+
+
+
+    window.location.hash = "dashboard?type=customer";
 	
 	$(window).on('hashchange', function(){
         
@@ -59,7 +64,8 @@ $(document).ready(function () {
                 $('#navRL').attr("class","inActive");
                document.getElementById("navProfile").classList.remove("active");
 
-               customerInbox();
+
+                        customerInbox();           
 
             });
             $('#cusRLBtn').click(function() {
@@ -85,13 +91,112 @@ $(document).ready(function () {
         $("#customerRfl").attr("style","display:none;");
         $("#customerProfile").attr("style","display:none;");
 
+
     }
+    //Farrukh Work--Fetch Agents In requesting listing
+
+         $.ajax({
+            url: apiEndPoint+"agent/listing",
+            type: "POST",
+            data: {
+                title: cust_title,
+                city: cust_city,
+                address: cust_address,
+                location: cust_location,
+                price: cust_Price,
+                area: cust_Area,
+                isBiddable: cust_Bid,
+                description: cust_Msg,
+                status: 2,
+                agentId: 7  
+
+            },
+            success: function(data) {
+                //console.log("bid"+isBiddable);
+                //console.log("agent ID" + agent_id);
+            console.log("data after success login",data);
+            if(data){
+                localStorage.setItem('userObj', JSON.stringify(data[0]));
+            }
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("data Failed!");
+            }
+        });
+
+
     //Customer Requesting Listing
     function customerRequestListing(){
         console.log("inside requestListing function");
         $("#customerRfl").attr("style","display:block;");
         $("#customerInbox").attr("style","display:none;");
         $("#customerProfile").attr("style","display:none;");
+
+        $('#sendRequest').click(function()
+        {
+            sendingRequest();
+        });
+
+        function sendingRequest()
+        {
+            console.log("I am sending it");
+
+            var cust_title = $('#custTitle').val();
+            var cust_city = $('#custCity').val();
+            var cust_address = $('#custAddress').val();
+            var cust_location = $('#custLoc').val();
+            var cust_Price = $('#custPrice').val();
+            var cust_Area = $('#custArea').val();
+            var cust_Bid = $('#custBid').val();
+            var cust_Msg = $('#cust_message').val();
+            //var cust_agent = $('#sfStateHomes').val();
+
+
+            //console.log("Agent is"+ cust_agent);
+
+
+        $.ajax({
+            url: apiEndPoint+"agent/listing",
+            type: "POST",
+            data: {
+                title: cust_title,
+                city: cust_city,
+                address: cust_address,
+                location: cust_location,
+                price: cust_Price,
+                area: cust_Area,
+                isBiddable: cust_Bid,
+                description: cust_Msg,
+                status: 2,
+                agentId: 7  
+
+            },
+            success: function(data) {
+                //console.log("bid"+isBiddable);
+                //console.log("agent ID" + agent_id);
+            console.log("data after success login",data);
+            if(data){
+                localStorage.setItem('userObj', JSON.stringify(data[0]));
+            }
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("data Failed!");
+            }
+        });
+
+
+        }
+
     }
     //Customer Profile
     function customerProfile(){
@@ -129,7 +234,7 @@ $(document).ready(function () {
                 $('#navPl').attr("class","active");
                document.getElementById("navProfile").classList.remove("active");
                agentPostListing();
-            });
+            }); 
 
             $('#agentProfileBtn').click(function() {
                 $('#navInbox').attr("class","inActive");
