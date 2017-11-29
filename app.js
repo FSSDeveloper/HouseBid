@@ -79,6 +79,17 @@ app.post("/user/profile", function (req, res) {
         }
     });
 });
+// Fetchs all agents
+app.get("/user/agents", function (req, res) {
+    console.log("Request for fetching agents.");
+    user.getAgents(function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
 /** END - USER **/
 
 /** START - LISTING **/
