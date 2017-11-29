@@ -19,15 +19,24 @@ function getMessagesByAgentId(agentId, callback) {
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
             else {
-                var groupBy = function(xs, key) {
-                    return xs.reduce(function(rv, x) {
-                        (rv[x[key]] = rv[x[key]] || []).push(x);
-                        return rv;
-                    }, {});
-                };
-                var groupBySenderId = groupBy(result, 'sender_id')
-                console.log(groupBySenderId);
-                callback(null, groupBySenderId);
+                var returnResult = new Array();
+
+                var allIds = new Array();
+                for (i = 0; i < result.length; i++) {
+                    allIds.push(result[i].sender_id);
+                }
+                var idsSet = Array.from(new Set(allIds));
+
+                for (i = 0; i < idsSet.length; i++) {
+                    var groupOfMessages = new Array();
+                    for (j = 0; j < result.length; j++) {
+                        if(result[j].sender_id === idsSet[i]) {
+                            groupOfMessages.push(result[j]);
+                        }
+                    }
+                    returnResult.push(groupOfMessages);
+                }
+                callback(null, returnResult);
             }
         });
         con.release();
