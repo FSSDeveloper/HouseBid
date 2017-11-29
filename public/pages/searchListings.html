@@ -7,140 +7,104 @@
         </div>
     </div>
 </div>
-<div class="properties-area recent-property" style="background-color: #FFF;">
-    <div class="container" style="padding-top: 50px;"> 
-        <div class="row"> 
-            <div class="col-md-3"> 
-               <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Smart search</h3>
-                    </div>
-                    <div class="panel-body search-widget">
-                        <fieldset>
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <input type="text" class="form-control" id="searchLocation" name="location"  placeholder="Location">
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <fieldset>
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <select id="city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
-                                        <option>Fulda</option>
-                                        <option>Berlin</option>
-                                        <option>Munich</option>
-                                        <option>San Francisco</option>
-                                        <option>New York</option>
-                                        <option>Frankfurt</option>
-                                    </select>
-                                </div>
-                                <div class="col-xs-6">
-                                    <select id="basic" class="selectpicker show-tick form-control">
-                                        <option> -Status- </option>
-                                        <option>Buy </option> 
-
-                                    </select>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset >
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <button class="btn largesearch-btn" id="ListingPageSearchBtn"><i class="fa fa-search"></i>&nbsp;Search</button>
-                                </div>  
-                            </div>
-                        </fieldset>
-                    </div>
+<div class="container">
+    <div class="row"> 
+        <div class="col-md-4"> 
+            <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">Smart search</h3>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <div class="col-md-12 clear"> 
-                    <div class="col-xs-10 page-subheader sorting pl0">
-                        <ul class="sort-by-list">
-                            <li class="active">
-                                <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">
-                                    Property Date <i class="fa fa-sort-amount-asc"></i>                 
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                                    Property Price <i class="fa fa-sort-numeric-desc"></i>              
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row appendHere">
-                </div> 
-            </div>
-            <div style="display: none;"> 
-                <div class="col-sm-6 col-md-4" id="searchListingTemplate" >
-                    <div class="box-two proerty-item">
-                        <div class="item-thumb">
-                            <a ><img src="./public/images/demo/property-3.jpg"></a>
-                        </div>
-                        <div class="item-entry overflow">
-                            <h5 style="padding:5px;"> <b> Listing ID: </b> <p id="listingId" style="display:inline;"> </p> </h5>
-                            <h5  style="padding:5px;"> <b id="listingTitle"> </b> </h5>      
-                            <div class="dot-hr"></div>
-                            <div style="padding: 5px;"> 
-                                <div class="row"> 
-                                    <div class="col-md-6" style="display:inline-flex;"> 
-                                        <p> <b> Area : </b> <p id="listingArea" style="margin:auto;">  </p>
-                                    </div>
-                                    <div class="col-md-6" style="display:inline-flex;"> 
-                                      <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
-                                    </div>
-                                </div>
-                                <p> <b> Description : </b> </p>
-                                 <p id="listingDescription"> </p>
-                                <div class="property-icon">
-                                    <img src="./public/images/icon/bed.png">(5)|
-                                    <img src="./public/images/icon/shawer.png">(2)|
-                                    <img src="./public/images/icon/cars.png">(1)  
-                                </div>
+                <div class="panel-body search-widget">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type="text" class="form-control" id="searchLocation" name="location"  placeholder="Location">
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div> 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="blog-asside-right pr0">
-                    
-                </div>
-            </div>
-            <div class="col-md-9  pr0 padding-top-40 properties-page">
-                
-                <!-- Search Card Template -->
-                <div id="list-type" class="col-md-12  clear ">
-                    <div class="proerty-th "> 
+                    </fieldset>
 
-                    </div>
-                    <div class="row "> 
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-12"> 
-                    <div class="pull-right">
-                        <div class="pagination">
-                            <ul>
-                                <li><a href="#">Prev</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">Next</a></li>
-                            </ul>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <select id="city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
+                                    <option>Fulda</option>
+                                    <option>Berlin</option>
+                                    <option>Munich</option>
+                                    <option>San Francisco</option>
+                                    <option>New York</option>
+                                    <option>Frankfurt</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-xs-6">
+                                <select id="basic" class="selectpicker show-tick form-control">
+                                    <option> -Status- </option>
+                                    <option>Buy </option> 
+
+                                </select>
+                            </div> -->
                         </div>
-                    </div>                
+                    </fieldset>
+                    <fieldset >
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn largesearch-btn" id="ListingPageSearchBtn"><i class="fa fa-search"></i>&nbsp;Search</button>
+                            </div>  
+                        </div>
+                    </fieldset>
                 </div>
-            </div>  
-        </div>              
+            </div>
+        </div>
+    </div>
+    <div class="row"> 
+        <div class="col-md-12 pull-right"> 
+            <div class="col-xs-10 page-subheader sorting pl0">
+                <ul class="sort-by-list">
+                    <li class="active">
+                        <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">
+                            Property Date <i class="fa fa-sort-amount-asc"></i>                 
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
+                            Property Price <i class="fa fa-sort-numeric-desc"></i>              
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row appendHere"> 
+
+    </div>
+</div>
+<div style="display: none;"> 
+    <div class="col-sm-6 col-md-4"  id="searchListingTemplate" style="padding-top: 15px;">
+        <div class="box-two proerty-item">
+            <div class="item-thumb" style="margin-left: 3rem;">
+                <a ><img src="./public/images/demo/property-3.jpg"></a>
+            </div>
+            <div class="item-entry overflow">
+                <h5 style="padding:5px;"> <b> Listing ID: </b> <p id="listingId" style="display:inline;"> </p> </h5>
+                <h5  style="padding:5px;"> <b id="listingTitle"> </b> </h5>      
+                <div class="dot-hr"></div>
+                <div style="padding: 5px;"> 
+                    <div class="row"> 
+                        <div class="col-md-6" style="display:inline-flex;"> 
+                            <p> <b> Area : </b> <p id="listingArea" style="margin:auto;">  </p>
+                        </div>
+                        <div class="col-md-6" style="display:inline-flex;"> 
+                          <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
+                        </div>
+                    </div>
+                    <p> <b> Description : </b> </p>
+                     <p id="listingDescription"> </p>
+                    <div class="property-icon">
+                        <img src="./public/images/icon/bed.png">(5)|
+                        <img src="./public/images/icon/shawer.png">(2)|
+                        <img src="./public/images/icon/cars.png">(1)  
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

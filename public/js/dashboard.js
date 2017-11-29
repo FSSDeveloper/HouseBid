@@ -10,7 +10,7 @@ $(document).ready(function () {
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("userObj",userObj);
-    if(userObj.user_type !== 1){
+    if(userObj.user_type == 1){
         var dashboardType="customer"; 
     }else {
         var dashboardType="agent"; 
@@ -41,11 +41,11 @@ $(document).ready(function () {
                 case(hash.indexOf('customer') == '15'):
                     console.log('customer');
                     if(!apiCalled){
-                    	customerDashboard();
+                    	
                     }
                     break;
                 case(hash.indexOf('agent') == '15'):
-                        agentDashboard();
+                        
                     break;
                 // default:
                 //     console.log('profile');
@@ -55,30 +55,52 @@ $(document).ready(function () {
         }
     }).trigger('hashchange');
 
+    if(userObj.user_type == 1){
+        customerDashboard();
+    }
+    else{
+        agentDashboard();
+    }
+
+
+    function getCustomerDashboardData(){
+        customerInbox();
+        customerRequestListing();
+        customerProfile();
+    }
+
     //Customer Dashboard
     function customerDashboard(){
         $( "#uiView" ).load( "../pages/customerDashboard.html", function() {
-            customerInbox();
+           getCustomerDashboardData();
+           $('#customerInbox').attr("style","display:block;visiblity:visible;");
+            $("#customerRfl").attr("style","display:none;");
+            $("#customerProfile").attr("style","display:none;");
+
             $('#cusInboxBtn').click(function() {
                 $('#navInbox').attr("class","active");
                 $('#navRL').attr("class","inActive");
-               document.getElementById("navProfile").classList.remove("active");
-
-
-                        customerInbox();           
+                document.getElementById("navProfile").classList.remove("active");
+                $('#customerInbox').attr("style","display:block;visiblity:visible;");
+                $("#customerRfl").attr("style","display:none;");
+                $("#customerProfile").attr("style","display:none;");
 
             });
             $('#cusRLBtn').click(function() {
                 $('#navInbox').attr("class","inActive");
                 $('#navRL').attr("class","active");
                 document.getElementById("navProfile").classList.remove("active");
-               customerRequestListing();
+                $("#customerRfl").attr("style","display:block;");
+                $("#customerInbox").attr("style","display:none;");
+                $("#customerProfile").attr("style","display:none;");
             });
             $('#cusProfileBtn').click(function() {
                 $('#navInbox').attr("class","inActive");
                 $('#navRL').attr("class","inActive");
                 document.getElementById("navProfile").classList.add("active");
-                customerProfile();
+                $("#customerProfile").attr("style","display:block;");
+                $("#customerInbox").attr("style","display:none;");
+                $("#customerRfl").attr("style","display:none;");
             });
         });
     };
@@ -86,38 +108,29 @@ $(document).ready(function () {
 
     //Customer Inbox tab
     function customerInbox(){
-        console.log("inside inbox functiojjkjhhjjjhn");
-        $('#customerInbox').attr("style","display:block;visiblity:visible;");
-        $("#customerRfl").attr("style","display:none;");
-        $("#customerProfile").attr("style","display:none;");
 
 
     }
-    //Farrukh Work--Fetch Agents In requesting listing
 
-         $.ajax({
-            url: apiEndPoint+"agent/listing",
-            type: "POST",
-            data: {
-                title: cust_title,
-                city: cust_city,
-                address: cust_address,
-                location: cust_location,
-                price: cust_Price,
-                area: cust_Area,
-                isBiddable: cust_Bid,
-                description: cust_Msg,
-                status: 2,
-                agentId: 7  
+    //Author Farrukh: For Agent Id
 
-            },
+     $.ajax({
+            url: apiEndPoint+"user/agents",
+            type: "GET", // By default GET,
             success: function(data) {
                 //console.log("bid"+isBiddable);
                 //console.log("agent ID" + agent_id);
-            console.log("data after success login",data);
-            if(data){
-                localStorage.setItem('userObj', JSON.stringify(data[0]));
-            }
+            console.log("data after success login"+data);
+
+          
+
+           $.each(data, function(obj) {
+
+                
+                 $('#statusSel').append($('<option>', {value:data[obj].user_id, text:data[obj].name}));
+
+            });
+
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
                   //  REDIRECT TO INDEX.HTML
@@ -130,7 +143,8 @@ $(document).ready(function () {
         });
 
 
-    //Customer Requesting Listing
+
+    //Customer Requesting Listing: Author Farukh
     function customerRequestListing(){
         console.log("inside requestListing function");
         $("#customerRfl").attr("style","display:block;");
@@ -173,7 +187,7 @@ $(document).ready(function () {
                 isBiddable: cust_Bid,
                 description: cust_Msg,
                 status: 2,
-                agentId: 7  
+                agentId: 7 
 
             },
             success: function(data) {
@@ -181,7 +195,7 @@ $(document).ready(function () {
                 //console.log("agent ID" + agent_id);
             console.log("data after success login",data);
             if(data){
-                localStorage.setItem('userObj', JSON.stringify(data[0]));
+                localStorage.setItem('Customer Request', JSON.stringify(data[0]));
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -200,9 +214,15 @@ $(document).ready(function () {
     }
     //Customer Profile
     function customerProfile(){
-        $("#customerProfile").attr("style","display:block;");
-        $("#customerInbox").attr("style","display:none;");
-        $("#customerRfl").attr("style","display:none;");
+       
+    }
+
+
+    function getAgentDashboardData() {
+        agentInbox();
+        agentManageListing();
+        agentProfile();
+
     }
 
 
@@ -210,59 +230,77 @@ $(document).ready(function () {
     //Agent Dashboard 
     function agentDashboard(){
         $( "#uiView" ).load( "../pages/agentDashboard.html", function() {
+            getAgentDashboardData();
+            $('#agentInbox').attr("style","display:block;visiblity:visible;");
+            $("#agentMl").attr("style","display:none;");
+            $("#agentPl").attr("style","display:none;");
+            $("#agentProfile").attr("style","display:none;");
         
-            agentInbox();
             $('#agentInboxBtn').click(function() {
+                $('#agentInbox').attr("style","display:block;visiblity:visible;");
+                $("#agentMl").attr("style","display:none;");
+                $("#agentPl").attr("style","display:none;");
+                $("#agentProfile").attr("style","display:none;");
 
                 $('#navInbox').attr("class","active");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","inActive");
                document.getElementById("navProfile").classList.remove("active");
-               agentInbox();
             });
             $('#agentMlBtn').click(function() {
+                $('#agentMl').attr("style","display:block;visiblity:visible;");
+                $("#agentInbox").attr("style","display:none;");
+                $("#agentPl").attr("style","display:none;");
+                $("#agentProfile").attr("style","display:none;");
+                
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","active");
                 $('#navPl').attr("class","inActive");
-               document.getElementById("navProfile").classList.remove("active");
-                agentManageListing();
+               document.getElementById("navProfile").classList.remove("active");     
             });
 
             $('#agentPlBtn').click(function() {
+                $('#agentPl').attr("style","display:block;visiblity:visible;");
+                $("#agentMl").attr("style","display:none;");
+                $("#agentInbox").attr("style","display:none;");
+                $("#agentProfile").attr("style","display:none;");
+                $("#postAgentListingBtn").click(function(){
+                    agentPostListing();
+                });
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","active");
                document.getElementById("navProfile").classList.remove("active");
-               agentPostListing();
-            }); 
+            });
 
             $('#agentProfileBtn').click(function() {
+                $('#agentProfile').attr("style","display:block;visiblity:visible;");
+                $("#agentMl").attr("style","display:none;");
+                $("#agentPl").attr("style","display:none;");
+                $("#agentInbox").attr("style","display:none;");
+                
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","inActive");
                 document.getElementById("navProfile").classList.add("active");
-                agentProfile();
             });
         });
-
     }
 
     //agent Inbox tab
     function agentInbox(){
-        $('#agentInbox').attr("style","display:block;visiblity:visible;");
-        $("#agentrMl").attr("style","display:none;");
-        $("#agentPl").attr("style","display:none;");
-        $("#agentProfile").attr("style","display:none;");
-
+        console.log("in agent inbox function");
         //api call to get all the messages
-        $.ajax({url:"../js/testmessages.json", success: function(response){
+        var url ="user/messages?userId="+userObj.user_id;
+        $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
             for(var i=0;i < response.length;i++) {
                 var template = $('#chatListItemTemplate').clone();
+
                 template.attr("class","list-group-item");
-                template.attr("data",response[i].id);
+                template.attr("data",i);
                 template.attr("id","chatItem"+i);
-                template.find(".chatItemText")[0].innerHTML = response[i].name;
+                template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
                 template.attr("style","dsiplay:block;");
                 template.appendTo("#appendChatList");
             }
@@ -289,7 +327,13 @@ $(document).ready(function () {
                     
                  }
                 console.log("idx",idx,document.getElementById("chatDetails"));
-                document.getElementById("chatDetails").innerHTML = response[idx].message;
+                for(var x=0;x<response[idx].length;i++){
+                    var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                    var respArr = response[idx];
+                    template.find("#chatMessage")[0].innerHTML = respArr[x].message;
+                    template.appendTo("#chatDetails");
+                }
+               // document.getElementById("chatDetails").innerHTML = response[idx].message;
             }
         }
         });
@@ -326,24 +370,58 @@ $(document).ready(function () {
         }});
             var appnd = document.getElementById('appendHere');
 
-        $('#agentMl').attr("style","display:block;visiblity:visible;");
-        $("#agentInbox").attr("style","display:none;");
-        $("#agentPl").attr("style","display:none;");
-        $("#agentProfile").attr("style","display:none;");
+        
     }
     //agent Profile
     function agentProfile(){
-        $('#agentProfile').attr("style","display:block;visiblity:visible;");
-        $("#agentMl").attr("style","display:none;");
-        $("#agentPl").attr("style","display:none;");
-        $("#agentInbox").attr("style","display:none;");
+        
     }
     // agent Post Listing
     function agentPostListing(){
-        $('#agentPl').attr("style","display:block;visiblity:visible;");
-        $("#agentMl").attr("style","display:none;");
-        $("#agentInbox").attr("style","display:none;");
-        $("#agentProfile").attr("style","display:none;");
+        var isBiddable = document.getElementById("postBiddable").value;
+        var bidFlag = 0;
+        if(isBiddable == "on"){
+            bidFlag = 0;
+        }else{
+            bidFlag = 1;
+        }
+        var dataObj = {
+            title:document.getElementById("postTitle").value,
+            description:document.getElementById("postDescription").value,
+            price:parseInt(document.getElementById("postPrice").value),
+            isBiddable:bidFlag,
+            area:parseInt(document.getElementById("postArea").value),
+            status:parseInt(document.getElementById("postStatus").value),
+            address:document.getElementById("postAddress").value,
+            expiryDate:document.getElementById("postExpiryDate").value,
+            agentId:userObj.user_id,
+            customerId:6,
+            city:document.getElementById("postCity").value,
+            location:document.getElementById("postLocation").value,
+            baths:parseInt(document.getElementById("postBaths").value),
+            beds:parseInt(document.getElementById("postBeds").value)
+
+        }
+        console.log("Data Obj post listing",dataObj);
+        $.ajax({
+            url: apiEndPoint+"agent/listing",
+            type: "POST",
+            data: dataObj,
+            success: function(data) {
+            console.log("data after success login",data);
+            if(data){
+            }
+              //  IF DATA IS NOT EMPTY
+                //    localStorage.setItem('username', data.username);
+                  //  REDIRECT TO INDEX.HTML
+                //else
+
+            },
+            error: function(data, status, er) {
+                alert("Login Failed!");
+            }
+        });
+
     }
 
 

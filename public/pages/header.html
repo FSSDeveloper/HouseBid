@@ -14,11 +14,12 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
-                <button class="navbar-btn nav-button wow bounceInRight login" data-wow-delay="0.45s"><a href="public/pages/register.html">Login / Signup</a></button>
+                <button id="loginButton" class="navbar-btn nav-button wow bounceInRight login" data-wow-delay="0.45s"><a href="public/pages/register.html">Login / Signup</a></button>
+                <button class="navbar-btn nav-button wow bounceInRight login" id="logoutButton" data-wow-delay="0.45s">Logout</button>
             </div>
             <ul class="main-nav nav navbar-nav navbar-right">
                 <li class="dropdown ymm-sw " data-wow-delay="0.1s"><a class="" href="index.html">Home</a></li>
-                 <li class="dropdown ymm-sw " data-wow-delay="0.1s"><a class="" href="./public/pages/profile.html">Dashboard</a></li>
+                 <li class="dropdown ymm-sw " id="dashboardTab" data-wow-delay="0.1s"><a class="" href="./public/pages/profile.html">Dashboard</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

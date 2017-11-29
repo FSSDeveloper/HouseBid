@@ -8,6 +8,8 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = true;
     var apiEndPoint ="";
+    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    console.log("local storage",localStorage);
 
     if(isLocal){
         apiEndPoint = "http://localhost:3000/";
@@ -129,17 +131,65 @@ $(document).ready(function () {
         $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./public/pages/listingDetails.html", function(){
-
+                $("#chatDiv").hide();
                 $("#addBodyContent").attr("style","display:none;");
                 var template = $("#listingDetailsDiv");
+                var bidabble = "";
                 console.log("template",template);
                 template.find("#listingTitle")[0].innerHTML = response[0].title;
-                template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
                 template.find("#listingDescription")[0].innerHTML = response[0].description;
                 template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
+
+                template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
+                template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
+                template.find("#listingAgentPhone")[0].innerHTML = response[0].agent_contact;
+                template.find("#listingAgentAddress")[0].innerHTML = response[0].agent_address;
+                if(userObj){
+                    if(userObj.user_type == 1){
+                        $("#contactBtn").show();
+                       template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                    }
+
+                }else{
+                        $("#contactBtn").attr("style","display:none;");
+                        template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                    }
+
+                //template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                
+
                 template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+                if(response[0].is_biddable == 0){
+                    bidabble = "No";
+                }else{
+                    bidabble = "Yes";
+                }
+                template.find("#listingBiddable")[0].innerHTML = bidabble;
+
+                $("#contactBtn").click(function(){
+                    $("#chatDiv").show();
+
+                    $("#sendMessageBtn").click(function() {
+                        var message = $("#chatMessage").val();
+                        $.ajax({
+                            url: apiEndPoint+"user/message",
+                            type: "POST",
+                            data: {
+                                message: message,
+                                senderId: userObj.user_id,
+                                listingId:response[0].listing_id
+                            },
+                            success: function(data) {
+                            console.log("message sent",data);
+                            },
+                            error: function(data, status, er) {
+                                console.log("Error",data);
+                            }
+                        });
+                    })
+                });
 
 
 
@@ -152,6 +202,26 @@ $(document).ready(function () {
 
      $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
+
+        if(localStorage.length > 0){
+            $("#loginButton").hide();
+            $("#logoutButton").show();
+            $("#dashboardTab").show();
+        }else{
+            $("#loginButton").show();
+            $("#logoutButton").hide();
+            $("#dashboardTab").hide();
+        }
+
+        $("#logoutButton").click(function() {
+            console.log("in logut button");
+            localStorage.removeItem("userObj");
+            $("#loginButton").show();
+            $("#logoutButton").hide();
+            $("#dashboardTab").hide();
+            window.location.href=apiEndPoint;
+        })
+
         window.scrollTo(0, 0);
     });
     
@@ -213,6 +283,8 @@ $(document).ready(function () {
             console.log("data after success login",data);
             if(data){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
+                alert("Login Successful!!");
+                location.href=apiEndPoint+"index.html";
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -227,14 +299,33 @@ $(document).ready(function () {
     }
 
     //SignUp Function
-
-    $('#signUp').click(function()
-    {
-        signMeUp();
+    $('#signUpForm').submit(function(event) {
+        event.preventDefault();
+        if(validateForm()) {
+            var formData = new FormData(this);
+            $.ajax({
+                url: apiEndPoint + "signup",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function(response) {
+                    if(response.responseJSON.error === "ER_DUP_ENTRY"){
+                        $('#emailError').removeClass('hide').text("Email address already exists.");
+                        $('#email').focus();
+                    } else {
+                        alert("Error occured. Please try again later");
+                    }
+                }
+            });
+        }
     });
 
-    function signMeUp()
-    {
+    // Validates sign up form fields
+    function validateForm() {
         var regName = $('#name').val();
         var regEmail = $('#email').val();
         var regPsw = $('#password').val();
@@ -276,34 +367,13 @@ $(document).ready(function () {
         }
 
         if(regPsw !== rptPass) {
-            $('#rpError').removeClass('hide').text("Password and Confirm Password didnot match");
+            $('#rpError').removeClass('hide').text("Password and Confirm Password did not match");
             formValidation = false;
         } else{
             $('#rpError').addClass('hide');
         }
 
-        if(formValidation) {
-            $.ajax({
-                url: apiEndPoint+"signup",
-                type: "POST",
-                data: {
-                    name: regName,
-                    email: regEmail,
-                    password: regPsw,
-                    cpassword: rptPass,
-                    contact: contact,
-                    address: addr,
-                    usertype: 1
-                },
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function(data, status, er) {
-                alert("Error Occured please try again later");
-            }
-            })
-        }
-
+        return formValidation;
     }
 
     function validateEmail(email) {
