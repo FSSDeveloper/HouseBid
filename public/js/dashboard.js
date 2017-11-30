@@ -6,7 +6,7 @@ $(window).load(function () { // makes sure the whole site is loaded
 })
 $(document).ready(function () {
     var apiCalled = false;
-    var isLocal = true;
+    var isLocal = false;
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("userObj",userObj);
@@ -15,10 +15,10 @@ $(document).ready(function () {
     }else {
         var dashboardType="agent"; 
     }
-    if(isLocal){
+    if(window.location.hostname == "localhost"){
         apiEndPoint = "http://localhost:3000/";
     }else{
-        apiEndPoint = window.location.origin+window.location.pathname;
+        apiEndPoint = "https://www.sfsuse.com/fa17g20/";
     }
 
 
@@ -27,7 +27,7 @@ $(document).ready(function () {
 
 
 
-    window.location.hash = "dashboard?type=customer";
+    window.location.hash = "dashboard?type="+dashboardType;
     
     $(window).on('hashchange', function(){
         
