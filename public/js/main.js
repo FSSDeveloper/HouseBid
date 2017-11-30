@@ -6,15 +6,15 @@ $(window).load(function () { // makes sure the whole site is loaded
 })
 $(document).ready(function () {
 	var apiCalled = false;
-    var isLocal = true;
+    var isLocal = false;
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
 
-    if(isLocal){
+    if(window.location.hostname == "localhost"){
         apiEndPoint = "http://localhost:3000/";
     }else{
-        apiEndPoint = window.location.origin+window.location.pathname;
+        apiEndPoint = "https://www.sfsuse.com/fa17g20/";
     }
 	
 	$(window).on('hashchange', function(){
