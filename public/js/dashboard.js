@@ -27,7 +27,7 @@ $(document).ready(function () {
 
 
 
-    window.location.hash = "dashboard?type=customer";
+    window.location.hash = "dashboard?type="+dashboardType;
     
     $(window).on('hashchange', function(){
         
