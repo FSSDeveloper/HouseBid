@@ -14,7 +14,7 @@ $(document).ready(function () {
     if(window.location.hostname == "localhost"){
         apiEndPoint = "http://localhost:3000/";
     }else{
-        apiEndPoint = window.location.origin+window.location.pathname;
+        apiEndPoint = "https://www.sfsuse.com/fa17g20/";
     }
 	
 	$(window).on('hashchange', function(){
