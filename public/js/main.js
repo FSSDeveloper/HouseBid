@@ -329,7 +329,7 @@ $(document).ready(function () {
     });
 
     // Validates sign up form fields
-    function validateForm() {
+        function validateForm() {
         var regName = $('#name').val();
         var regEmail = $('#email').val();
         var regPsw = $('#password').val();
@@ -379,7 +379,62 @@ $(document).ready(function () {
 
         return formValidation;
     }
+       $('#contactForm').submit(function(event) {
+        event.preventDefault();
+        if(ContactUsFormValidation()) {
+            var formData = new FormData(this);
+            $.ajax({
+                url: apiEndPoint + "contact",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function(response) {
+                }
+            });
+        }
+    });
 
+
+
+        function ContactUsFormValidation(){
+        var Cname = $('#name').val();
+        var Cemail = $('#email').val();
+        var Contact = $('#contact').val();
+        var Csubject = $('#subject').val();
+        console.log(Csubject);
+        var formValidation = true;
+
+        if(Cname === undefined || Cname === '') {
+            $('#nameError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#nameError').addClass('hide');
+        }
+        
+        if(Csubject === undefined || Csubject === '') {
+            console.log('here');
+            $('#subjectError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#subjectError').addClass('hide');
+        }
+
+        if(Cemail === undefined || Cemail === '') {
+            $('#emailError').removeClass('hide').text("required");
+            formValidation = false;
+        } else if( !validateEmail(Cemail)){
+            $('#emailError').removeClass('hide').text("Incorrect Format");
+            formValidation = false;
+        } else {
+            $('#emailError').addClass('hide');
+        }
+
+        return formValidation;
+}
     function validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
