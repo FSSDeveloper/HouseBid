@@ -25,7 +25,7 @@ app.use(fileUpload());
 // logs every type of request on server console
 app.use(function (req, res, next) {
     console.log(req.method + " request for " + req.url);
-    res.header("Access-Control-Allow-Origin", "*");	
+    res.header("Access-Control-Allow-Origin", "*"); 
     req.url = req.url.replace(process.env.APP_CONX , "" );
     next();
 });
@@ -192,6 +192,18 @@ app.get("/user/message", function (req, res) {
 app.get("/user/messages", function (req, res) {
     var userId = req.query.userId;
     message.getMessagesByAgentId(userId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Inbox (All sent and received messages)
+app.get("/user/conversation", function (req, res) {
+    var senderId = req.query.senderId;
+    var receiverId = req.query.receiverId;
+    message.getConversation(senderId, receiverId, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {

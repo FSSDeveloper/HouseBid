@@ -184,9 +184,11 @@ $(document).ready(function () {
                             },
                             success: function(data) {
                             console.log("message sent",data);
+                            alert("Message Sent Successfully!");
                             },
                             error: function(data, status, er) {
                                 console.log("Error",data);
+                                alert("Oops! Something went Wrong!!");
                             }
                         });
                     })
@@ -312,6 +314,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     console.log(response);
+                    alert("Successfully Signed Up. Please Login!");
                 },
                 error: function(response) {
                     if(response.responseJSON.error === "ER_DUP_ENTRY"){

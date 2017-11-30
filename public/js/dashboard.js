@@ -242,6 +242,7 @@ $(document).ready(function () {
                 $("#agentPl").attr("style","display:none;");
                 $("#agentProfile").attr("style","display:none;");
 
+
                 $('#navInbox').attr("class","active");
                 $('#navMl').attr("class","inActive");
                 $('#navPl').attr("class","inActive");
@@ -289,6 +290,7 @@ $(document).ready(function () {
 
     //agent Inbox tab
     function agentInbox(){
+        $("#agentChatDetails").attr("style","display:none;");
         console.log("in agent inbox function");
         //api call to get all the messages
         var url ="user/messages?userId="+userObj.user_id;
@@ -343,6 +345,7 @@ $(document).ready(function () {
             function getChatDetails(idx,response){
                     
                 currentChatObj = "";
+                $("#agentChatDetails").attr("style","display:block;");
                 document.getElementById("chatDetails").innerHTML = " ";
                 var chatListingLinks = document.getElementsByClassName("list-group-item");
                 for(var i=0;i < chatListingLinks.length;i++) {
