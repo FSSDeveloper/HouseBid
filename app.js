@@ -25,7 +25,7 @@ app.use(fileUpload());
 // logs every type of request on server console
 app.use(function (req, res, next) {
     console.log(req.method + " request for " + req.url);
-    res.header("Access-Control-Allow-Origin", "*");	
+    res.header("Access-Control-Allow-Origin", "*"); 
     req.url = req.url.replace(process.env.APP_CONX , "" );
     next();
 });
@@ -42,11 +42,16 @@ app.use(express.static("./"));
 /** START - USER **/
 app.post("/signup", function (req, res) {
     var body = req.body;
-    var image = req.files.image;
+    var image = req.files ? req.files : null;
     console.log("Signup data received.");
     user.signUp(body, image, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
+            if(err.code === "ER_DUP_ENTRY") {
+                res.status(500).send({error: err.code});
+            } else {
+                res.sendStatus(500);
+            }
         } else {
             res.json(data);
         }
@@ -67,6 +72,17 @@ app.post("/user/profile", function (req, res) {
     var userId = req.body.userId;
     console.log("Profile request received.");
     user.getUserById(userId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Fetchs all agents
+app.get("/user/agents", function (req, res) {
+    console.log("Request for fetching agents.");
+    user.getAgents(function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
@@ -151,9 +167,9 @@ app.delete("/agent/listing", function (req, res) {
 /** START - MESSAGE **/
 // Adds message if POST
 app.post("/user/message", function (req, res) {
-    var message = req.body;
+    var messageBody = req.body;
     console.log("Add Message request received.");
-    message.addMessage(message, function (err, data) {
+    message.addMessage(messageBody, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
@@ -175,7 +191,19 @@ app.get("/user/message", function (req, res) {
 // Inbox (All sent and received messages)
 app.get("/user/messages", function (req, res) {
     var userId = req.query.userId;
-    message.getMessagesByUserId(userId, function (err, data) {
+    message.getMessagesByAgentId(userId, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
+// Inbox (All sent and received messages)
+app.get("/user/conversation", function (req, res) {
+    var senderId = req.query.senderId;
+    var receiverId = req.query.receiverId;
+    message.getConversation(senderId, receiverId, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {

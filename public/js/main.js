@@ -6,6 +6,16 @@ $(window).load(function () { // makes sure the whole site is loaded
 })
 $(document).ready(function () {
 	var apiCalled = false;
+    var isLocal = true;
+    var apiEndPoint ="";
+    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    console.log("local storage",localStorage);
+
+    if(isLocal){
+        apiEndPoint = "http://localhost:3000/";
+    }else{
+        apiEndPoint = window.location.origin+window.location.pathname;
+    }
 	
 	$(window).on('hashchange', function(){
         
@@ -41,15 +51,6 @@ $(document).ready(function () {
     }).trigger('hashchange');
 
     function loadHomePage(){
-        $( "#header-content" ).load( "partials/_header.html", function() {
-        //$('html, body').animate({scrollTop: '0px'}, 300);
-            window.scrollTo(0, 0);
-        });
-        $( "#footer-content" ).load( "partials/_footer.html", function() {
-        
-        });
-        console.log($('.homeImage'));
-        // $('.homeImage').attr('src','./public/images/slide1/slider-image-1.jpg');
 
         $("#loadSliderContent").load("./public/pages/homeSlider.html", function(){
         	console.log('inside loadHomePage');
@@ -81,7 +82,7 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-    		$.ajax({url:"/fa17g20/"+searchUrl, success: function(response){
+    		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./public/pages/searchListings.html", function(){
@@ -127,20 +128,71 @@ $(document).ready(function () {
         var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: "/fa17g20/listing?listingId="+listingId, success: function(response){
+        $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./public/pages/listingDetails.html", function(){
-
+                $("#chatDiv").hide();
                 $("#addBodyContent").attr("style","display:none;");
                 var template = $("#listingDetailsDiv");
+                var bidabble = "";
                 console.log("template",template);
                 template.find("#listingTitle")[0].innerHTML = response[0].title;
-                template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
                 template.find("#listingDescription")[0].innerHTML = response[0].description;
                 template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
+
+                template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
+                template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
+                template.find("#listingAgentPhone")[0].innerHTML = response[0].agent_contact;
+                template.find("#listingAgentAddress")[0].innerHTML = response[0].agent_address;
+                if(userObj){
+                    if(userObj.user_type == 1){
+                        $("#contactBtn").show();
+                       template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                    }
+
+                }else{
+                        $("#contactBtn").attr("style","display:none;");
+                        template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                    }
+
+                //template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                
+
                 template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+                if(response[0].is_biddable == 0){
+                    bidabble = "No";
+                }else{
+                    bidabble = "Yes";
+                }
+                template.find("#listingBiddable")[0].innerHTML = bidabble;
+
+                $("#contactBtn").click(function(){
+                    $("#chatDiv").show();
+
+                    $("#sendMessageBtn").click(function() {
+                        var message = $("#chatMessage").val();
+                        $.ajax({
+                            url: apiEndPoint+"user/message",
+                            type: "POST",
+                            data: {
+                                message: message,
+                                senderId: userObj.user_id,
+                                listingId:response[0].listing_id,
+                                receiverId:response[0].agent_id
+                            },
+                            success: function(data) {
+                            console.log("message sent",data);
+                            alert("Message Sent Successfully!");
+                            },
+                            error: function(data, status, er) {
+                                console.log("Error",data);
+                                alert("Oops! Something went Wrong!!");
+                            }
+                        });
+                    })
+                });
 
 
 
@@ -151,8 +203,28 @@ $(document).ready(function () {
         }});
     }; 
 
-   $( "#header" ).load( "./public/pages/header.html", function() {
+     $( "#header" ).load( "./public/pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
+
+        if(localStorage.length > 0){
+            $("#loginButton").hide();
+            $("#logoutButton").show();
+            $("#dashboardTab").show();
+        }else{
+            $("#loginButton").show();
+            $("#logoutButton").hide();
+            $("#dashboardTab").hide();
+        }
+
+        $("#logoutButton").click(function() {
+            console.log("in logut button");
+            localStorage.removeItem("userObj");
+            $("#loginButton").show();
+            $("#logoutButton").hide();
+            $("#dashboardTab").hide();
+            window.location.href=apiEndPoint;
+        })
+
         window.scrollTo(0, 0);
     });
     
@@ -196,16 +268,15 @@ $(document).ready(function () {
 
     function logMeIn()
     {
-        var emails = $('#email').val();
-        var passwords = $('#password').val();
+        var emails = $('#loginEmail').val();
+        var passwords = $('#loginPassword').val();
         console.log("Email is: "+ emails + "Password is:"+ passwords);
-        $('#lbl').html(email);
 
         // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
         // }});
 
         $.ajax({
-            url: "/fa17g20/user/login",
+            url: apiEndPoint+"user/login",
             type: "POST",
             data: {
                 email: emails,
@@ -213,7 +284,11 @@ $(document).ready(function () {
             },
             success: function(data) {
             console.log("data after success login",data);
-            alert("Login successful");
+            if(data){
+                localStorage.setItem('userObj', JSON.stringify(data[0]));
+                alert("Login Successful!!");
+                location.href=apiEndPoint+"index.html";
+            }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
                   //  REDIRECT TO INDEX.HTML
@@ -227,19 +302,87 @@ $(document).ready(function () {
     }
 
     //SignUp Function
-
-    $('#signUp').click(function()
-    {
-        signMeUp();
+    $('#signUpForm').submit(function(event) {
+        event.preventDefault();
+        if(validateForm()) {
+            var formData = new FormData(this);
+            $.ajax({
+                url: apiEndPoint + "signup",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    alert("Successfully Signed Up. Please Login!");
+                },
+                error: function(response) {
+                    if(response.responseJSON.error === "ER_DUP_ENTRY"){
+                        $('#emailError').removeClass('hide').text("Email address already exists.");
+                        $('#email').focus();
+                    } else {
+                        alert("Error occured. Please try again later");
+                    }
+                }
+            });
+        }
     });
 
-    function signMeUp()
-    {
-        var regName = $('#regName').val();
-        var regEmail = $('#regEmail').val();
-        var regPsw = $('#regPsw').val();
+    // Validates sign up form fields
+    function validateForm() {
+        var regName = $('#name').val();
+        var regEmail = $('#email').val();
+        var regPsw = $('#password').val();
+        var rptPass = $('#rptPass').val();
+        var contact = $('#contact').val();
+        var addr = $('#addr').val();
 
-        console.log("Name is:"+ regName +"Email"+ regEmail + "Psw" + regPsw);
+        var formValidation = true;
+
+        if(regName === undefined || regName === '') {
+            $('#nameError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#nameError').addClass('hide');
+        }
+
+        if(regEmail === undefined || regEmail === '') {
+            $('#emailError').removeClass('hide').text("required");
+            formValidation = false;
+        } else if( !validateEmail(regEmail)){
+            $('#emailError').removeClass('hide').text("Incorrect Format");
+            formValidation = false;
+        } else {
+            $('#emailError').addClass('hide');
+        }
+
+        if(regPsw === undefined || regPsw === '') {
+            $('#passError').removeClass('hide').text("required");
+            formValidation = false;
+        } else{
+            $('#passError').addClass('hide');
+        }
+
+        if(rptPass === undefined || rptPass === '') {
+            $('#rpError').removeClass('hide').text("required");
+            formValidation = false;
+        } else{
+            $('#rpError').addClass('hide');
+        }
+
+        if(regPsw !== rptPass) {
+            $('#rpError').removeClass('hide').text("Password and Confirm Password did not match");
+            formValidation = false;
+        } else{
+            $('#rpError').addClass('hide');
+        }
+
+        return formValidation;
+    }
+
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
 
 

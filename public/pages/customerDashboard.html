@@ -1,0 +1,177 @@
+<div class="container customerDashboardDiv"> 
+	<ul class="nav nav-pills" role="tablist">
+	  <li role="presentation" id="navInbox" class="active"><a id="cusInboxBtn">Inbox</a></li>
+	  <li role="presentation" id="navRL"><a id="cusRLBtn">Request For Listing</a></li>
+	  <li role="presentation" id="navProfile"><a id="cusProfileBtn">Profile</a></li>
+	</ul>
+	<div class="row" id="customerInbox" style="display: none;"> 
+		<div class="col-md-4 chatList well" > 
+			<div class="list-group" id="appendChatList">
+			  
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+		<div class="col-md-5  well" id="customerChatDetails">
+			<div id="chatDetails">	</div>
+			<div class="newChatBox"> 
+				<input type="text" id="newChatMessage" style="border: 2px solid #dcdcdc;margin: 5px;" placeholder="Text your message here" /> <button type="button" class="pull-right" id="newChatSendBtn" style="margin:5px;"> Send </button>
+			</div>
+		</div>
+		<div style="display: none"> 
+			<div class="chatMessageBox" id="chatBoxTemplate"> 
+				<p id="chatMessage"> </p>
+			</div><br> 
+		</div>
+	</div>
+	<div class="well row wow fadeIn" id="customerRfl" style="display: none;"> 
+		<div class ="col-md-12">
+			<div class="container">
+				<form>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="group">
+								<input type="text" required id="custTitle">
+								<span class="highlight"></span>
+								<span class="bar"></span>
+								<label>Title</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="group">
+								<input type="text" required id="custCity">
+								<span class="highlight"></span>
+								<span class="bar"></span>
+								<label>City</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="group">
+								<input type="text" required id="custAddress">
+								<span class="highlight"></span>
+								<span class="bar"></span>
+								<label>Address</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="group">
+								<input type="text" required id="custLoc">
+								<span class="highlight"></span>
+								<span class="bar"></span>
+								<label>Location</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="group">
+								<input type="text" required id="custPrice">
+								<span class="highlight"></span>
+								<span class="bar"></span>
+								<label>Pitched Price</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="group">
+								<input type="text" required id="custArea">
+								<span class="highlight"></span>
+								<span class="bar"></span>
+								<label>Area</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<fieldset>
+					    		<label for="statusSel">Select Our Agents:</label>
+						    	<select id="statusSel" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Agents" >
+			                        
+		                    	</select>
+					    	</fieldset>
+						</div>
+						<div class="col-md-6">
+					        <div class="checkbox">
+					            <label> <input type="checkbox" checked id="custBid" value=1> 
+					            I want it to be Biddable</label>
+					        </div> 
+					    </div>
+					</div>
+
+					<div class="row"> 
+						<div class="col-md-6">
+							<div class="form-group">
+		                        <label for="message">Description</label>
+		                        <textarea id="cust_message" class="form-control"></textarea>
+	                    	</div>
+						</div>
+						<div class="col-md-6"></div>
+					</div>
+
+					<div class="row">
+					<div class="col-md-6">
+						<div class="pull-right">
+								<button class="btn btn-default" id="sendRequest">Send Request</button>
+						</div>
+					</div>	
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="well row" id="customerProfile" style="display: none;"> 
+		<div class="col-md-12">
+			<div class="box-for overflow">
+                <div class="col-md-12 col-xs-12 register-blocks">
+                    <h2>New Profile : </h2> 
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="nameError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="emailError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="passError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Repeat Password</label>
+                        <input type="password" class="form-control" id="rptPass" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id=rpError></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addr">Address</label>
+                        <input type="text" class="form-control" id="addr" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact</label>
+                        <input type="text" class="form-control" id="contact" required>
+                    </div>
+                    <div class="text-center">
+                        <button id="signUp" type="submit" class="btn btn-default">Update</button>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+	<a id="chatListItemTemplate"  style="display: none;">
+	   <span class="chatItemText"> </span>
+	</a>
+</div>

@@ -21,8 +21,8 @@ function signUp(user, image, callback) {
                 password: user.password,
                 contact: user.contact,
                 address: user.address,
-                image: image ? image.data : null,
-                user_type: user.usertype
+                image: image.image ? image.image.data : null,
+                user_type: user.userType
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
@@ -44,6 +44,19 @@ function getUserById(userId, callback) {
     });
 }
 
+function getAgents(callback) {
+    mysql.getConnection(function(err, con) {
+        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE user_type = 2";
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
+    });
+}
+
 module.exports.signUp = signUp;
 module.exports.login = login;
 module.exports.getUserById = getUserById;
+module.exports.getAgents = getAgents;
