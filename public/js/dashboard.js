@@ -15,7 +15,7 @@ $(document).ready(function () {
     }else {
         var dashboardType="agent"; 
     }
-    if(isLocal){
+    if(window.location.hostname == "localhost"){
         apiEndPoint = "http://localhost:3000/";
     }else{
         apiEndPoint = window.location.origin+window.location.pathname;

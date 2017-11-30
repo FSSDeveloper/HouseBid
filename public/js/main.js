@@ -11,7 +11,7 @@ $(document).ready(function () {
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
 
-    if(isLocal){
+    if(window.location.hostname == "localhost"){
         apiEndPoint = "http://localhost:3000/";
     }else{
         apiEndPoint = window.location.origin+window.location.pathname;
