@@ -6,7 +6,7 @@ $(window).load(function () { // makes sure the whole site is loaded
 })
 $(document).ready(function () {
 	var apiCalled = false;
-    var isLocal = true;
+    var isLocal = false;
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
