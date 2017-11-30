@@ -36,8 +36,8 @@ app.use(function (req, res, next) {
  * *****************************************************************************************
  */
 
-// HOMEPAGE
-app.use(express.static("./"));
+// public folder
+app.use(express.static("./public"));
 
 /** START - USER **/
 app.post("/signup", function (req, res) {
