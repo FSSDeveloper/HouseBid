@@ -327,7 +327,8 @@ $(document).ready(function () {
                             data: {
                                 message: newChatMsg,
                                 senderId: userObj.user_id,
-                                listingId:currentChatObj[0].listing_id
+                                listingId:currentChatObj[0].listing_id,
+                                receiverId:currentChatObj[0].sender_id
                             },
                             success: function(data) {
                             console.log("message sent",data);
@@ -342,10 +343,9 @@ $(document).ready(function () {
             function getChatDetails(idx,response){
                     
                 currentChatObj = "";
-                //$("#chatDetails").innerHTML = "";
                 document.getElementById("chatDetails").innerHTML = " ";
                 var chatListingLinks = document.getElementsByClassName("list-group-item");
-                 for(var i=0;i < chatListingLinks.length;i++) {
+                for(var i=0;i < chatListingLinks.length;i++) {
                     if(idx == i){
                         chatListingLinks[i].classList.add("active");  
                     }else{
@@ -353,23 +353,66 @@ $(document).ready(function () {
                     }
                     
                  }
-                console.log("idx",idx,document.getElementById("chatDetails"));
-                for(var x=0;x<response[idx].length;x++){
-                    var respArr = response[idx];
-                    currentChatObj = response[idx];
-                    var chatBoxTemplate = $("#chatBoxTemplate").clone();
-                    if(userObj.user_id == respArr[x].sender_id){
-                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;");
-                        //chatBoxTemplate.attr("class","pull-right")
-                        }else{
-                            chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
-                          //  chatBoxTemplate.attr("class","pull-left");
+                //$("#chatDetails").innerHTML = "";
+                $.ajax({
+                    url: apiEndPoint+"user/conversation?senderId="+response[idx][0].sender_id+"&receiverId="+userObj.user_id,
+                    type: "GET", // By default GET,
+                    success: function(response) {
+                        for(var x=0;x<response.length;x++){
+                            var respArr = response;
+                            currentChatObj = response;
+                            var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                            if(userObj.user_id == response[x].sender_id){
+                                chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
+                                //chatBoxTemplate.attr("class","pull-right")
+                                }else{
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                  //  chatBoxTemplate.attr("class","pull-left");
+                                }
+                            chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
+                            chatBoxTemplate.appendTo("#chatDetails");
                         }
+                        //console.log("bid"+isBiddable);
+                        //console.log("agent ID" + agent_id);
+                    console.log("data after success login"+response);
+                    },
+                    error: function(data, status, er) {
+                        alert("data Failed!");
+                    }
+                });
+
+
+
+
+
+
+                // document.getElementById("chatDetails").innerHTML = " ";
+                // var chatListingLinks = document.getElementsByClassName("list-group-item");
+                //  for(var i=0;i < chatListingLinks.length;i++) {
+                //     if(idx == i){
+                //         chatListingLinks[i].classList.add("active");  
+                //     }else{
+                //         chatListingLinks[i].classList.remove("active");
+                //     }
                     
-                    console.log("response array",respArr[x]);
-                    chatBoxTemplate.find("#chatMessage")[0].innerHTML = respArr[x].message;
-                    chatBoxTemplate.appendTo("#chatDetails");
-                }
+                //  }
+                // console.log("idx",idx,document.getElementById("chatDetails"));
+                // for(var x=0;x<response[idx].length;x++){
+                //     var respArr = response[idx];
+                //     currentChatObj = response[idx];
+                //     var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                //     if(userObj.user_id == respArr[x].sender_id){
+                //         chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;");
+                //         //chatBoxTemplate.attr("class","pull-right")
+                //         }else{
+                //             chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                //           //  chatBoxTemplate.attr("class","pull-left");
+                //         }
+                    
+                //     console.log("response array",respArr[x]);
+                //     chatBoxTemplate.find("#chatMessage")[0].innerHTML = respArr[x].message;
+                //     chatBoxTemplate.appendTo("#chatDetails");
+                // }
                // document.getElementById("chatDetails").innerHTML = response[idx].message;
             }
         }

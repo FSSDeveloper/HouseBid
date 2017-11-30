@@ -179,7 +179,8 @@ $(document).ready(function () {
                             data: {
                                 message: message,
                                 senderId: userObj.user_id,
-                                listingId:response[0].listing_id
+                                listingId:response[0].listing_id,
+                                receiverId:response[0].agent_id
                             },
                             success: function(data) {
                             console.log("message sent",data);

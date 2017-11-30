@@ -94,12 +94,15 @@ CREATE TABLE `message` (
   `sender_id` int(11) NOT NULL,
   `listing_id` int(11) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `receiver_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `sender_FK_idx` (`sender_id`),
   KEY `listing_FK_idx` (`listing_id`),
+  KEY `receiver_FK_idx` (`receiver_id`),
   CONSTRAINT `listing_FK2` FOREIGN KEY (`listing_id`) REFERENCES `listing` (`listing_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `receiver_FK` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sender_FK` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +111,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (9,'Hello, I am interested.',91,6,'2017-11-27 23:28:30'),(10,'Can you contact me?',95,6,'2017-11-27 23:28:30'),(11,'Please contact me at your convenience.',96,7,'2017-11-27 23:28:30'),(12,'Hello, I am interested.',97,8,'2017-11-27 23:28:30'),(13,'Can you contact me?',96,9,'2017-11-27 23:28:30'),(14,'Please contact me at your convenience.',94,10,'2017-11-27 23:28:30'),(15,'Hello there!',91,10,'2017-11-27 23:28:30'),(16,'Please contact me at your convenience.',91,7,'2017-11-27 23:28:30');
+INSERT INTO `message` VALUES (9,'Hello, I am interested.',91,6,'2017-11-27 23:28:30',91),(10,'Can you contact me?',95,6,'2017-11-27 23:28:30',91),(11,'Please contact me at your convenience.',96,7,'2017-11-27 23:28:30',91),(12,'Hello, I am interested.',97,8,'2017-11-27 23:28:30',91),(13,'Can you contact me?',96,9,'2017-11-27 23:28:30',91),(14,'Please contact me at your convenience.',94,10,'2017-11-27 23:28:30',91),(15,'Hello there!',91,10,'2017-11-27 23:28:30',91),(16,'Please contact me at your convenience.',91,7,'2017-11-27 23:28:30',91),(17,'adfasdf',91,7,'2017-11-29 09:22:19',91),(18,'some message',91,6,'2017-11-29 11:38:06',91),(19,'abc',91,7,'2017-11-29 22:21:38',NULL);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,4 +155,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-28  1:10:50
+-- Dump completed on 2017-11-29 23:37:50
