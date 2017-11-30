@@ -1,4 +1,3 @@
-                //console.log("agent ID" + agent_id);
 
 $(window).load(function () { // makes sure the whole site is loaded
     $('#status').fadeOut(); // will first fade out the loading animation
@@ -6,7 +5,7 @@ $(window).load(function () { // makes sure the whole site is loaded
     $('body').delay(350).css({'overflow': 'visible'});
 })
 $(document).ready(function () {
-	var apiCalled = false;
+    var apiCalled = false;
     var isLocal = true;
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
@@ -29,8 +28,8 @@ $(document).ready(function () {
 
 
     window.location.hash = "dashboard?type=customer";
-	
-	$(window).on('hashchange', function(){
+    
+    $(window).on('hashchange', function(){
         
         if(location.hash){
             
@@ -42,7 +41,7 @@ $(document).ready(function () {
                 case(hash.indexOf('customer') == '15'):
                     console.log('customer');
                     if(!apiCalled){
-                    	
+                        
                     }
                     break;
                 case(hash.indexOf('agent') == '15'):
@@ -109,6 +108,101 @@ $(document).ready(function () {
 
     //Customer Inbox tab
     function customerInbox(){
+            $("#customerChatDetails").attr("style","display:none;");
+            console.log("in customer inbox function");
+            //api call to get all the messages
+            var url ="user/messages?userId="+userObj.user_id;
+            $.ajax({url:apiEndPoint+url, success: function(response){
+                console.log("response",response);
+                var currentChatObj = "";
+                for(var i=0;i < response.length;i++) {
+                    var template = $('#chatListItemTemplate').clone();
+
+                    template.attr("class","list-group-item");
+                    template.attr("data",i);
+                    template.attr("id","chatItem"+i);
+                    template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
+                    template.attr("style","dsiplay:block;");
+                    template.appendTo("#appendChatList");
+                }
+                var chatListingLinks = document.getElementsByClassName("list-group-item");
+                console.log("chatListingLinks",chatListingLinks);
+                for(var i=0;i < chatListingLinks.length;i++) {
+                    chatListingLinks[i].addEventListener("click", function() {
+                        var element = document.getElementById(this.id);
+                        var idx = element.getAttribute("data");
+                        getChatDetails(idx,response);
+
+                    });
+                }
+                
+                $("#newChatSendBtn").click(function() {
+
+                   var newChatMsg = $("#newChatMessage").val();
+                   console.log("current Object",currentChatObj,newChatMsg);
+                   $.ajax({
+                                url: apiEndPoint+"user/message",
+                                type: "POST",
+                                data: {
+                                    message: newChatMsg,
+                                    senderId: userObj.user_id,
+                                    listingId:currentChatObj[0].listing_id,
+                                    receiverId:currentChatObj[0].sender_id
+                                },
+                                success: function(data) {
+                                console.log("message sent",data);
+                                newChatMsg = "";
+                                },
+                                error: function(data, status, er) {
+                                    console.log("Error",data);
+                                }
+                            });
+
+                })
+                function getChatDetails(idx,response){
+                        
+                    currentChatObj = "";
+                    $("#customerChatDetails").attr("style","display:block;");
+                    document.getElementById("chatDetails").innerHTML = " ";
+                    var chatListingLinks = document.getElementsByClassName("list-group-item");
+                    for(var i=0;i < chatListingLinks.length;i++) {
+                        if(idx == i){
+                            chatListingLinks[i].classList.add("active");  
+                        }else{
+                            chatListingLinks[i].classList.remove("active");
+                        }
+                        
+                     }
+                    //$("#chatDetails").innerHTML = "";
+                    $.ajax({
+                        url: apiEndPoint+"user/conversation?senderId="+response[idx][0].sender_id+"&receiverId="+userObj.user_id,
+                        type: "GET", // By default GET,
+                        success: function(response) {
+                            for(var x=0;x<response.length;x++){
+                                var respArr = response;
+                                currentChatObj = response;
+                                var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                                if(userObj.user_id == response[x].sender_id){
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
+                                    //chatBoxTemplate.attr("class","pull-right")
+                                    }else{
+                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                      //  chatBoxTemplate.attr("class","pull-left");
+                                    }
+                                chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
+                                chatBoxTemplate.appendTo("#chatDetails");
+                            }
+                            //console.log("bid"+isBiddable);
+                            //console.log("agent ID" + agent_id);
+                        console.log("data after success login"+response);
+                        },
+                        error: function(data, status, er) {
+                            alert("data Failed!");
+                        }
+                    });
+                }
+            }
+            });
 
 
     }
@@ -384,40 +478,6 @@ $(document).ready(function () {
                         alert("data Failed!");
                     }
                 });
-
-
-
-
-
-
-                // document.getElementById("chatDetails").innerHTML = " ";
-                // var chatListingLinks = document.getElementsByClassName("list-group-item");
-                //  for(var i=0;i < chatListingLinks.length;i++) {
-                //     if(idx == i){
-                //         chatListingLinks[i].classList.add("active");  
-                //     }else{
-                //         chatListingLinks[i].classList.remove("active");
-                //     }
-                    
-                //  }
-                // console.log("idx",idx,document.getElementById("chatDetails"));
-                // for(var x=0;x<response[idx].length;x++){
-                //     var respArr = response[idx];
-                //     currentChatObj = response[idx];
-                //     var chatBoxTemplate = $("#chatBoxTemplate").clone();
-                //     if(userObj.user_id == respArr[x].sender_id){
-                //         chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;");
-                //         //chatBoxTemplate.attr("class","pull-right")
-                //         }else{
-                //             chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
-                //           //  chatBoxTemplate.attr("class","pull-left");
-                //         }
-                    
-                //     console.log("response array",respArr[x]);
-                //     chatBoxTemplate.find("#chatMessage")[0].innerHTML = respArr[x].message;
-                //     chatBoxTemplate.appendTo("#chatDetails");
-                // }
-               // document.getElementById("chatDetails").innerHTML = response[idx].message;
             }
         }
         });
