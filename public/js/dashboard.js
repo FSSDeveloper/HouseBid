@@ -1,3 +1,4 @@
+                //console.log("agent ID" + agent_id);
 
 $(window).load(function () { // makes sure the whole site is loaded
     $('#status').fadeOut(); // will first fade out the loading animation
