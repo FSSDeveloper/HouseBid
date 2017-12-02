@@ -22,14 +22,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(fileUpload());
 
-// logs every type of request on server console
 app.use(function (req, res, next) {
     console.log(req.method + " request for " + req.url);
-    res.header("Access-Control-Allow-Origin", "*"); 
+    req.header("Access-Control-Allow-Origin", "*"); 
     req.url = req.url.replace(process.env.APP_CONX , "" );
-    next();
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.header('Access-Control-Allow-Headers','Content-Type');
+    if ('OPTIONS' === req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
 });
-
 
 /*******************************************************************************************
  *                                      ROUTERS START
@@ -37,7 +44,7 @@ app.use(function (req, res, next) {
  */
 
 // public folder
-app.use(express.static("./public"));
+app.use(express.static("./public_html"));
 
 /** START - USER **/
 app.post("/signup", function (req, res) {
@@ -177,6 +184,7 @@ app.post("/user/message", function (req, res) {
         }
     });
 });
+
 // Gets message if GET
 app.get("/user/message", function (req, res) {
     var messageId = req.query.messageId;
@@ -188,6 +196,7 @@ app.get("/user/message", function (req, res) {
         }
     });
 });
+
 // Inbox (All sent and received messages)
 app.get("/user/messages", function (req, res) {
     var userId = req.query.userId;
@@ -199,6 +208,7 @@ app.get("/user/messages", function (req, res) {
         }
     });
 });
+
 // Inbox (All sent and received messages)
 app.get("/user/conversation", function (req, res) {
     var senderId = req.query.senderId;
@@ -211,14 +221,16 @@ app.get("/user/conversation", function (req, res) {
         }
     });
 });
-/** START - MESSAGE **/
 
+
+
+
+/** START - MESSAGE **/
 /*******************************************************************************************
  *                                      ROUTERS END
  * *****************************************************************************************
  */
 
-// server starts set at environment or 8000
 app.listen(port, function() {
     console.log("\n========================================");
     console.log("Express Server is listening at port " + port);
