@@ -1088,7 +1088,7 @@ font-weight: 500;
 page-header
 ======================================================*/
 .page-head{
-    background: #494C53 url("../../public/images/page-header.jpg") 
+    background: #494C53 url("../images/page-header.jpg") 
         no-repeat scroll center top / cover;
     color:#FFF;
     position: relative;
