@@ -101,8 +101,36 @@ function addListing(listing, callback) {
     });
 }
 
+function updateListing(listing, callback) {
+    mysql.getConnection(function(err, con) {
+        var sql = "UPDATE listing SET ? WHERE listing_id = " + listing.listingId,
+            values = {
+                title: listing.title,
+                description: listing.description,
+                price: listing.price,
+                is_biddable: listing.isBiddable,
+                area: listing.area,
+                status: listing.status,
+                address: listing.address,
+                expiry_date: listing.expiryDate,
+                agent_id: listing.agentId,
+                customer_id: listing.customerId,
+                city: listing.city,
+                location: listing.location,
+                baths: listing.baths,
+                beds: listing.beds
+            };
+        con.query(sql, values, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
+    });
+}
+
 module.exports.getListings = getListings;
 module.exports.getListingByListingId = getListingByListingId;
 module.exports.addListing = addListing;
 module.exports.getListingsByUserId = getListingsByUserId;
 module.exports.deleteListingByListingId = deleteListingByListingId;
+module.exports.updateListing = updateListing;

@@ -161,6 +161,17 @@ app.post("/agent/listing", function (req, res) {
         }
     });
 });
+app.post("/agent/listing/update", function (req, res) {
+    var body = req.body;
+    console.log("Add Profile request received.");
+    listing.updateListing(body, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
 // Delete Listing
 app.delete("/agent/listing", function (req, res) {
     var listingId = req.body.listingId;

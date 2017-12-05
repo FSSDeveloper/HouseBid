@@ -259,8 +259,8 @@ $(document).ready(function () {
                 isBiddable: cusBid,
                 description: cusMsg,
                 status: 2,
-                agentId: agentId 
-
+                agentId: cust_Agent,
+                customerId: userObj.user_id
             },
             success: function(data) {
                 //console.log("bid"+isBiddable);
@@ -493,6 +493,7 @@ $(document).ready(function () {
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
         var searchUrl = "search?city=fulda"+"&location="; 
+        document.getElementById("appendListings").innerHTML = " ";
         $.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log("response in Agent Ml ",response);
             for(var i=0; i < response.length; i++){
@@ -510,7 +511,9 @@ $(document).ready(function () {
 
                // template.find("#listingDescription")[0].innerHTML = response[i].description;
                 template.appendTo("#appendListings");
-                 $("#appendListingEdit").hide();
+                
+            $("#appendListingEdit").hide();
+                 
             }
             var agentActionEditBtns = document.getElementsByClassName("agentActionEdit");
             console.log("agentActionEdit",agentActionEditBtns);
@@ -549,6 +552,53 @@ $(document).ready(function () {
                             alert("data Failed!");
                         }
                     });
+
+                    
+
+                    $("#agentEditListingBtn").click(function() {
+                        var biddableValue = 1;
+
+                        if($("#agentEditBiddable").val() == "on"){
+                            biddableValue = 0;
+                        }
+                        var dataObj ={
+                            title :$("#agentEditTitle").val(),
+                            city:$("#agentEditCity").val(),
+                            location:$("#agentEditLocation").val(),
+                            address:$("#agentEditAddress").val(),
+                            price: $("#agentEditPrice").val(),
+                            area:$("#agentEditArea").val(),
+                            expiryDate:$("#agentEditExpiryDate").val(),
+                            beds:$("#agentEditBeds").val(),
+                            baths:$("#agentEditBaths").val(),
+                            status:$("#agentEditStatus").val(),
+                            description:$("#agentEditDescription").val(),
+                            isBiddable:biddableValue,
+                            listingId:idx,
+                            agentAddress:response[0].agent_address,
+                            agentContact:response[0].agent_contact,
+                            agentEmail:response[0].agent_email,
+                            agentId:response[0].agent_id,
+                            agentName:response[0].agent_name,
+                            customerId:0,
+                            listedDate:response[0].listed_date
+                        };
+
+                        $.ajax({
+                        url: apiEndPoint+"agent/listing/update",
+                        type: "POST", // By default GET,
+                        data:dataObj,
+                        success: function(response) {
+                            console.log("response",response);
+                            agentManageListing();
+                        },
+                        error: function(data, status, er) {
+                            alert("data Failed!");
+                        }
+                        });
+
+                    })
+                    
                 });
             }
             var agentActionDeleteBtns = document.getElementsByClassName("agentActionDelete");
@@ -581,7 +631,7 @@ $(document).ready(function () {
             }
             console.log("User data before sending",dataObj);
             $.ajax({
-                url: apiEndPoint+"user/profile",
+                url: apiEndPoint+"/user/update",
                 type: "POST",
                 data: dataObj,
                 success: function(data) {

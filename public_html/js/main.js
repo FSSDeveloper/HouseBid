@@ -8,7 +8,7 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
-    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    //var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
 
     if(window.location.hostname == "localhost"){
@@ -283,11 +283,14 @@ $(document).ready(function () {
                 password: passwords
             },
             success: function(data) {
+            console.log(data);
             console.log("data after success login",data);
-            if(data){
+            if(data.length > 0){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
                 alert("Login Successful!!");
                 location.href=apiEndPoint+"index.html";
+            } else {
+                alert("Login Failed!");
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -303,7 +306,9 @@ $(document).ready(function () {
 
     //SignUp Function
     $('#signUpForm').submit(function(event) {
+    
         event.preventDefault();
+        
         if(validateForm()) {
             var formData = new FormData(this);
             $.ajax({
@@ -314,6 +319,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     console.log(response);
+                    $('#signUpForm').trigger("reset");
                     alert("Successfully Signed Up. Please Login!");
                 },
                 error: function(response) {
@@ -330,6 +336,8 @@ $(document).ready(function () {
 
     // Validates sign up form fields
     function validateForm() {
+        
+
         var regName = $('#name').val();
         var regEmail = $('#email').val();
         var regPsw = $('#password').val();
@@ -371,7 +379,7 @@ $(document).ready(function () {
         }
 
         if(regPsw !== rptPass) {
-            $('#rpError').removeClass('hide').text("Password and Confirm Password did not match");
+            $('#rpError').removeClass('hide').text("Password and Repeat Password did not match");
             formValidation = false;
         } else{
             $('#rpError').addClass('hide');
@@ -379,7 +387,42 @@ $(document).ready(function () {
 
         return formValidation;
     }
+        function ContactUsFormValidation(){
+        var Cname = $('#name').val();
+        var Cemail = $('#email').val();
+        var Contact = $('#contact').val();
+        var Csubject = $('#subject').val();
+        console.log(Csubject);
+        var formValidation = true;
 
+        if(Cname === undefined || Cname === '') {
+            $('#nameError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#nameError').addClass('hide');
+        }
+        
+        if(Csubject === undefined || Csubject === '') {
+            console.log('here');
+            $('#subjectError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#subjectError').addClass('hide');
+        }
+
+        if(Cemail === undefined || Cemail === '') {
+            $('#emailError').removeClass('hide').text("required");
+            formValidation = false;
+        } else if( !validateEmail(Cemail)){
+            $('#emailError').removeClass('hide').text("Incorrect Format");
+            formValidation = false;
+        } else {
+            $('#emailError').addClass('hide');
+        }
+        
+
+        return formValidation;
+    }
     function validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
