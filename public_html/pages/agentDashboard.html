@@ -29,7 +29,7 @@
 	<div class="well row" id="agentMl" style="display: none;"> 
 		<div class="col-md-12" id="appendListings"> 
 			<div style="display: none;"> 
-                <div class="col-sm-6 col-md-4" id="searchListingTemplate" >
+                <div class="col-sm-6 col-md-4" id="searchListingTemplate" style="padding-top: 15px;">
                     <div class="box-two proerty-item">
                         <div class="item-thumb">
                             <a ><img src="../images/demo/property-3.jpg"></a>
@@ -52,11 +52,134 @@
                                     <img src="../images/icon/shawer.png">(2)|
                                     <img src="../images/icon/cars.png">(1)  
                                 </div>
+                                <div id="listingActionBtn"> 
+                                	
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+		</div>
+		<div class="col-md-12" id="appendListingEdit"> 
+			<div class="container"> 
+				<form> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditTitle" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Title</label>
+				    		</div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditCity" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>City</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditLocation" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Location</label>
+						    </div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditAddress" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Address</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditPrice" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Price</label>
+						    </div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditArea" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Area</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="Date" id="agentEditExpiryDate" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Expiry Date</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number" id="agentEditBeds" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Beds</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number"  id="agentEditBaths" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Baths</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<fieldset>
+					    		<label for="agentEditStatus"> Status:</label>
+						    	<select id="agentEditStatus" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
+			                        <option value="0">Active</option>
+			                        <option value="1">Expired</option>
+			                        <option value="2">Sold</option>
+		                    	</select>
+					    	</fieldset>
+						</div>
+						<div class="col-md-3">
+					        <div class="checkbox">
+					            <label> <input type="checkbox" id="agentEditBiddable" checked> Biddable</label>
+					        </div> 
+					    </div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6">
+							<div class="form-group">
+		                        <label for="agentEditDescription">Description</label>
+		                        <textarea  id="agentEditDescription" class="form-control"></textarea>
+	                    	</div>
+						</div>
+						<div class="col-md-6"> </div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> </div>
+						<div class="col-md-6"> </div>
+					</div>
+				</form>
+			</div>
+			<div class="pull-right"> 
+				<button class="btn btn-default" id="agentEditListingBtn">Update</button>
+				<button class="btn btn-default" id="agentDeleteListingBtn">Delete</button>
+			</div>
 		</div>
 	</div>
 	

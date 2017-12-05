@@ -56,6 +56,10 @@ $(document).ready(function () {
         agentDashboard();
     }
 
+    function hideToaster(){
+        $("#toaster-success").hide();
+        $("#toaster-hide").hide();
+    };
 
     function getCustomerDashboardData(){
         customerInbox();
@@ -502,16 +506,57 @@ $(document).ready(function () {
                 template.find("#listingTitle")[0].innerHTML = response[i].title;
                 template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                 template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
+                template.find("#listingActionBtn")[0].innerHTML = '<button type="button" class="pull-right agentActionEdit" data="'+response[i].listing_id+'"  style="margin:5px;"> Edit </button><button type="button" class="pull-right agentActionDelete" data="'+response[i].listing_id+'"  style="margin:5px;"> Delete </button>';
+
                // template.find("#listingDescription")[0].innerHTML = response[i].description;
                 template.appendTo("#appendListings");
+                 $("#appendListingEdit").hide();
             }
-            var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+            var agentActionEditBtns = document.getElementsByClassName("agentActionEdit");
+            console.log("agentActionEdit",agentActionEditBtns);
+            for(var i=0;i < agentActionEditBtns.length;i++) {
+                agentActionEditBtns[i].addEventListener("click", function() {
+                    var idx = this.getAttribute("data");
+                    $("#toaster-success").show();
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
+                    console.log("id of the listing",idx);
+                    $("#appendListingEdit").show();
+                    $("#appendListings").hide();
+                    $.ajax({
+                        url: apiEndPoint+"listing?listingId="+idx,
+                        type: "GET", // By default GET,
+                        success: function(response) {
+                            console.log("response",response);
+                            $("#agentEditTitle").val(response[0].title);
+                            $("#agentEditCity").val(response[0].city);
+                            $("#agentEditLocation").val(response[0].location);
+                            $("#agentEditAddress").val(response[0].address);
+                            $("#agentEditPrice").val(response[0].price);
+                            $("#agentEditArea").val(response[0].area);
+                            $("#agentEditExpiryDate").val(response[0].expiry_date);
+                            $("#agentEditBeds").val(response[0].beds);
+                            $("#agentEditBaths").val(response[0].baths);
+
+                            $("#agentEditStatus").val(response[0].status);
+                            if(response[0].is_biddable == 0){
+                                $("#agentEditBiddable").val("on");
+                            }
+                            $("#agentEditDescription").val(response[0].description);
+                        },
+                        error: function(data, status, er) {
+                            alert("data Failed!");
+                        }
+                    });
+                });
+            }
+            var agentActionDeleteBtns = document.getElementsByClassName("agentActionDelete");
     
-            for(var i=0;i < listingDetailsLinks.length;i++) {
-                listingDetailsLinks[i].addEventListener("click", function() {
-                    var element = document.getElementById(this.id);
-                    var idx = element.getAttribute("data");
-                    getListingDetails(idx);
+            for(var i=0;i < agentActionDeleteBtns.length;i++) {
+                agentActionDeleteBtns[i].addEventListener("click", function() {
+                    var idx = this.getAttribute("data");
+                    console.log("id of the listing",idx);
                 });
             }
         }});
