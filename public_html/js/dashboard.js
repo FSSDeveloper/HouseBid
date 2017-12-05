@@ -580,7 +580,7 @@ $(document).ready(function () {
                             agentEmail:response[0].agent_email,
                             agentId:response[0].agent_id,
                             agentName:response[0].agent_name,
-                            customerId:0,
+                            customerId:response[0].customer_id,
                             listedDate:response[0].listed_date
                         };
 
