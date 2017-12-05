@@ -101,6 +101,17 @@ app.get("/user/agents", function (req, res) {
         }
     });
 });
+app.post("/user/update", function (req, res) {
+    var body = req.body;
+    console.log("Update Profile request received.");
+    user.updateUser(body, function (err, data) {
+        if (err) {
+            console.log("Error in Database Server: " + err);
+        } else {
+            res.json(data);
+        }
+    });
+});
 /** END - USER **/
 
 /** START - LISTING **/
@@ -163,7 +174,7 @@ app.post("/agent/listing", function (req, res) {
 });
 app.post("/agent/listing/update", function (req, res) {
     var body = req.body;
-    console.log("Add Profile request received.");
+    console.log("Update Listing request received.");
     listing.updateListing(body, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
