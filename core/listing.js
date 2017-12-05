@@ -114,7 +114,6 @@ function updateListing(listing, callback) {
                 address: listing.address,
                 expiry_date: listing.expiryDate,
                 agent_id: listing.agentId,
-                customer_id: listing.customerId ? listing.customerId : null,
                 city: listing.city,
                 location: listing.location,
                 baths: listing.baths,

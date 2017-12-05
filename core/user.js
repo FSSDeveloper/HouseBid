@@ -45,7 +45,16 @@ function updateUser(user, callback) {
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
-            else callback(null, result);
+            else callback(null, user.login(body, function (err, data) {
+                if (err) {
+                    console.log("Error in Database Server: " + err);
+                } else {
+                    if(data.length === 0) {
+                        res.status(404);
+                    }
+                    res.json(data);
+                }
+            }));
         });
         con.release();
     });
