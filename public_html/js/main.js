@@ -9,15 +9,15 @@ $(document).ready(function () {
 
 
 	var apiCalled = false;
-    var isLocal = true;
+    var isLocal = false;
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
 
-    if(isLocal){
+    if(window.location.hostname == "localhost"){
         apiEndPoint = "http://localhost:3000/";
     }else{
-        apiEndPoint = window.location.origin+window.location.pathname;
+        apiEndPoint = "https://www.sfsuse.com/fa17g20/";
     }
 	
 	$(window).on('hashchange', function(){
@@ -43,7 +43,7 @@ $(document).ready(function () {
                     break;
                 default:
                     console.log('home');
-                    $("#uiView").load("./public/pages/homeContent.html", function(){
+                    $("#uiView").load("./pages/homeContent.html", function(){
                     });
             };
         }else if(location.pathname == '/index.html'){
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     function loadHomePage(){
 
-        $("#loadSliderContent").load("./public/pages/homeSlider.html", function(){
+        $("#loadSliderContent").load("./pages/homeSlider.html", function(){
         	console.log('inside loadHomePage');
             $('#addBodyContent').attr("style","background-color: #FCFCFC; padding-bottom: 15px;display:block;visibility:visible;");
         	$('#homeSlider').attr('style','display:block;visibility:visible;');
@@ -93,7 +93,7 @@ $(document).ready(function () {
     		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
-            $('#uiView').load("./public/pages/searchListings.html", function(){
+            $('#uiView').load("./pages/searchListings.html", function(){
 
                 $('#ListingPageSearchBtn').click(function(){
                 
@@ -165,7 +165,7 @@ $(document).ready(function () {
 
         $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
-            $('#uiView').load("./public/pages/listingDetails.html", function(){
+            $('#uiView').load("./pages/listingDetails.html", function(){
                 $("#chatDiv").hide();
                 $("#addBodyContent").attr("style","display:none;");
                 var template = $("#listingDetailsDiv");
@@ -258,7 +258,7 @@ $(document).ready(function () {
         }});
     }; 
 
-     $( "#header" ).load( "./public/pages/header.html", function() {
+     $( "#header" ).load( "./pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
 
         if(localStorage.length > 0){
@@ -283,7 +283,7 @@ $(document).ready(function () {
         window.scrollTo(0, 0);
     });
     
-    $( "#footer" ).load( "./public/pages/footer.html", function() {
+    $( "#footer" ).load( "./pages/footer.html", function() {
         
     });
 
@@ -538,3 +538,4 @@ $(document).ready(function () {
 // Initializing WOW.JS
 
 new WOW().init();
+

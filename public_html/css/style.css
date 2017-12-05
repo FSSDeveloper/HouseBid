@@ -1088,7 +1088,7 @@ font-weight: 500;
 page-header
 ======================================================*/
 .page-head{
-    background: #494C53 url("../../public/images/page-header.jpg") 
+    background: #494C53 url("../images/page-header.jpg") 
         no-repeat scroll center top / cover;
     color:#FFF;
     position: relative;
@@ -3185,4 +3185,13 @@ padding: 10px;
 }
 .contactDealerBtn{
     background-color: #FFA500;
+}
+
+#toaster-success{
+    position: fixed;
+    bottom: 0px;
+    background-color: #c3f9b4;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10%;
 }
