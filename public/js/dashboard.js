@@ -213,23 +213,17 @@ $(document).ready(function () {
             url: apiEndPoint+"user/agents",
             type: "GET", // By default GET,
             success: function(data) {
-                //console.log("bid"+isBiddable);
-                //console.log("agent ID" + agent_id);
-            console.log("data after success login"+data);
+           
+            console.log("data after success login" + data);
 
           
 
            $.each(data, function(obj) {
 
-                
-                 $('#statusSel').append($('<option>', {value:data[obj].user_id, text:data[obj].name}));
+
+                 $('#statusSel').append($('<option>',{value:data[obj].user_id, text:data[obj].name}));
 
             });
-
-              //  IF DATA IS NOT EMPTY
-                //    localStorage.setItem('username', data.username);
-                  //  REDIRECT TO INDEX.HTML
-                //else
 
             },
             error: function(data, status, er) {
@@ -282,7 +276,7 @@ $(document).ready(function () {
                 isBiddable: cust_Bid,
                 description: cust_Msg,
                 status: 2,
-                agentId: 7 
+               // agentId: 7 
 
             },
             success: function(data) {
@@ -482,6 +476,8 @@ $(document).ready(function () {
         }
         });
     }
+
+    
     //agent Manage Listing
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
@@ -512,9 +508,7 @@ $(document).ready(function () {
                 });
             }
         }});
-            var appnd = document.getElementById('appendHere');
-
-        
+            var appnd = document.getElementById('appendHere');        
     }
     //agent Profile
     function agentProfile(){

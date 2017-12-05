@@ -5,6 +5,9 @@ $(window).load(function () { // makes sure the whole site is loaded
     $('body').delay(350).css({'overflow': 'visible'});
 })
 $(document).ready(function () {
+
+
+
 	var apiCalled = false;
     var isLocal = true;
     var apiEndPoint ="";
@@ -66,7 +69,12 @@ $(document).ready(function () {
     }
 
     loadHomePage();
-    
+  
+
+
+
+
+
 
     function searchListings(){
     	apiCalled = true;
@@ -100,14 +108,36 @@ $(document).ready(function () {
                     template.attr('id',searchIdx);
                     console.log("response[i]",template.find("#listingPrice"));
                     template.attr("data",response[i].listing_id);
+
                     template.attr("class","view-listing-details col-sm-6 col-md-4");
                     template.find('#listingId')[0].innerHTML = response[i].listing_id;
                     template.find("#listingTitle")[0].innerHTML = response[i].title;
                     template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                     template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                     template.find("#listingDescription")[0].innerHTML = response[i].description;
-                     template.appendTo(".appendHere");
+                    template.appendTo(".appendHere");
+
                 }
+
+               
+
+
+
+                //Sorting Function
+                
+                //         $(".btnSortP").click(function() {
+//         console.log("Clicked");
+//         var divList = $(".price");
+//         console.log(divList);
+//         divList.sort(function(a, b){
+//             var result = parseFloat($(a).find('[data-price]').data('price'))- parseFloat($(b).find('[data-price]').data('price'));
+//             return result;
+//         });
+//         $("#container").html(divList);
+//     });
+// });
+
+
                 var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
     
                 for(var i=0;i < listingDetailsLinks.length;i++) {
@@ -123,7 +153,12 @@ $(document).ready(function () {
     	
     };
 
+ 
+
+
+
     function getListingDetails(listingId){
+       
        console.log("listingId",listingId);
         var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
@@ -149,11 +184,16 @@ $(document).ready(function () {
                 if(userObj){
                     if(userObj.user_type == 1){
                         $("#contactBtn").show();
+                        $("#locationListing").show();
+                        $("#showLocation").attr("style","display:none;");
+
                        template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
                     }
 
                 }else{
                         $("#contactBtn").attr("style","display:none;");
+                        $("#locationListing").attr("style","display:none;");
+                        $("#showLocation").show();
                         template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
                     }
 
@@ -161,10 +201,25 @@ $(document).ready(function () {
                 
 
                 template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+
+
+                $("#bidCount").attr("style, display:none;");
+
+                if($("#bidNumber").val() > 1000)
+                {
+                    $("#bidCount").show();
+                }
+                else
+                {
+                    $("#bidCount").attr("style, display:none;");
+                }
                 if(response[0].is_biddable == 0){
                     bidabble = "No";
+                    $("#bidNumber").attr("style","display:none;");
+
                 }else{
                     bidabble = "Yes";
+                    $("#bidNumber").show();
                 }
                 template.find("#listingBiddable")[0].innerHTML = bidabble;
 
