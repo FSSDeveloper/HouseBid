@@ -492,6 +492,7 @@ $(document).ready(function () {
     //agent Manage Listing
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
+        $("#appendListings").show();
         var searchUrl = "search?city=fulda"+"&location="; 
         document.getElementById("appendListings").innerHTML = " ";
         $.ajax({url:apiEndPoint+searchUrl, success: function(response){
