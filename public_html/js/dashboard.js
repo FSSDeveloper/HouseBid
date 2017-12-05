@@ -258,11 +258,7 @@ $(document).ready(function () {
             var cust_Area = $('#custArea').val();
             var cust_Bid = $('#custBid').val();
             var cust_Msg = $('#cust_message').val();
-            //var cust_agent = $('#sfStateHomes').val();
-
-
-            //console.log("Agent is"+ cust_agent);
-
+            var cust_Agent = $('#statusSel').val();
 
         $.ajax({
             url: apiEndPoint+"agent/listing",
@@ -277,7 +273,8 @@ $(document).ready(function () {
                 isBiddable: cust_Bid,
                 description: cust_Msg,
                 status: 2,
-                agentId: 7 
+                agentId: cust_Agent,
+                customerId: userObj.user_id
 
             },
             success: function(data) {
