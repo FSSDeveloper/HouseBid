@@ -69,8 +69,12 @@ app.post("/user/login", function (req, res) {
     console.log("Login data received.");
     user.login(body, function (err, data) {
         if (err) {
+            res.status()
             console.log("Error in Database Server: " + err);
         } else {
+            if(data.length === 0) {
+                res.status(404);
+            }
             res.json(data);
         }
     });
