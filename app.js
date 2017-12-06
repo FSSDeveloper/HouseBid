@@ -108,7 +108,16 @@ app.post("/user/update", function (req, res) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
-            res.json(data);
+            user.login(body, function (err, data) {
+                if (err) {
+                    console.log("Error in Database Server: " + err);
+                } else {
+                    if(data.length === 0) {
+                        res.status(404);
+                    }
+                    res.json(data);
+                }
+            });
         }
     });
 });
@@ -206,7 +215,13 @@ app.post("/user/message", function (req, res) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
-            res.json(data);
+            message.getMessageByMessageId(data.insertId, function (err, data) {
+                if (err) {
+                    console.log("Error in Database Server: " + err);
+                } else {
+                    res.json(data);
+                }
+            });
         }
     });
 });

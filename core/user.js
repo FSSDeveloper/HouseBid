@@ -45,13 +45,7 @@ function updateUser(user, image, callback) {
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
-            else callback(null, login(user, function (err, data) {
-                if (err) {
-                    callback(err, null);
-                } else {
-                    callback(null, data);
-                }
-            }));
+            else callback(null, result);
         });
         con.release();
     });

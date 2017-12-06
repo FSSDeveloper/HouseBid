@@ -69,13 +69,7 @@ function addMessage(message, callback) {
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
-            else callback(null, getMessageByMessageId(result.insertId, function (err, data) {
-                if (err) {
-                    callback(err, null);
-                } else {
-                    callback(null, data);
-                }
-            }));
+            else callback(null, result);
         });
         con.release();
     });
