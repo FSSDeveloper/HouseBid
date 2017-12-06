@@ -293,15 +293,17 @@ $(document).ready(function () {
 
        $("#upCusBtn").click(function(argument) {
         var dataObj = {
-            name:$("#upName").val(),
-            email:$("upEmail").val(),
-            address:$("#upAddress").val(),
-            contact:$("#upContact").val(),
-            userId:userObj.user_id
-        }
+                name:$("#upName").val(),
+                email:$("upEmail").val(),
+                address:$("#upAddress").val(),
+                contact:$("#upContact").val(),
+                userId:userObj.user_id,
+                email:$("#upEmail").val(),
+                password:$("#upPassword").val()
+            }
         console.log("User data before sending",dataObj);
         $.ajax({
-            url: apiEndPoint+"user/profile",
+            url: apiEndPoint+"user/update",
             type: "POST",
             data: dataObj,
             success: function(data) {
@@ -621,6 +623,7 @@ $(document).ready(function () {
         $("#upEmail").val(userObj.email);
         $("#upAddress").val(userObj.address);
         $("#upContact").val(userObj.contact);
+        //$("#upPassword").val(userObj.passowrd);
 
         $("#upAgenBtn").click(function(argument) {
             var dataObj = {
@@ -628,7 +631,9 @@ $(document).ready(function () {
                 email:$("upEmail").val(),
                 address:$("#upAddress").val(),
                 contact:$("#upContact").val(),
-                userId:userObj.user_id
+                userId:userObj.user_id,
+                email:$("#upEmail").val(),
+                password:$("#upPassword").val()
             }
             console.log("User data before sending",dataObj);
             $.ajax({
