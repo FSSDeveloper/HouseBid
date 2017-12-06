@@ -7,7 +7,10 @@ $(window).load(function () { // makes sure the whole site is loaded
 $(document).ready(function () {
 
 
-
+    function hideToaster(){
+        $("#toaster-success").fadeOut(5000);
+        $('#toaster-fail').fadeOut(5000);
+    };
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
@@ -289,7 +292,7 @@ $(document).ready(function () {
             $("#loginButton").show();
             $("#logoutButton").hide();
             $("#dashboardTab").hide();
-            window.location.href=apiEndPoint;
+            window.location.href="../";
         })
 
         window.scrollTo(0, 0);
@@ -334,14 +337,10 @@ $(document).ready(function () {
         });
 
     function logMeIn()
-    {
+    {   
         var emails = $('#loginEmail').val();
         var passwords = $('#loginPassword').val();
         console.log("Email is: "+ emails + "Password is:"+ passwords);
-
-        // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
-        // }});
-        //url: apiEndPoint+"user/login"
         $.ajax({
             url: "../user/login",
             type: "POST",
@@ -354,10 +353,18 @@ $(document).ready(function () {
             console.log("data after success login",data);
             if(data.length > 0){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
-                alert("Login Successful!!");
-                location.href=apiEndPoint+"index.html";
+                $("#toaster-success").show();
+                document.getElementById("succesToasterData").innerHTML = "Login Successful!";
+                setTimeout(function(){
+                  hideToaster();
+                }, 4000);
+                location.href="../"+"index.html";
             } else {
-                alert("Login Failed!");
+                document.getElementById("failToasterData").innerHTML = "Login Failed!";
+                $("#toaster-fail").show();
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -366,7 +373,11 @@ $(document).ready(function () {
 
             },
             error: function(data, status, er) {
-                alert("Login Failed!");
+                 $("#toaster-fail").show();
+                 document.getElementById("failToasterData").innerHTML = "Login Failed";
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
             }
         });
     }
@@ -387,14 +398,22 @@ $(document).ready(function () {
                 success: function (response) {
                     console.log(response);
                     $('#signUpForm').trigger("reset");
-                    alert("Successfully Signed Up. Please Login!");
+                    $("#toaster-success").show();
+                    document.getElementById("succesToasterData").innerHTML = "SignUp Successful Please Login!";
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
                 },
                 error: function(response) {
                     if(response.responseJSON.error === "ER_DUP_ENTRY"){
                         $('#emailError').removeClass('hide').text("Email address already exists.");
                         $('#email').focus();
                     } else {
-                        alert("Error occured. Please try again later");
+                        $("#toaster-fail").show();
+                         document.getElementById("failToasterData").innerHTML = "Signup Failed Please try again";
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                     }
                 }
             });

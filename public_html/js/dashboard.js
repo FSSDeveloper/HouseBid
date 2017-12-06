@@ -55,9 +55,10 @@ $(document).ready(function () {
         agentDashboard();
     }
 
+    
     function hideToaster(){
-        $("#toaster-success").hide();
-        $("#toaster-hide").hide();
+        $("#toaster-success").fadeOut(5000);
+        $('#toaster-fail').fadeOut(5000);
     };
 
     function getCustomerDashboardData(){
