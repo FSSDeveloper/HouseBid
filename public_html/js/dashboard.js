@@ -56,6 +56,10 @@ $(document).ready(function () {
         agentDashboard();
     }
 
+    function hideToaster(){
+        $("#toaster-success").hide();
+        $("#toaster-hide").hide();
+    };
 
     function getCustomerDashboardData(){
         customerInbox();
@@ -108,7 +112,7 @@ $(document).ready(function () {
             var url ="user/messages?userId="+userObj.user_id;
             $.ajax({url:apiEndPoint+url, success: function(response){
                 console.log("response",response);
-                 //var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
+                var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
                 var currentChatObj = "";
                 for(var i=0;i < response.length;i++) {
                     var template = $('#chatListItemTemplate').clone();
@@ -208,31 +212,15 @@ $(document).ready(function () {
             url: apiEndPoint+"user/agents",
             type: "GET", // By default GET,
             success: function(data) {
-                //console.log("bid"+isBiddable);
-                //console.log("agent ID" + agent_id);
-            console.log("data after success login"+data);
-
-          
-
-           $.each(data, function(obj) {
-
-                
-                 $('#statusSel').append($('<option>', {value:data[obj].user_id, text:data[obj].name}));
-
-            });
-
-              //  IF DATA IS NOT EMPTY
-                //    localStorage.setItem('username', data.username);
-                  //  REDIRECT TO INDEX.HTML
-                //else
-
+                console.log("data after success login"+data);
+                $.each(data, function(obj) {
+                    $('#statusSel').append($('<option>', {value:data[obj].user_id, text:data[obj].name}));
+                });
             },
             error: function(data, status, er) {
                 alert("data Failed!");
             }
         });
-
-
 
     //Customer Requesting Listing: Author Farukh
     function customerRequestListing(){
@@ -248,34 +236,31 @@ $(document).ready(function () {
 
         function sendingRequest()
         {
-            console.log("I am sending it");
+            var cusTitle = $('#custTitle').val();
+            var cusCity = $('#custCity').val();
+            var cusAddress = $('#custAddress').val();
+            var cusLocation = $('#custLoc').val();
+            var cusPrice = $('#custPrice').val();
+            var cusArea = $('#custArea').val();
+            var cusBid = $('#custBid').val();
+            var cusMsg = $('#cust_message').val();
+            var agentId = $('#statusSel').val();
 
-            var cust_title = $('#custTitle').val();
-            var cust_city = $('#custCity').val();
-            var cust_address = $('#custAddress').val();
-            var cust_location = $('#custLoc').val();
-            var cust_Price = $('#custPrice').val();
-            var cust_Area = $('#custArea').val();
-            var cust_Bid = $('#custBid').val();
-            var cust_Msg = $('#cust_message').val();
-            var cust_Agent = $('#statusSel').val();
-
-        $.ajax({
+            $.ajax({
             url: apiEndPoint+"agent/listing",
             type: "POST",
             data: {
-                title: cust_title,
-                city: cust_city,
-                address: cust_address,
-                location: cust_location,
-                price: cust_Price,
-                area: cust_Area,
-                isBiddable: cust_Bid,
-                description: cust_Msg,
+                title: cusTitle,
+                city: cusCity,
+                address: cusAddress,
+                location: cusLocation,
+                price: cusPrice,
+                area: cusArea,
+                isBiddable: cusBid,
+                description: cusMsg,
                 status: 2,
                 agentId: cust_Agent,
                 customerId: userObj.user_id
-
             },
             success: function(data) {
                 //console.log("bid"+isBiddable);
@@ -301,7 +286,39 @@ $(document).ready(function () {
     }
     //Customer Profile
     function customerProfile(){
-       
+       $("#upName").val(userObj.name);
+       $("#upEmail").val(userObj.email);
+       $("#upAddress").val(userObj.address);
+       $("#upContact").val(userObj.contact);
+
+       $("#upCusBtn").click(function(argument) {
+        var dataObj = {
+                name:$("#upName").val(),
+                email:$("upEmail").val(),
+                address:$("#upAddress").val(),
+                contact:$("#upContact").val(),
+                userId:userObj.user_id,
+                email:$("#upEmail").val(),
+                password:$("#upPassword").val()
+            }
+        console.log("User data before sending",dataObj);
+        $.ajax({
+            url: apiEndPoint+"user/update",
+            type: "POST",
+            data: dataObj,
+            success: function(data) {
+            console.log("data after success login",data);
+            if(data){
+                alert("success");
+                localStorage.setItem('userObj', JSON.stringify(data[0]));
+            }
+            },
+            error: function(data, status, er) {
+                alert("Login Failed!");
+            }
+        });
+       });
+
     }
 
 
@@ -477,7 +494,9 @@ $(document).ready(function () {
     //agent Manage Listing
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
+        $("#appendListings").show();
         var searchUrl = "search?city=fulda"+"&location="; 
+        document.getElementById("appendListings").innerHTML = " ";
         $.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log("response in Agent Ml ",response);
             for(var i=0; i < response.length; i++){
@@ -491,16 +510,106 @@ $(document).ready(function () {
                 template.find("#listingTitle")[0].innerHTML = response[i].title;
                 template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                 template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
-                template.find("#listingDescription")[0].innerHTML = response[i].description;
+                template.find("#listingActionBtn")[0].innerHTML = '<button type="button" class="pull-right agentActionEdit" data="'+response[i].listing_id+'"  style="margin:5px;"> Edit </button><button type="button" class="pull-right agentActionDelete" data="'+response[i].listing_id+'"  style="margin:5px;"> Delete </button>';
+
+               // template.find("#listingDescription")[0].innerHTML = response[i].description;
                 template.appendTo("#appendListings");
+                
+            $("#appendListingEdit").hide();
+                 
             }
-            var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+            var agentActionEditBtns = document.getElementsByClassName("agentActionEdit");
+            console.log("agentActionEdit",agentActionEditBtns);
+            for(var i=0;i < agentActionEditBtns.length;i++) {
+                agentActionEditBtns[i].addEventListener("click", function() {
+                    var idx = this.getAttribute("data");
+                    $("#toaster-success").show();
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
+                    console.log("id of the listing",idx);
+                    $("#appendListingEdit").show();
+                    $("#appendListings").hide();
+                    $.ajax({
+                        url: apiEndPoint+"listing?listingId="+idx,
+                        type: "GET", // By default GET,
+                        success: function(response) {
+                            console.log("response",response);
+                            $("#agentEditTitle").val(response[0].title);
+                            $("#agentEditCity").val(response[0].city);
+                            $("#agentEditLocation").val(response[0].location);
+                            $("#agentEditAddress").val(response[0].address);
+                            $("#agentEditPrice").val(response[0].price);
+                            $("#agentEditArea").val(response[0].area);
+                            $("#agentEditExpiryDate").val(response[0].expiry_date);
+                            $("#agentEditBeds").val(response[0].beds);
+                            $("#agentEditBaths").val(response[0].baths);
+
+                            $("#agentEditStatus").val(response[0].status);
+                            if(response[0].is_biddable == 0){
+                                $("#agentEditBiddable").val("on");
+                            }
+                            $("#agentEditDescription").val(response[0].description);
+                        },
+                        error: function(data, status, er) {
+                            alert("data Failed!");
+                        }
+                    });
+
+                    
+
+                    $("#agentEditListingBtn").click(function() {
+                        var biddableValue = 1;
+
+                        if($("#agentEditBiddable").val() == "on"){
+                            biddableValue = 0;
+                        }
+                        var dataObj ={
+                            title :$("#agentEditTitle").val(),
+                            city:$("#agentEditCity").val(),
+                            location:$("#agentEditLocation").val(),
+                            address:$("#agentEditAddress").val(),
+                            price: $("#agentEditPrice").val(),
+                            area:$("#agentEditArea").val(),
+                            expiryDate:$("#agentEditExpiryDate").val(),
+                            beds:$("#agentEditBeds").val(),
+                            baths:$("#agentEditBaths").val(),
+                            status:$("#agentEditStatus").val(),
+                            description:$("#agentEditDescription").val(),
+                            isBiddable:biddableValue,
+                            listingId:idx,
+                            agentAddress:response[0].agent_address,
+                            agentContact:response[0].agent_contact,
+                            agentEmail:response[0].agent_email,
+                            agentId:response[0].agent_id,
+                            agentName:response[0].agent_name,
+                            customerId:response[0].customer_id,
+                            listedDate:response[0].listed_date
+                        };
+
+                        $.ajax({
+                        url: apiEndPoint+"agent/listing/update",
+                        type: "POST", // By default GET,
+                        data:dataObj,
+                        success: function(response) {
+                            console.log("response",response);
+                            agentManageListing();
+                        },
+                        error: function(data, status, er) {
+                            alert("data Failed!");
+                        }
+                        });
+
+                    })
+                    
+                });
+            }
+            var agentActionDeleteBtns = document.getElementsByClassName("agentActionDelete");
     
-            for(var i=0;i < listingDetailsLinks.length;i++) {
-                listingDetailsLinks[i].addEventListener("click", function() {
-                    var element = document.getElementById(this.id);
-                    var idx = element.getAttribute("data");
-                    getListingDetails(idx);
+            for(var i=0;i < agentActionDeleteBtns.length;i++) {
+                agentActionDeleteBtns[i].addEventListener("click", function() {
+                    var idx = this.getAttribute("data");
+                    console.log("id of the listing",idx);
                 });
             }
         }});
@@ -510,6 +619,41 @@ $(document).ready(function () {
     }
     //agent Profile
     function agentProfile(){
+        $("#upName").val(userObj.name);
+        $("#upEmail").val(userObj.email);
+        $("#upAddress").val(userObj.address);
+        $("#upContact").val(userObj.contact);
+        //$("#upPassword").val(userObj.passowrd);
+
+        $("#upAgenBtn").click(function(argument) {
+            var dataObj = {
+                name:$("#upName").val(),
+                email:$("upEmail").val(),
+                address:$("#upAddress").val(),
+                contact:$("#upContact").val(),
+                userId:userObj.user_id,
+                email:$("#upEmail").val(),
+                password:$("#upPassword").val()
+            }
+            console.log("User data before sending",dataObj);
+            $.ajax({
+                url: apiEndPoint+"user/update",
+                type: "POST",
+                data: dataObj,
+                success: function(data) {
+                console.log("data after success login",data);
+                if(data){
+                    alert("success");
+                    localStorage.setItem('userObj', JSON.stringify(data[0]));
+                }
+                },
+                error: function(data, status, er) {
+                    alert("Login Failed!");
+                }
+            });
+
+
+        });
         
     }
     // agent Post Listing

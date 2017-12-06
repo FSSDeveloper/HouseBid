@@ -3186,3 +3186,12 @@ padding: 10px;
 .contactDealerBtn{
     background-color: #FFA500;
 }
+
+#toaster-success{
+    position: fixed;
+    bottom: 0px;
+    background-color: #c3f9b4;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10%;
+}
