@@ -32,7 +32,7 @@ function signUp(user, image, callback) {
     });
 }
 
-function updateUser(user, callback) {
+function updateUser(user, image, callback) {
     mysql.getConnection(function(err, con) {
         var sql = "UPDATE user SET ? WHERE user_id = " + user.userId,
             values = {
@@ -40,8 +40,8 @@ function updateUser(user, callback) {
                 email: user.email,
                 password: user.password,
                 contact: user.contact,
-                address: user.address,
-                image: image.image ? image.image.data : null,
+                address: user.address
+                // image: image.image ? image.image.data : null,
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
