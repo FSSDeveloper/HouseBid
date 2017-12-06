@@ -104,7 +104,7 @@ app.get("/user/agents", function (req, res) {
 app.post("/user/update", function (req, res) {
     var body = req.body;
     console.log("Update Profile request received.");
-    user.updateUser(body, function (err, data) {
+    user.updateUser(body, null, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {

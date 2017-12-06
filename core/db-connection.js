@@ -1,14 +1,27 @@
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
-    host:   process.env.SQL_HOST,
+    host:   "localhost",
     port:   3306,
-    user:   process.env.SQL_USR,
-    password:   process.env.SQL_PWS,
-    database:   process.env.SQL_DB
+    user:   "root",
+    password:   "root",
+    database:   "mydb"
 });
-var con = function () {
-
-};
 
 module.exports.pool = pool;
+
+var mysql = require("mysql");
+
+    var con = mysql.createConnection({
+        host:   "localhost",
+        port:   3306,
+        user:   "root",
+        password:   "root",
+        database:   "mydb"
+});
+
+    function getConnection() {
+            return con;
+        };
+
+module.exports.getConnection = getConnection;
