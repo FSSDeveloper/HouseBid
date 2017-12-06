@@ -14,6 +14,7 @@ function getListings(city, location, callback) {
                 }
                 sql += (" location LIKE '%" + location + "%'");
             }
+             sql += " AND status = 1"
         }
         console.log("Query to be executed: " + sql);
 
@@ -85,7 +86,7 @@ function addListing(listing, callback) {
                 area: listing.area,
                 status: listing.status,
                 address: listing.address,
-                expiry_date: listing.expiryDate,
+                expiry_date: listing.expiryDate ? listing.expiryDate : null,
                 agent_id: listing.agentId,
                 customer_id: listing.customerId,
                 city: listing.city,
