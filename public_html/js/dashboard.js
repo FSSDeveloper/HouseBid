@@ -20,7 +20,6 @@ $(document).ready(function () {
     }else{
         apiEndPoint = "https://www.sfsuse.com/fa17g20/";
     }
-
     window.location.hash = "dashboard?type="+dashboardType;
     
     $(window).on('hashchange', function(){
@@ -510,6 +509,8 @@ $(document).ready(function () {
         }
         });
     }
+
+    
     //agent Manage Listing
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
@@ -652,9 +653,7 @@ $(document).ready(function () {
                 });
             }
         }});
-            var appnd = document.getElementById('appendHere');
-
-        
+            var appnd = document.getElementById('appendHere');        
     }
     //agent Profile
     function agentProfile(){
