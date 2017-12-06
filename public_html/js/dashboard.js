@@ -632,7 +632,7 @@ $(document).ready(function () {
             }
             console.log("User data before sending",dataObj);
             $.ajax({
-                url: apiEndPoint+"/user/update",
+                url: apiEndPoint+"user/update",
                 type: "POST",
                 data: dataObj,
                 success: function(data) {
