@@ -90,7 +90,7 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-    		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
+    		$.ajax({url:"../"+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./pages/searchListings.html", function(){
@@ -165,7 +165,7 @@ $(document).ready(function () {
         var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
+        $.ajax({url: "../"+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./pages/listingDetails.html", function(){
                 $("#chatDiv").hide();
@@ -241,7 +241,7 @@ $(document).ready(function () {
                     $("#sendMessageBtn").click(function() {
                         var message = $("#chatMessage").val();
                         $.ajax({
-                            url: apiEndPoint+"user/message",
+                            url: "../"+"user/message",
                             type: "POST",
                             data: {
                                 message: message,
@@ -341,9 +341,9 @@ $(document).ready(function () {
 
         // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
         // }});
-
+        //url: apiEndPoint+"user/login"
         $.ajax({
-            url: apiEndPoint+"user/login",
+            url: "../user/login",
             type: "POST",
             data: {
                 email: emails,
@@ -379,7 +379,7 @@ $(document).ready(function () {
         if(validateForm()) {
             var formData = new FormData(this);
             $.ajax({
-                url: apiEndPoint + "signup",
+                url: "../signup",
                 type: "post",
                 data: formData,
                 contentType: false,
