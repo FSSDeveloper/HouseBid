@@ -40,7 +40,7 @@ $(document).ready(function () {
                     break;
                 default:
                     console.log('home');
-                    $("#uiView").load("./public/pages/homeContent.html", function(){
+                    $("#uiView").load("./pages/homeContent.html", function(){
                     });
             };
         }else if(location.pathname == '/index.html'){
@@ -52,7 +52,7 @@ $(document).ready(function () {
 
     function loadHomePage(){
 
-        $("#loadSliderContent").load("./public/pages/homeSlider.html", function(){
+        $("#loadSliderContent").load("./pages/homeSlider.html", function(){
         	console.log('inside loadHomePage');
             $('#addBodyContent').attr("style","background-color: #FCFCFC; padding-bottom: 15px;display:block;visibility:visible;");
         	$('#homeSlider').attr('style','display:block;visibility:visible;');
@@ -85,7 +85,7 @@ $(document).ready(function () {
     		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
-            $('#uiView').load("./public/pages/searchListings.html", function(){
+            $('#uiView').load("./pages/searchListings.html", function(){
 
                 $('#ListingPageSearchBtn').click(function(){
                 
@@ -130,7 +130,7 @@ $(document).ready(function () {
 
         $.ajax({url: apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
-            $('#uiView').load("./public/pages/listingDetails.html", function(){
+            $('#uiView').load("./pages/listingDetails.html", function(){
                 $("#chatDiv").hide();
                 $("#addBodyContent").attr("style","display:none;");
                 var template = $("#listingDetailsDiv");
@@ -203,7 +203,7 @@ $(document).ready(function () {
         }});
     }; 
 
-     $( "#header" ).load( "./public/pages/header.html", function() {
+     $( "#header" ).load( "./pages/header.html", function() {
         //$('html, body').animate({scrollTop: '0px'}, 300);
 
         if(localStorage.length > 0){
@@ -228,7 +228,7 @@ $(document).ready(function () {
         window.scrollTo(0, 0);
     });
     
-    $( "#footer" ).load( "./public/pages/footer.html", function() {
+    $( "#footer" ).load( "./pages/footer.html", function() {
         
     });
 
@@ -283,11 +283,14 @@ $(document).ready(function () {
                 password: passwords
             },
             success: function(data) {
+            console.log(data);
             console.log("data after success login",data);
-            if(data){
+            if(data.length > 0){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
                 alert("Login Successful!!");
                 location.href=apiEndPoint+"index.html";
+            } else {
+                alert("Login Failed!");
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -303,7 +306,9 @@ $(document).ready(function () {
 
     //SignUp Function
     $('#signUpForm').submit(function(event) {
+    
         event.preventDefault();
+        
         if(validateForm()) {
             var formData = new FormData(this);
             $.ajax({
@@ -314,6 +319,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     console.log(response);
+                    $('#signUpForm').trigger("reset");
                     alert("Successfully Signed Up. Please Login!");
                 },
                 error: function(response) {
@@ -329,7 +335,7 @@ $(document).ready(function () {
     });
 
     // Validates sign up form fields
-        function validateForm() {
+    function validateForm() {
         var regName = $('#name').val();
         var regEmail = $('#email').val();
         var regPsw = $('#password').val();
@@ -371,7 +377,7 @@ $(document).ready(function () {
         }
 
         if(regPsw !== rptPass) {
-            $('#rpError').removeClass('hide').text("Password and Confirm Password did not match");
+            $('#rpError').removeClass('hide').text("Password and Repeat Password did not match");
             formValidation = false;
         } else{
             $('#rpError').addClass('hide');
@@ -379,27 +385,6 @@ $(document).ready(function () {
 
         return formValidation;
     }
-       $('#contactForm').submit(function(event) {
-        event.preventDefault();
-        if(ContactUsFormValidation()) {
-            var formData = new FormData(this);
-            $.ajax({
-                url: apiEndPoint + "contact",
-                type: "post",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function(response) {
-                }
-            });
-        }
-    });
-
-
-
         function ContactUsFormValidation(){
         var Cname = $('#name').val();
         var Cemail = $('#email').val();
@@ -407,7 +392,6 @@ $(document).ready(function () {
         var Csubject = $('#subject').val();
         console.log(Csubject);
         var formValidation = true;
-
         if(Cname === undefined || Cname === '') {
             $('#nameError').removeClass('hide').text("required");
             formValidation = false;
@@ -432,9 +416,10 @@ $(document).ready(function () {
         } else {
             $('#emailError').addClass('hide');
         }
+        
 
         return formValidation;
-}
+    }
     function validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -538,3 +523,4 @@ $(document).ready(function () {
 // Initializing WOW.JS
 
 new WOW().init();
+

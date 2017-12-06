@@ -1,0 +1,366 @@
+<div class="container agentDashboardDiv"> 
+	<ul class="nav nav-pills" role="tablist">
+	  <li role="presentation" id="navInbox" class="active"><a id="agentInboxBtn">Inbox</a></li>
+	  <li role="presentation" id="navMl"><a id="agentMlBtn">Manage Listings</a></li>
+	  <li role="presentation" id="navPl"><a id="agentPlBtn">Post Listings</a></li>
+	  <li role="presentation" id="navProfile"><a id="agentProfileBtn">Profile</a></li>
+	</ul>
+	<div class="row" id="agentInbox" style="display: none;"> 
+		<div class="col-md-4 chatList well" > 
+			<div class="list-group" id="appendChatList" style="height: 50vh;">
+			  
+			</div>
+		</div>
+		<div class="col-md-1"> </div>
+		<div class="col-md-5  well" id="agentChatDetails">
+			<div id="chatDetails" style="height: 50vh;overflow-y: scroll;"> 
+
+			</div>
+			<div class="newChatBox"> 
+				<input type="text" id="newChatMessage" style="border: 2px solid #dcdcdc;margin: 5px;" placeholder="Text your message here" /> <button type="button" class="pull-right" id="newChatSendBtn" style="margin:5px;"> Send </button>
+			</div>
+		</div>
+		<div style="display: none"> 
+			<div class="chatMessageBox" id="chatBoxTemplate"> 
+				<p id="chatMessage"> </p>
+			</div><br> 
+		</div>
+	</div>
+	<div class="well row" id="agentMl" style="display: none;"> 
+		<div class="col-md-12" id="appendListings"> 
+			
+		</div>
+		<div style="display: none;"> 
+            <div class="col-sm-6 col-md-4" id="searchListingTemplate" style="padding-top: 15px;">
+                <div class="box-two proerty-item">
+                    <div class="item-thumb">
+                        <a ><img src="../images/demo/property-3.jpg"></a>
+                    </div>
+                    <div class="item-entry overflow">
+                        <h5 style="padding:5px;"> <b> Listing ID: </b> <p id="listingId" style="display:inline;"> </p> </h5>
+                        <h5  style="padding:5px;"> <b id="listingTitle"> </b> </h5>      
+                        <div class="dot-hr"></div>
+                        <div style="padding: 5px;"> 
+                            <div class="row"> 
+                                <div class="col-md-6" style="display:inline-flex;"> 
+                                    <p> <b> Area : </b> <p id="listingArea" style="margin:auto;">  </p>
+                                </div>
+                                <div class="col-md-6" style="display:inline-flex;"> 
+                                  <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
+                                </div>
+                            </div>
+                            <div class="property-icon">
+                                <img src="../images/icon/bed.png"><span id="listingBedValue"> </span>
+                                <img src="../images/icon/shawer.png"><span id="listingBathValue"> </span>
+                                <img src="../images/icon/cars.png"><span id="listingCarValue"> </span>(1)  
+                            </div>
+                            <div id="listingActionBtn"> 
+                            	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="col-md-12" id="appendListingEdit"> 
+			<div class="container"> 
+				<form> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditTitle" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Title</label>
+				    		</div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditCity" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>City</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditLocation" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Location</label>
+						    </div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditAddress" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Address</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditPrice" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Price</label>
+						    </div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="agentEditArea" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Area</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="Date" id="agentEditExpiryDate" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Expiry Date</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number" id="agentEditBeds" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Beds</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number"  id="agentEditBaths" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Baths</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<fieldset>
+					    		<label for="agentEditStatus"> Status:</label>
+						    	<select id="agentEditStatus" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
+			                        <option value="0">Active</option>
+			                        <option value="1">Expired</option>
+			                        <option value="2">Sold</option>
+		                    	</select>
+					    	</fieldset>
+						</div>
+						<div class="col-md-3">
+					        <div class="checkbox">
+					            <label> <input type="checkbox" id="agentEditBiddable" checked> Biddable</label>
+					        </div> 
+					    </div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6">
+							<div class="form-group">
+		                        <label for="agentEditDescription">Description</label>
+		                        <textarea  id="agentEditDescription" class="form-control"></textarea>
+	                    	</div>
+						</div>
+						<div class="col-md-6"> </div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> </div>
+						<div class="col-md-6"> </div>
+					</div>
+				</form>
+			</div>
+			<div class="pull-right"> 
+				<button class="btn btn-default" id="agentEditListingBtn">Update</button>
+				<button class="btn btn-default" id="agentCancEditListingBtn">Cancel</button>
+				<button class="btn btn-default" id="agentDeleteListingBtn">Delete</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="well row wow fadeIn" id="agentPl" style="display: none;" data-wow-delay=".9s"> 
+
+		<div class="col-md-12">
+			<div class="container"> 
+				<form> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="postTitle" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Title</label>
+				    		</div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="postCity" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>City</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="postLocation" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Location</label>
+						    </div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="postAddress" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Address</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="postPrice" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Price</label>
+						    </div>
+						</div>
+						<div class="col-md-6"> 
+							<div class="group">      
+						      <input type="text" id="postArea" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Area</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="Date" id="postExpiryDate" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Expiry Date</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number" id="postBeds" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Beds</label>
+						    </div>
+						</div>
+						<div class="col-md-4"> 
+							<div class="group">      
+						      <input type="number"  id="postBaths" required>
+						      <span class="highlight"></span>
+						      <span class="bar"></span>
+						      <label>Baths</label>
+						    </div>
+						</div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<fieldset>
+					    		<label for="postStatus"> Status:</label>
+						    	<select id="postStatus" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
+			                        <option value="0">Active</option>
+			                        <option value="1">Expired</option>
+			                        <option value="2">Sold</option>
+		                    	</select>
+					    	</fieldset>
+						</div>
+						<div class="col-md-3">
+					        <div class="checkbox">
+					            <label> <input type="checkbox" id="postBiddable" checked> Biddable</label>
+					        </div> 
+					    </div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6">
+							<div class="form-group">
+		                        <label for="postDescription">Description</label>
+		                        <textarea  id="postDescription" class="form-control"></textarea>
+	                    	</div>
+						</div>
+						<div class="col-md-6"> </div>
+					</div>
+					<div class="row"> 
+						<div class="col-md-6"> </div>
+						<div class="col-md-6"> </div>
+					</div>
+				</form>
+			</div>
+			<div class="pull-right"> 
+				<button class="btn btn-default" id="postAgentListingBtn">Post</button>
+			</div>
+			
+		</div>
+	</div>
+	<div class="well row" id="agentProfile" style="display: none;"> 
+		<div class="col-md-12">
+			<div class="box-for overflow">
+                <div class="col-md-12 col-xs-12 register-blocks">
+                    <h2>Edit Profile : </h2> 
+                    <div class="form-group">
+                        <label for="upName">Name</label>
+                        <input type="text" class="form-control" id="upName" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="nameError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="upEmail">Email</label>
+                        <input type="email" class="form-control" id="upEmail" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="emailError"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="upPassword">Password</label>
+                        <input type="password" class="form-control" id="upPassword" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id="passError"></div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="upRptPassword">Repeat Password</label>
+                        <input type="password" class="form-control" id="upRptPassword" required>
+                        <div class="errors">
+                          <div class="alert alert-danger hide" id=rpError></div>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="upAddress">Address</label>
+                        <input type="text" class="form-control" id="upAddress" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="upContact">Contact</label>
+                        <input type="text" class="form-control" id="upContact" required>
+                    </div>
+                    <div class="text-center">
+                        <button id="upAgenBtn" type="submit" class="btn btn-default">Update</button>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+	</div>
+	<!-- ***Templates*** -->
+	
+	<a id="chatListItemTemplate"  style="display: none;">
+	   <span class="chatItemText"> </span>
+	</a>
+</div>

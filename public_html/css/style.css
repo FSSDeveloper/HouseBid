@@ -1088,7 +1088,7 @@ font-weight: 500;
 page-header
 ======================================================*/
 .page-head{
-    background: #494C53 url("../../public/images/page-header.jpg") 
+    background: #494C53 url("../images/page-header.jpg") 
         no-repeat scroll center top / cover;
     color:#FFF;
     position: relative;
@@ -3033,7 +3033,7 @@ padding: 10px;
     position:absolute;
     left:50%;  
     top:50%;  
-    background-image:url(../../assets/img/preloader.gif);  
+    background-image:url(../images/preloader.gif);  
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; 
@@ -3185,4 +3185,21 @@ padding: 10px;
 }
 .contactDealerBtn{
     background-color: #FFA500;
+}
+
+#toaster-success{
+    position: fixed;
+    bottom: 0px;
+    background-color: #c3f9b4;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10%;
+}
+.agentActionDelete{
+    background-color: deepskyblue;
+    color: black;
+}
+.agentActionEdit{
+    background-color: orangered;
+    color: black;
 }
