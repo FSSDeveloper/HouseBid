@@ -47,12 +47,9 @@ function updateUser(user, image, callback) {
             if (err) callback(err, null);
             else callback(null, login(user, function (err, data) {
                 if (err) {
-                    console.log("Error in Database Server: " + err);
+                    callback(err, null);
                 } else {
-                    if(data.length === 0) {
-                        res.status(404);
-                    }
-                    res.json(data);
+                    callback(null, data);
                 }
             }));
         });

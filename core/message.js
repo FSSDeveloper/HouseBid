@@ -71,9 +71,9 @@ function addMessage(message, callback) {
             if (err) callback(err, null);
             else callback(null, getMessageByMessageId(result.insertId, function (err, data) {
                 if (err) {
-                    console.log("Error in Database Server: " + err);
+                    callback(err, null);
                 } else {
-                    res.json(data);
+                    callback(null, data);
                 }
             }));
         });
