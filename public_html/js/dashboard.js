@@ -151,6 +151,8 @@ $(document).ready(function () {
                                 success: function(data) {
                                 console.log("message sent",data);
                                 newChatMsg = "";
+                                var chatDivHeight = document.getElementById("chatDetails").scrollHeight;
+                                $('#chatDetails').animate({scrollTop:chatDivHeight}, 'slow');
                                 },
                                 error: function(data, status, er) {
                                     console.log("Error",data);
@@ -454,6 +456,8 @@ $(document).ready(function () {
                                 }
                             chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[0].message;
                             chatBoxTemplate.appendTo("#chatDetails");
+                            var chatDivHeight = document.getElementById("chatDetails").scrollHeight;
+                            $('#chatDetails').animate({scrollTop:chatDivHeight}, 'slow');
                             },
                             error: function(data, status, er) {
                                 console.log("Error",data);
@@ -510,7 +514,7 @@ $(document).ready(function () {
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
         $("#appendListings").show();
-        var searchUrl = "search?city=fulda"+"&location="; 
+        var searchUrl = "agent/listings?userId="+userObj.user_id; 
         document.getElementById("appendListings").innerHTML = " ";
         $.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log("response in Agent Ml ",response);
@@ -714,7 +718,8 @@ $(document).ready(function () {
             city:document.getElementById("postCity").value,
             location:document.getElementById("postLocation").value,
             baths:parseInt(document.getElementById("postBaths").value),
-            beds:parseInt(document.getElementById("postBeds").value)
+            beds:parseInt(document.getElementById("postBeds").value),
+            customerId:0
 
         }
         console.log("Data Obj post listing",dataObj);

@@ -27,7 +27,7 @@ function getListings(city, location, callback) {
 
 function getListingsByUserId(agentId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM listing WHERE user_id = " + agentId;
+        var sql = "SELECT * FROM listing WHERE agent_id = " + agentId;
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
