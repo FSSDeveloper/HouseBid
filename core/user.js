@@ -14,6 +14,10 @@ function login(user, callback) {
 
 function signUp(user, image, callback) {
     mysql.getConnection(function(err, con) {
+        // var hashWord = encryptionUtil.cryptPassword(user.password, function (err, data) {
+        //     if(err) return err
+        //     else return data;
+        // })
         var sql = "INSERT INTO user SET ?",
             values = {
                 name: user.name,
