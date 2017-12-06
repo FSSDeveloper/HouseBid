@@ -1,8 +1,9 @@
 var mysql = require("./db-connection").pool;
+var encryptionUtil = require("./encryptionUtil");
 
 function login(user, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = \"" + user.email + "\" AND password = \"" + user.password + "\"";
+        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = \"" + user.email + "\" AND password = \"" + encryptionUtil.encrypt(user.password) + "\"";
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -14,15 +15,11 @@ function login(user, callback) {
 
 function signUp(user, image, callback) {
     mysql.getConnection(function(err, con) {
-        // var hashWord = encryptionUtil.cryptPassword(user.password, function (err, data) {
-        //     if(err) return err
-        //     else return data;
-        // })
         var sql = "INSERT INTO user SET ?",
             values = {
                 name: user.name,
                 email: user.email,
-                password: user.password,
+                password: encryptionUtil.encrypt(user.password),
                 contact: user.contact,
                 address: user.address,
                 image: image.image ? image.image.data : null,
@@ -42,7 +39,7 @@ function updateUser(user, image, callback) {
             values = {
                 name: user.name,
                 email: user.email,
-                password: user.password,
+                password: encryptionUtil.encrypt(user.password),
                 contact: user.contact,
                 address: user.address
                 // image: image.image ? image.image.data : null,
