@@ -7,8 +7,5 @@ var pool = mysql.createPool({
     password:   process.env.SQL_PWS,
     database:   process.env.SQL_DB
 });
-var con = function () {
-
-};
 
 module.exports.pool = pool;

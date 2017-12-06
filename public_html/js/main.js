@@ -5,6 +5,9 @@ $(window).load(function () { // makes sure the whole site is loaded
     $('body').delay(350).css({'overflow': 'visible'});
 })
 $(document).ready(function () {
+
+
+
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
@@ -66,7 +69,12 @@ $(document).ready(function () {
     }
 
     loadHomePage();
-    
+  
+
+
+
+
+
 
     function searchListings(){
     	apiCalled = true;
@@ -100,14 +108,36 @@ $(document).ready(function () {
                     template.attr('id',searchIdx);
                     console.log("response[i]",template.find("#listingPrice"));
                     template.attr("data",response[i].listing_id);
+
                     template.attr("class","view-listing-details col-sm-6 col-md-4");
                     template.find('#listingId')[0].innerHTML = response[i].listing_id;
                     template.find("#listingTitle")[0].innerHTML = response[i].title;
                     template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                     template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                     template.find("#listingDescription")[0].innerHTML = response[i].description;
-                     template.appendTo(".appendHere");
+                    template.appendTo(".appendHere");
+
                 }
+
+               
+
+
+
+                //Sorting Function
+                
+                //         $(".btnSortP").click(function() {
+//         console.log("Clicked");
+//         var divList = $(".price");
+//         console.log(divList);
+//         divList.sort(function(a, b){
+//             var result = parseFloat($(a).find('[data-price]').data('price'))- parseFloat($(b).find('[data-price]').data('price'));
+//             return result;
+//         });
+//         $("#container").html(divList);
+//     });
+// });
+
+
                 var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
     
                 for(var i=0;i < listingDetailsLinks.length;i++) {
@@ -123,7 +153,14 @@ $(document).ready(function () {
     	
     };
 
+
+
+ 
+
+
+
     function getListingDetails(listingId){
+       
        console.log("listingId",listingId);
         var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
@@ -149,11 +186,26 @@ $(document).ready(function () {
                 if(userObj){
                     if(userObj.user_type == 1){
                         $("#contactBtn").show();
+                        $("#locationListing").show();
+                        var latitude = 50.5526664;
+                        var longitude = 9.6708009;
+                        // var latitude = response[0].latitude;
+                        // var longitude = response[0].longitude;
+                        
+                        $("#showLocation").attr("style","display:none;");
+                        template.find("#listingMapDiv")[0].innerHTML = '<iframe id="locationListing" width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+latitude+' ,'+longitude+' &amp;key=AIzaSyDzLEmHTY7AydmTHxcpZuu7tPREhO1lYeU"></iframe>'
+
                        template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                    }else{
+                      $("#contactBtn").hide();  
+                      $("#locationListing").show();
+                      $("#showLocation").hide();
                     }
 
                 }else{
-                        $("#contactBtn").attr("style","display:none;");
+                        $("#contactBtn").hide();
+                        $("#locationListing").attr("style","display:none;");
+                        $("#showLocation").show();
                         template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
                     }
 
@@ -161,10 +213,25 @@ $(document).ready(function () {
                 
 
                 template.find("#listingPrice")[0].innerHTML = response[0].price+"EUR";
+
+
+                $("#bidCount").attr("style, display:none;");
+
+                if($("#bidNumber").val() > 1000)
+                {
+                    $("#bidCount").show();
+                }
+                else
+                {
+                    $("#bidCount").attr("style, display:none;");
+                }
                 if(response[0].is_biddable == 0){
                     bidabble = "No";
+                    $("#bidNumber").attr("style","display:none;");
+
                 }else{
                     bidabble = "Yes";
+                    $("#bidNumber").show();
                 }
                 template.find("#listingBiddable")[0].innerHTML = bidabble;
 
@@ -283,11 +350,14 @@ $(document).ready(function () {
                 password: passwords
             },
             success: function(data) {
+            console.log(data);
             console.log("data after success login",data);
-            if(data){
+            if(data.length > 0){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
                 alert("Login Successful!!");
                 location.href=apiEndPoint+"index.html";
+            } else {
+                alert("Login Failed!");
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -303,7 +373,9 @@ $(document).ready(function () {
 
     //SignUp Function
     $('#signUpForm').submit(function(event) {
+    
         event.preventDefault();
+        
         if(validateForm()) {
             var formData = new FormData(this);
             $.ajax({
@@ -314,6 +386,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     console.log(response);
+                    $('#signUpForm').trigger("reset");
                     alert("Successfully Signed Up. Please Login!");
                 },
                 error: function(response) {
@@ -371,7 +444,7 @@ $(document).ready(function () {
         }
 
         if(regPsw !== rptPass) {
-            $('#rpError').removeClass('hide').text("Password and Confirm Password did not match");
+            $('#rpError').removeClass('hide').text("Password and Repeat Password did not match");
             formValidation = false;
         } else{
             $('#rpError').addClass('hide');
@@ -379,7 +452,41 @@ $(document).ready(function () {
 
         return formValidation;
     }
+        function ContactUsFormValidation(){
+        var Cname = $('#name').val();
+        var Cemail = $('#email').val();
+        var Contact = $('#contact').val();
+        var Csubject = $('#subject').val();
+        console.log(Csubject);
+        var formValidation = true;
+        if(Cname === undefined || Cname === '') {
+            $('#nameError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#nameError').addClass('hide');
+        }
+        
+        if(Csubject === undefined || Csubject === '') {
+            console.log('here');
+            $('#subjectError').removeClass('hide').text("required");
+            formValidation = false;
+        } else {
+            $('#subjectError').addClass('hide');
+        }
 
+        if(Cemail === undefined || Cemail === '') {
+            $('#emailError').removeClass('hide').text("required");
+            formValidation = false;
+        } else if( !validateEmail(Cemail)){
+            $('#emailError').removeClass('hide').text("Incorrect Format");
+            formValidation = false;
+        } else {
+            $('#emailError').addClass('hide');
+        }
+        
+
+        return formValidation;
+    }
     function validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);

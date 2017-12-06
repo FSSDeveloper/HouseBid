@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>HOME BID | Register page</title>
+        <title>HOME BID | Contact Us</title>
         <meta name="description" content="GARO is a real-estate template">
         <meta name="author" content="Kimarotec">
         <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
@@ -16,7 +16,7 @@
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
-            <link href="https://fonts.googleapis.com/   css?family=Bowlby+One+SC|Poppins" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Bowlby+One+SC|Poppins" rel="stylesheet">
             <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
             <link rel="icon" href="favicon.ico" type="image/x-icon"> 
             <link rel="stylesheet" href="../css/normalize.css">
@@ -74,7 +74,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Home New account / Sign in </h1>               
+                        <h1 class="page-title">Contact Us </h1>               
                     </div>
                 </div>
             </div>
@@ -87,9 +87,9 @@
             <div class="container">
                 <div class="col-md-6">
                     <div class="box-for overflow">
-                        <form method="post" enctype="multipart/form-data" id="signUpForm">
+                        <form method="post" enctype="multipart/form-data" id="contactForm">
                             <div class="col-md-12 col-xs-12 register-blocks">
-                                <h2>New account : </h2>
+                                
                                 <div class="form-group">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
@@ -104,37 +104,25 @@
                                       <div class="alert alert-danger hide" id="emailError"></div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" required>
-                                    <div class="errors">
-                                      <div class="alert alert-danger hide" id="passError"></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Repeat Password</label>
-                                    <input type="password" class="form-control" id="rptPass" required>
-                                    <div class="errors">
-                                      <div class="alert alert-danger hide" id=rpError></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" required>
 
-                                </div>
+
+                                
+                                
                                 <div class="form-group">
-                                    <label for="contact">Phone Number</label>
+                                    <label for="contact">Contact</label>
                                     <input type="text" class="form-control" id="contact" name="contact" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="image">Select a Profile Picture</label>
-                                    <input type="file" class="form-control" id="image" accept="image/*" name="image">
+                                <div>
+                                <label for="subject">Message</label>
+                                 <textarea id="subject" name="subject" placeholder="Write something.." style="width:506px; height: 250px;"></textarea>
+                                 <div class="errors">
+                                      <div class="alert alert-danger hide" id="subjectError"></div>
+                                    </div>
                                 </div>
 
 
                                 <div class="text-center">
-                                    <button id="signUp" type="submit" class="btn btn-default">Register</button>
+                                    <button id="ContactUs" type="submit" class="btn btn-default">Send</button>
                                 </div>
 
                                 <!-- Hidden fields for hidden data travel -->
@@ -143,21 +131,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box-for overflow">                         
-                        <div class="col-md-12 col-xs-12 login-blocks">
-                            <h2>Login : </h2>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" id="loginEmail">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="loginPassword">
-                            </div>
-                            <div class="text-center">
-                                <button id ="loginBtn" type="button" class="btn btn-default">Log in</button>
-                                
+                
                             </div>
                         </div>
                     </div>

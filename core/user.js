@@ -32,6 +32,25 @@ function signUp(user, image, callback) {
     });
 }
 
+function updateUser(user, image, callback) {
+    mysql.getConnection(function(err, con) {
+        var sql = "UPDATE user SET ? WHERE user_id = " + user.userId,
+            values = {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                contact: user.contact,
+                address: user.address
+                // image: image.image ? image.image.data : null,
+            };
+        con.query(sql, values, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
+    });
+}
+
 function getUserById(userId, callback) {
     mysql.getConnection(function(err, con) {
         var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE user_id = " + userId;
@@ -60,3 +79,4 @@ module.exports.signUp = signUp;
 module.exports.login = login;
 module.exports.getUserById = getUserById;
 module.exports.getAgents = getAgents;
+module.exports.updateUser = updateUser;
