@@ -109,9 +109,9 @@ $(document).ready(function () {
             console.log("in customer inbox function");
             //api call to get all the messages
             var url ="user/messages?userId="+userObj.user_id;
-            $.ajax({url:"../"+url, success: function(response){
+            $.ajax({url:apiEndPoint+url, success: function(response){
                 console.log("response",response);
-                // var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
+                var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
                 var currentChatObj = "";
                 for(var i=0;i < response.length;i++) {
                     var template = $('#chatListItemTemplate').clone();
@@ -139,7 +139,7 @@ $(document).ready(function () {
                    var newChatMsg = $("#newChatMessage").val();
                    console.log("current Object",currentChatObj,newChatMsg);
                    $.ajax({
-                                url: "../"+"user/message",
+                                url: apiEndPoint+"user/message",
                                 type: "POST",
                                 data: {
                                     message: newChatMsg,
@@ -175,7 +175,7 @@ $(document).ready(function () {
                      }
                     //$("#chatDetails").innerHTML = "";
                     $.ajax({
-                        url: "../"+"user/conversation?senderId="+response[idx][0].sender_id+"&receiverId="+userObj.user_id,
+                        url: apiEndPoint+"user/conversation?senderId="+response[idx][0].sender_id+"&receiverId="+userObj.user_id,
                         type: "GET", // By default GET,
                         success: function(response) {
                             for(var x=0;x<response.length;x++){
@@ -212,7 +212,7 @@ $(document).ready(function () {
     //Author Farrukh: For Agent Id
 
      $.ajax({
-            url: "../"+"user/agents",
+            url: apiEndPoint+"user/agents",
             type: "GET", // By default GET,
             success: function(data) {
                 console.log("data after success login"+data);
@@ -250,7 +250,7 @@ $(document).ready(function () {
             var agentId = $('#statusSel').val();
 
             $.ajax({
-            url: "../"+"agent/listing",
+            url: apiEndPoint+"agent/listing",
             type: "POST",
             data: {
                 title: cusTitle,
@@ -306,7 +306,7 @@ $(document).ready(function () {
             }
         console.log("User data before sending",dataObj);
         $.ajax({
-            url: "../"+"user/update",
+            url: apiEndPoint+"user/update",
             type: "POST",
             data: dataObj,
             success: function(data) {
@@ -401,7 +401,7 @@ $(document).ready(function () {
         console.log("in agent inbox function");
         //api call to get all the messages
         var url ="user/messages?userId="+userObj.user_id;
-        $.ajax({url:"../"+url, success: function(response){
+        $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
             var currentChatObj = "";
             for(var i=0;i < response.length;i++) {
@@ -431,7 +431,7 @@ $(document).ready(function () {
                var newChatMsg = $("#newChatMessage").val();
                console.log("current Object",currentChatObj,newChatMsg);
                $.ajax({
-                            url: "../"+"user/messages",
+                            url: apiEndPoint+"user/message",
                             type: "POST",
                             data: {
                                 message: newChatMsg,
@@ -480,7 +480,7 @@ $(document).ready(function () {
                  }
                 //$("#chatDetails").innerHTML = "";
                 $.ajax({
-                    url: "../"+"user/conversation?senderId="+response[idx][0].sender_id+"&receiverId="+userObj.user_id,
+                    url: apiEndPoint+"user/conversation?senderId="+response[idx][0].sender_id+"&receiverId="+userObj.user_id,
                     type: "GET", // By default GET,
                     success: function(response) {
                         for(var x=0;x<response.length;x++){
@@ -517,7 +517,7 @@ $(document).ready(function () {
         $("#appendListings").show();
         var searchUrl = "agent/listings?userId="+userObj.user_id; 
         document.getElementById("appendListings").innerHTML = " ";
-        $.ajax({url:"../"+searchUrl, success: function(response){
+        $.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log("response in Agent Ml ",response);
             for(var i=0; i < response.length; i++){
                 var template = $('#searchListingTemplate').clone();
@@ -552,7 +552,7 @@ $(document).ready(function () {
                     $("#appendListingEdit").show();
                     $("#appendListings").hide();
                     $.ajax({
-                        url: "../"+"listing?listingId="+idx,
+                        url: apiEndPoint+"listing?listingId="+idx,
                         type: "GET", // By default GET,
                         success: function(response) {
                             console.log("response",response);
@@ -611,7 +611,7 @@ $(document).ready(function () {
                         };
 
                         $.ajax({
-                        url: "../"+"agent/listing/update",
+                        url: apiEndPoint+"agent/listing/update",
                         type: "POST", // By default GET,
                         data:dataObj,
                         success: function(response) {
@@ -638,7 +638,7 @@ $(document).ready(function () {
                         listingId:idx
                     };
                     $.ajax({
-                        url: "../"+"agent/listing",
+                        url: apiEndPoint+"agent/listing",
                         data:dataObj,
                         method:"DELETE",
                         success: function(response) {
@@ -675,7 +675,7 @@ $(document).ready(function () {
             }
             console.log("User data before sending",dataObj);
             $.ajax({
-                url: "../"+"user/update",
+                url: apiEndPoint+"user/update",
                 type: "POST",
                 data: dataObj,
                 success: function(data) {
@@ -723,7 +723,7 @@ $(document).ready(function () {
         }
         console.log("Data Obj post listing",dataObj);
         $.ajax({
-            url: "../"+"agent/listing",
+            url: apiEndPoint+"agent/listing",
             type: "POST",
             data: dataObj,
             success: function(data) {

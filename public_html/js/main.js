@@ -82,7 +82,7 @@ $(document).ready(function () {
             console.log("searchLocation",searchLocation);
                 var city = $('#city').val();
                 console.log("city",city,"location",location);
-                var url = window.location.href;
+                //var url = window.location.href;
                 if(city || searchLocation){
                 	window.location.hash = "search?city="+city+"&location="+searchLocation;
                 	var searchUrl = "search?city="+city+"&location="+searchLocation;
@@ -90,7 +90,7 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-    		$.ajax({url:"../"+searchUrl, success: function(response){
+    		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./pages/searchListings.html", function(){
@@ -162,10 +162,10 @@ $(document).ready(function () {
     function getListingDetails(listingId){
        
        console.log("listingId",listingId);
-        var url = window.location.href;
+        //var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: "../"+"listing?listingId="+listingId, success: function(response){
+        $.ajax({url:apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./pages/listingDetails.html", function(){
                 $("#chatDiv").hide();
@@ -241,7 +241,7 @@ $(document).ready(function () {
                     $("#sendMessageBtn").click(function() {
                         var message = $("#chatMessage").val();
                         $.ajax({
-                            url: "../"+"user/message",
+                            url: apiEndPoint+"user/message",
                             type: "POST",
                             data: {
                                 message: message,
@@ -289,7 +289,7 @@ $(document).ready(function () {
             $("#loginButton").show();
             $("#logoutButton").hide();
             $("#dashboardTab").hide();
-            window.location.href=apiEndPoint;
+            window.location.href="./index.html";
         })
 
         window.scrollTo(0, 0);
@@ -343,7 +343,7 @@ $(document).ready(function () {
         // }});
         //url: apiEndPoint+"user/login"
         $.ajax({
-            url: "../user/login",
+            url: apiEndPoint+"user/login",
             type: "POST",
             data: {
                 email: emails,
@@ -355,7 +355,7 @@ $(document).ready(function () {
             if(data.length > 0){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
                 alert("Login Successful!!");
-                location.href=apiEndPoint+"index.html";
+                location.href="../index.html";
             } else {
                 alert("Login Failed!");
             }
@@ -379,7 +379,7 @@ $(document).ready(function () {
         if(validateForm()) {
             var formData = new FormData(this);
             $.ajax({
-                url: "../signup",
+                url: apiEndPoint+"signup",
                 type: "post",
                 data: formData,
                 contentType: false,
