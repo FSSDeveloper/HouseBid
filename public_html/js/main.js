@@ -153,6 +153,8 @@ $(document).ready(function () {
     	
     };
 
+
+
  
 
 
@@ -185,13 +187,23 @@ $(document).ready(function () {
                     if(userObj.user_type == 1){
                         $("#contactBtn").show();
                         $("#locationListing").show();
+                        var latitude = 50.5526664;
+                        var longitude = 9.6708009;
+                        // var latitude = response[0].latitude;
+                        // var longitude = response[0].longitude;
+                        
                         $("#showLocation").attr("style","display:none;");
+                        template.find("#listingMapDiv")[0].innerHTML = '<iframe id="locationListing" width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+latitude+' ,'+longitude+' &amp;key=AIzaSyDzLEmHTY7AydmTHxcpZuu7tPREhO1lYeU"></iframe>'
 
                        template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                    }else{
+                      $("#contactBtn").hide();  
+                      $("#locationListing").show();
+                      $("#showLocation").hide();
                     }
 
                 }else{
-                        $("#contactBtn").attr("style","display:none;");
+                        $("#contactBtn").hide();
                         $("#locationListing").attr("style","display:none;");
                         $("#showLocation").show();
                         template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
