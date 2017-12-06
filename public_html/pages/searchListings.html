@@ -64,9 +64,10 @@
                             Property Date <i class="fa fa-sort-amount-asc"></i>                 
                         </a>
                     </li>
-                    <li class="">
-                        <a href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                            Property Price <i class="fa fa-sort-numeric-desc"></i>              
+                    <li class="active">
+                        <a  id = "byPrice" href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
+                            Property Price <i class="fa fa-sort-numeric-desc"></i>        
+                     <!--     <button type="button" class="btnSortP">Sort By Price  </button> -->
                         </a>
                     </li>
                 </ul>
@@ -85,19 +86,19 @@
             </div>
             <div class="item-entry overflow">
                 <h5 style="padding:5px;"> <b> Listing ID: </b> <p id="listingId" style="display:inline;"> </p> </h5>
-                <h5  style="padding:5px;"> <b id="listingTitle"> </b> </h5>      
+                <h5  style="padding:5px;   width: 100%;  white-space: nowrap;  overflow: hidden; text-overflow: ellipsis;"> <b id="listingTitle"> </b> </h5>      
                 <div class="dot-hr"></div>
                 <div style="padding: 5px;"> 
                     <div class="row"> 
                         <div class="col-md-6" style="display:inline-flex;"> 
                             <p> <b> Area : </b> <p id="listingArea" style="margin:auto;">  </p>
                         </div>
-                        <div class="col-md-6" style="display:inline-flex;"> 
+                        <div class="col-md-6 price" style="display:inline-flex;"> 
                           <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
                         </div>
                     </div>
-                    <p> <b> Description : </b> </p>
-                     <p id="listingDescription"> </p>
+                   <p> <b> Description : </b> </p> 
+                     <p id="listingDescription" style = "  width: 250px;  white-space: nowrap; overflow: hidden;  text-overflow: ellipsis;"> </p>
                     <div class="property-icon">
                         <img src="./images/icon/bed.png">(5)|
                         <img src="./images/icon/shawer.png">(2)|

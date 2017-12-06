@@ -509,6 +509,8 @@ $(document).ready(function () {
         }
         });
     }
+
+    
     //agent Manage Listing
     function agentManageListing(){
         //temp*--- calling search api for data, replace with actual api call 
@@ -651,9 +653,7 @@ $(document).ready(function () {
                 });
             }
         }});
-            var appnd = document.getElementById('appendHere');
-
-        
+            var appnd = document.getElementById('appendHere');        
     }
     //agent Profile
     function agentProfile(){
