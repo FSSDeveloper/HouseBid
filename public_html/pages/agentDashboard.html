@@ -7,13 +7,13 @@
 	</ul>
 	<div class="row" id="agentInbox" style="display: none;"> 
 		<div class="col-md-4 chatList well" > 
-			<div class="list-group" id="appendChatList">
+			<div class="list-group" id="appendChatList" style="height: 50vh;">
 			  
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
 		<div class="col-md-5  well" id="agentChatDetails">
-			<div id="chatDetails"> 
+			<div id="chatDetails" style="height: 50vh;overflow-y: scroll;"> 
 
 			</div>
 			<div class="newChatBox"> 
@@ -50,9 +50,9 @@
                                 </div>
                             </div>
                             <div class="property-icon">
-                                <img src="../images/icon/bed.png">(5)|
-                                <img src="../images/icon/shawer.png">(2)|
-                                <img src="../images/icon/cars.png">(1)  
+                                <img src="../images/icon/bed.png"><span id="listingBedValue"> </span>
+                                <img src="../images/icon/shawer.png"><span id="listingBathValue"> </span>
+                                <img src="../images/icon/cars.png"><span id="listingCarValue"> </span>(1)  
                             </div>
                             <div id="listingActionBtn"> 
                             	
@@ -179,6 +179,7 @@
 			</div>
 			<div class="pull-right"> 
 				<button class="btn btn-default" id="agentEditListingBtn">Update</button>
+				<button class="btn btn-default" id="agentCancEditListingBtn">Cancel</button>
 				<button class="btn btn-default" id="agentDeleteListingBtn">Delete</button>
 			</div>
 		</div>

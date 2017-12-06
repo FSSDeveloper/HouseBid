@@ -191,6 +191,8 @@ $(document).ready(function () {
                                 chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
                                 chatBoxTemplate.appendTo("#chatDetails");
                             }
+                            var chatDivHeight = document.getElementById("chatDetails").scrollHeight;
+                            $('#chatDetails').animate({scrollTop:chatDivHeight}, 'slow');
                             //console.log("bid"+isBiddable);
                             //console.log("agent ID" + agent_id);
                         console.log("data after success login"+response);
@@ -259,7 +261,7 @@ $(document).ready(function () {
                 isBiddable: cusBid,
                 description: cusMsg,
                 status: 2,
-                agentId: cust_Agent,
+                agentId: agentId,
                 customerId: userObj.user_id
             },
             success: function(data) {
@@ -436,9 +438,22 @@ $(document).ready(function () {
                                 listingId:currentChatObj[0].listing_id,
                                 receiverId:currentChatObj[0].sender_id
                             },
-                            success: function(data) {
-                            console.log("message sent",data);
+                            success: function(response) {
+                            console.log("message sent",response);
                             newChatMsg = "";
+                            $("#newChatMessage").val("");
+                            var respArr = response;
+                            currentChatObj = response;
+                            var chatBoxTemplate = $("#chatBoxTemplate").clone();
+                            if(userObj.user_id == response[0].sender_id){
+                                chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
+                                //chatBoxTemplate.attr("class","pull-right")
+                                }else{
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                  //  chatBoxTemplate.attr("class","pull-left");
+                                }
+                            chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[0].message;
+                            chatBoxTemplate.appendTo("#chatDetails");
                             },
                             error: function(data, status, er) {
                                 console.log("Error",data);
@@ -479,9 +494,9 @@ $(document).ready(function () {
                             chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
                             chatBoxTemplate.appendTo("#chatDetails");
                         }
-                        //console.log("bid"+isBiddable);
-                        //console.log("agent ID" + agent_id);
-                    console.log("data after success login"+response);
+                        console.log("chatdiv Height",document.getElementById("chatDetails").scrollHeight);
+                        var chatDivHeight = document.getElementById("chatDetails").scrollHeight;
+                            $('#chatDetails').animate({scrollTop:chatDivHeight}, 'slow');
                     },
                     error: function(data, status, er) {
                         alert("data Failed!");
@@ -511,7 +526,8 @@ $(document).ready(function () {
                 template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                 template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                 template.find("#listingActionBtn")[0].innerHTML = '<button type="button" class="pull-right agentActionEdit" data="'+response[i].listing_id+'"  style="margin:5px;"> Edit </button><button type="button" class="pull-right agentActionDelete" data="'+response[i].listing_id+'"  style="margin:5px;"> Delete </button>';
-
+                template.find("#listingBedValue")[0].innerHTML = "("+response[i].beds+")";
+                template.find("#listingBathValue")[0].innerHTML = "("+response[i].baths+")";
                // template.find("#listingDescription")[0].innerHTML = response[i].description;
                 template.appendTo("#appendListings");
                 
@@ -557,7 +573,9 @@ $(document).ready(function () {
                     });
 
                     
-
+                    $("#agentCancEditListingBtn").click(function(){
+                        agentManageListing();
+                    });
                     $("#agentEditListingBtn").click(function() {
                         var biddableValue = 1;
 
@@ -610,6 +628,23 @@ $(document).ready(function () {
                 agentActionDeleteBtns[i].addEventListener("click", function() {
                     var idx = this.getAttribute("data");
                     console.log("id of the listing",idx);
+
+                    var dataObj = {
+                        listingId:idx
+                    };
+                    $.ajax({
+                        url: apiEndPoint+"agent/listing",
+                        data:dataObj,
+                        method:"DELETE",
+                        success: function(response) {
+                            console.log("response after deleteting",response);
+                            agentManageListing();
+                        },
+                        error: function(data, status, er) {
+                            alert("data Failed!");
+                        }
+                        });
+                    
                 });
             }
         }});
@@ -675,7 +710,7 @@ $(document).ready(function () {
             address:document.getElementById("postAddress").value,
             expiryDate:document.getElementById("postExpiryDate").value,
             agentId:userObj.user_id,
-            customerId:6,
+            customerId:null,
             city:document.getElementById("postCity").value,
             location:document.getElementById("postLocation").value,
             baths:parseInt(document.getElementById("postBaths").value),

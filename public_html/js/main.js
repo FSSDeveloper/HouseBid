@@ -8,7 +8,7 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
-    //var userObj = JSON.parse(localStorage.getItem('userObj'));
+    var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
 
     if(window.location.hostname == "localhost"){

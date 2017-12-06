@@ -3033,7 +3033,7 @@ padding: 10px;
     position:absolute;
     left:50%;  
     top:50%;  
-    background-image:url(../../assets/img/preloader.gif);  
+    background-image:url(../images/preloader.gif);  
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; 
@@ -3194,4 +3194,12 @@ padding: 10px;
     margin: 15px;
     padding: 10px;
     border-radius: 10%;
+}
+.agentActionDelete{
+    background-color: deepskyblue;
+    color: black;
+}
+.agentActionEdit{
+    background-color: orangered;
+    color: black;
 }
