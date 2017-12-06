@@ -112,7 +112,7 @@ $(document).ready(function () {
             var url ="user/messages?userId="+userObj.user_id;
             $.ajax({url:"../"+url, success: function(response){
                 console.log("response",response);
-                var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
+                // var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
                 var currentChatObj = "";
                 for(var i=0;i < response.length;i++) {
                     var template = $('#chatListItemTemplate').clone();
@@ -432,7 +432,7 @@ $(document).ready(function () {
                var newChatMsg = $("#newChatMessage").val();
                console.log("current Object",currentChatObj,newChatMsg);
                $.ajax({
-                            url: "../"+"user/message",
+                            url: "../"+"user/messages",
                             type: "POST",
                             data: {
                                 message: newChatMsg,
