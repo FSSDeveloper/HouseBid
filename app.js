@@ -161,6 +161,7 @@ app.get("/listing", function (req, res) {
 });
 app.get("/agent/listings", function (req, res) {
     var userId = req.query.userId;
+    console.log("userId=",userId);
     listing.getListingsByUserId(userId, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
