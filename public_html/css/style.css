@@ -2800,7 +2800,7 @@ padding-bottom: 15px;
 /*FOOOTER*/
 .footer-area{
 border-top: 1px solid #D1D1D1;
-background: #555 url("../../assets/img/bg-footer.jpg") repeat scroll 0% 0%;
+background: #555 url("../images/bg-footer.jpg") repeat scroll 0% 0%;
 color: #535353;
 }
 .footer{

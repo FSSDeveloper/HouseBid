@@ -10,6 +10,24 @@ $(document).ready(function () {
     var apiEndPoint ="";
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("userObj",userObj);
+    if(localStorage.length > 0){
+        $("#loginButton").hide();
+        $("#logoutButton").show();
+        $("#dashboardTab").show();
+    }else{
+        $("#loginButton").show();
+        $("#logoutButton").hide();
+        $("#dashboardTab").hide();
+    }
+
+    $("#logoutButton").click(function() {
+        console.log("in logut button");
+        localStorage.removeItem("userObj");
+        $("#loginButton").show();
+        $("#logoutButton").hide();
+        $("#dashboardTab").hide();
+        window.location.href="../";
+    });
     if(userObj.user_type == 1){
         var dashboardType="customer"; 
     }else {
