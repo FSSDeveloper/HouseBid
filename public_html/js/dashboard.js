@@ -112,7 +112,6 @@ $(document).ready(function () {
             var url ="user/messages?userId="+userObj.user_id;
             $.ajax({url:apiEndPoint+url, success: function(response){
                 console.log("response",response);
-                //var response = [[{"message_id":30,"message":"I need 10 houses in bulk","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-29T23:10:03.000Z"},{"message_id":42,"message":"Hi i am very interested","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:56:32.000Z"},{"message_id":43,"message":"Hello need help","sender_id":96,"receiver_id":92,"sender_name":"Vijay","listing_id":7,"date":"2017-11-30T10:57:14.000Z"}],[{"message_id":38,"message":"Hello this is saad","sender_id":97,"receiver_id":92,"sender_name":"Saad","listing_id":7,"date":"2017-11-30T00:15:55.000Z"}],[{"message_id":40,"message":"Help me to buy house","sender_id":99,"receiver_id":92,"sender_name":"praveen","listing_id":7,"date":"2017-11-30T00:45:37.000Z"}]];
                 var currentChatObj = "";
                 for(var i=0;i < response.length;i++) {
                     var template = $('#chatListItemTemplate').clone();
@@ -571,10 +570,6 @@ $(document).ready(function () {
             for(var i=0;i < agentActionEditBtns.length;i++) {
                 agentActionEditBtns[i].addEventListener("click", function() {
                     var idx = this.getAttribute("data");
-                    $("#toaster-success").show();
-                    setTimeout(function(){
-                      hideToaster();
-                    }, 4000);
                     console.log("id of the listing",idx);
                     $("#appendListingEdit").show();
                     $("#appendListings").hide();
@@ -589,15 +584,15 @@ $(document).ready(function () {
                             $("#agentEditAddress").val(response[0].address);
                             $("#agentEditPrice").val(response[0].price);
                             $("#agentEditArea").val(response[0].area);
-                            $("#agentEditExpiryDate").val(response[0].expiry_date);
                             $("#agentEditBeds").val(response[0].beds);
                             $("#agentEditBaths").val(response[0].baths);
-
                             $("#agentEditStatus").val(response[0].status);
                             if(response[0].is_biddable == 0){
                                 $("#agentEditBiddable").val("on");
                             }
                             $("#agentEditDescription").val(response[0].description);
+                            var dateStr = response[0].expiry_date.split('T')[0];
+                            $("#agentEditExpiryDate").val(dateStr);
                         },
                         error: function(data, status, er) {
                             alert("data Failed!");
@@ -643,10 +638,19 @@ $(document).ready(function () {
                         data:dataObj,
                         success: function(response) {
                             console.log("response",response);
+                            $("#toaster-success").show();
+                            document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                             agentManageListing();
                         },
                         error: function(data, status, er) {
-                            alert("data Failed!");
+                            $("#toaster-fail").show();
+                            document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                         }
                         });
 
@@ -670,10 +674,19 @@ $(document).ready(function () {
                         method:"DELETE",
                         success: function(response) {
                             console.log("response after deleteting",response);
+                            $("#toaster-success").show();
+                            document.getElementById("succesToasterData").innerHTML = "Deleted Successfully!";
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                             agentManageListing();
                         },
                         error: function(data, status, er) {
-                            alert("data Failed!");
+                            $("#toaster-fail").show();
+                            document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                         }
                         });
                     
@@ -708,12 +721,20 @@ $(document).ready(function () {
                 success: function(data) {
                 console.log("data after success login",data);
                 if(data){
-                    alert("success");
+                   $("#toaster-success").show();
+                    document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
                     localStorage.setItem('userObj', JSON.stringify(data[0]));
                 }
                 },
                 error: function(data, status, er) {
-                    alert("Login Failed!");
+                    $("#toaster-fail").show();
+                    document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
                 }
             });
 
@@ -755,16 +776,29 @@ $(document).ready(function () {
             data: dataObj,
             success: function(data) {
             console.log("data after success login",data);
-            if(data){
-            }
-              //  IF DATA IS NOT EMPTY
-                //    localStorage.setItem('username', data.username);
-                  //  REDIRECT TO INDEX.HTML
-                //else
-
+            $("#postTitle").val("");
+            $("#postDescription").val("");
+            $("#postPrice").val("");
+            $("#postStatus").val("");
+            $("#postAddress").val("");
+            $("#postExpiryDate").val("");
+            $("#postCity").val("");
+            $("#postLocation").val("");
+            $("#postBaths").val("");
+            $("#postBeds").val("");
+            $("#postArea").val("");
+            $("#toaster-success").show();
+                document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
+                setTimeout(function(){
+                  hideToaster();
+                }, 4000);
             },
             error: function(data, status, er) {
-                alert("Login Failed!");
+             $("#toaster-fail").show();
+                document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                setTimeout(function(){
+                  hideToaster();
+                }, 4000);
             }
         });
 
