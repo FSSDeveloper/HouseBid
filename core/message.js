@@ -11,10 +11,9 @@ function getMessageByMessageId(messageId, callback) {
     });
 }
 
-function getMessagesByAgentId(agentId, callback) {
+function getMessagesByUserId(userId, callback) {
     mysql.getConnection(function(err, con) {
-        // var sql = "SELECT * FROM user WHERE user_id = " + userId;
-        var sql = "SELECT * FROM (SELECT m.message_id, m.message, m.sender_id, m.receiver_id, u.name 'sender_name', listing_id, date FROM message m, user u WHERE m.listing_id IN (SELECT listing_id FROM listing WHERE agent_id = "+agentId+") and u.user_id = sender_id ORDER BY m.sender_id) tmp where receiver_id ="+agentId;
+        var sql = "SELECT m.*, u.name \"sender_name\" FROM message m, user u WHERE m.sender_id = u.user_id and receiver_id = " + userId;
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -76,6 +75,6 @@ function addMessage(message, callback) {
 }
 
 module.exports.addMessage = addMessage;
-module.exports.getMessagesByAgentId = getMessagesByAgentId;
+module.exports.getMessagesByUserId = getMessagesByUserId;
 module.exports.getMessageByMessageId = getMessageByMessageId;
 module.exports.getConversation = getConversation;

@@ -27,6 +27,7 @@
     "express": "4.16.2",
     "express-fileupload": "0.3.0",
     "express-session": "1.15.6",
-    "mysql": "2.15.0"
+    "mysql": "2.15.0",
+    "crypto": "1.0.1"
   }
 }

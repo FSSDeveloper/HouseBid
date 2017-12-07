@@ -7,7 +7,10 @@ $(window).load(function () { // makes sure the whole site is loaded
 $(document).ready(function () {
 
 
-
+    function hideToaster(){
+        $("#toaster-success").fadeOut(5000);
+        $('#toaster-fail').fadeOut(5000);
+    };
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
@@ -82,7 +85,7 @@ $(document).ready(function () {
             console.log("searchLocation",searchLocation);
                 var city = $('#city').val();
                 console.log("city",city,"location",location);
-                var url = window.location.href;
+                //var url = window.location.href;
                 if(city || searchLocation){
                 	window.location.hash = "search?city="+city+"&location="+searchLocation;
                 	var searchUrl = "search?city="+city+"&location="+searchLocation;
@@ -90,7 +93,13 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-    		$.ajax({url:"../"+searchUrl, success: function(response){
+                else if (city == "" || location == ""){
+                        //$('#uiView').load("./pages/searchListings.html");
+                    window.location.hash = "search?city="+city+"&location="+searchLocation;
+                    var searchUrl = "search?city="+city+"&location="+searchLocation;
+                    }
+
+    		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./pages/searchListings.html", function(){
@@ -162,10 +171,10 @@ $(document).ready(function () {
     function getListingDetails(listingId){
        
        console.log("listingId",listingId);
-        var url = window.location.href;
+        //var url = window.location.href;
         window.location.hash = 'listing?listingId='+listingId;
 
-        $.ajax({url: "../"+"listing?listingId="+listingId, success: function(response){
+        $.ajax({url:apiEndPoint+"listing?listingId="+listingId, success: function(response){
             console.log("response after listing details",response);
             $('#uiView').load("./pages/listingDetails.html", function(){
                 $("#chatDiv").hide();
@@ -241,7 +250,7 @@ $(document).ready(function () {
                     $("#sendMessageBtn").click(function() {
                         var message = $("#chatMessage").val();
                         $.ajax({
-                            url: "../"+"user/message",
+                            url: apiEndPoint+"user/message",
                             type: "POST",
                             data: {
                                 message: message,
@@ -260,11 +269,6 @@ $(document).ready(function () {
                         });
                     })
                 });
-
-
-
-
-
             });
             
         }});
@@ -289,7 +293,7 @@ $(document).ready(function () {
             $("#loginButton").show();
             $("#logoutButton").hide();
             $("#dashboardTab").hide();
-            window.location.href=apiEndPoint;
+            window.location.href="../";
         })
 
         window.scrollTo(0, 0);
@@ -334,16 +338,12 @@ $(document).ready(function () {
         });
 
     function logMeIn()
-    {
+    {   
         var emails = $('#loginEmail').val();
         var passwords = $('#loginPassword').val();
         console.log("Email is: "+ emails + "Password is:"+ passwords);
-
-        // $.ajax({url: "/index.html?email=" + emails "&password=" + passwordS, success: function(response){
-        // }});
-        //url: apiEndPoint+"user/login"
         $.ajax({
-            url: "../user/login",
+            url: apiEndPoint+"user/login",
             type: "POST",
             data: {
                 email: emails,
@@ -354,10 +354,18 @@ $(document).ready(function () {
             console.log("data after success login",data);
             if(data.length > 0){
                 localStorage.setItem('userObj', JSON.stringify(data[0]));
-                alert("Login Successful!!");
-                location.href=apiEndPoint+"index.html";
+                $("#toaster-success").show();
+                document.getElementById("succesToasterData").innerHTML = "Login Successful!";
+                setTimeout(function(){
+                  hideToaster();
+                }, 4000);
+                location.href="../"+"index.html";
             } else {
-                alert("Login Failed!");
+                document.getElementById("failToasterData").innerHTML = "Login Failed!";
+                $("#toaster-fail").show();
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
             }
               //  IF DATA IS NOT EMPTY
                 //    localStorage.setItem('username', data.username);
@@ -366,7 +374,11 @@ $(document).ready(function () {
 
             },
             error: function(data, status, er) {
-                alert("Login Failed!");
+                 $("#toaster-fail").show();
+                 document.getElementById("failToasterData").innerHTML = "Login Failed";
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
             }
         });
     }
@@ -379,7 +391,7 @@ $(document).ready(function () {
         if(validateForm()) {
             var formData = new FormData(this);
             $.ajax({
-                url: "../signup",
+                url: apiEndPoint+"signup",
                 type: "post",
                 data: formData,
                 contentType: false,
@@ -387,14 +399,22 @@ $(document).ready(function () {
                 success: function (response) {
                     console.log(response);
                     $('#signUpForm').trigger("reset");
-                    alert("Successfully Signed Up. Please Login!");
+                    $("#toaster-success").show();
+                    document.getElementById("succesToasterData").innerHTML = "SignUp Successful Please Login!";
+                    setTimeout(function(){
+                      hideToaster();
+                    }, 4000);
                 },
                 error: function(response) {
                     if(response.responseJSON.error === "ER_DUP_ENTRY"){
                         $('#emailError').removeClass('hide').text("Email address already exists.");
                         $('#email').focus();
                     } else {
-                        alert("Error occured. Please try again later");
+                        $("#toaster-fail").show();
+                         document.getElementById("failToasterData").innerHTML = "Signup Failed Please try again";
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                     }
                 }
             });
