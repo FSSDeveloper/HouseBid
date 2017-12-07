@@ -125,10 +125,7 @@ app.post("/user/update", function (req, res) {
 
 /** START - LISTING **/
 app.get("/search", function (req, res) {
-    var city = req.query.city;
-    var location = req.query.location;
-    console.log(city + ", " + location);
-    listing.getListings(city, location, function (err, data) {
+    listing.getListings(req.query, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {

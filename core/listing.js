@@ -1,6 +1,10 @@
 var mysql = require("./db-connection").pool;
 
-function getListings(city, location, callback) {
+function getListings(query, callback) {
+    var city = query.city;
+    var location = query.location;
+    var sortByPrice = query.sortByPrice;
+    var sortByDate = query.sortByDate;
     mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing";
         if (city || location) {
@@ -14,8 +18,21 @@ function getListings(city, location, callback) {
                 }
                 sql += (" location LIKE '%" + location + "%'");
             }
-             sql += " AND status = 1"
+             sql += " AND status != 2"
         }
+
+        if(sortByPrice || sortByDate) {
+            sql += " ORDER BY "
+            if(sortByPrice) {
+                sql += " price " + sortByPrice;
+            }
+            if(sortByDate) {
+                if(sortByPrice) sql += ", ";
+                sql += " listed_date " + sortByDate;
+            }
+
+        }
+
         console.log("Query to be executed: " + sql);
 
         con.query(sql, function (err, result) {
