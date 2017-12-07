@@ -2800,7 +2800,7 @@ padding-bottom: 15px;
 /*FOOOTER*/
 .footer-area{
 border-top: 1px solid #D1D1D1;
-background: #555 url("../../assets/img/bg-footer.jpg") repeat scroll 0% 0%;
+background: #555 url("../images/bg-footer.jpg") repeat scroll 0% 0%;
 color: #535353;
 }
 .footer{
@@ -3189,11 +3189,31 @@ padding: 10px;
 
 #toaster-success{
     position: fixed;
-    bottom: 0px;
+    top: 0px;
+    right:0px;
     background-color: #c3f9b4;
     margin: 15px;
     padding: 10px;
-    border-radius: 10%;
+     border-radius: 2px;
+    min-width: 300px;
+    font-weight: 600;
+    color: black;
+     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
+#toaster-fail{
+    position: fixed;
+    top: 0px;
+    right:0px;
+    background-color: #e59093;
+    font-weight: 600;
+     border-radius: 2px;
+    color: black;
+    margin: 15px;
+    padding: 10px;
+    min-width: 300px;
+     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
 }
 .agentActionDelete{
     background-color: deepskyblue;
