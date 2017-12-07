@@ -67,7 +67,7 @@ function getListingByListingId(listingId, callback) {
     });
 }
 
-function deleteListingByListingId(listingId) {
+function deleteListingByListingId(listingId, callback) {
     mysql.getConnection(function(err, con) {
         deleteListingImagesByListingId(listingId);
         var sql = "DELETE FROM listing WHERE listing_id = " + listingId;
@@ -85,8 +85,8 @@ function deleteListingImagesByListingId(listingId) {
         var sql = "DELETE FROM listing_images WHERE listing_id = " + listingId;
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
-            if (err) callback(err, null);
-            else callback(null, result);
+            if (err) return false;
+            else return true;
         });
         con.release();
     });
