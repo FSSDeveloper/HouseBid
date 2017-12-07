@@ -293,7 +293,7 @@ $(document).ready(function () {
             $("#loginButton").show();
             $("#logoutButton").hide();
             $("#dashboardTab").hide();
-            window.location.href="../";
+            window.location.href="./index.html";
         })
 
         window.scrollTo(0, 0);
