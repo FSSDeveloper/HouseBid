@@ -93,6 +93,12 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
+                else if (city == "" || location == ""){
+                        //$('#uiView').load("./pages/searchListings.html");
+                    window.location.hash = "search?city="+city+"&location="+searchLocation;
+                    var searchUrl = "search?city="+city+"&location="+searchLocation;
+                    }
+
     		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
