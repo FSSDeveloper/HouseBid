@@ -181,7 +181,7 @@ $(document).ready(function () {
                                     chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                     //chatBoxTemplate.attr("class","pull-right")
                                     }else{
-                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                       //  chatBoxTemplate.attr("class","pull-left");
                                     }
                                 chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[0].message;
@@ -222,7 +222,7 @@ $(document).ready(function () {
                                     chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                     //chatBoxTemplate.attr("class","pull-right")
                                     }else{
-                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                       //  chatBoxTemplate.attr("class","pull-left");
                                     }
                                 chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
@@ -494,7 +494,7 @@ $(document).ready(function () {
                                 chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                 //chatBoxTemplate.attr("class","pull-right")
                                 }else{
-                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                   //  chatBoxTemplate.attr("class","pull-left");
                                 }
                             chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[0].message;
@@ -535,7 +535,7 @@ $(document).ready(function () {
                                 chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                 //chatBoxTemplate.attr("class","pull-right")
                                 }else{
-                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                   //  chatBoxTemplate.attr("class","pull-left");
                                 }
                             chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
