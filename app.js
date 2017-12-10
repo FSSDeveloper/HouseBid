@@ -222,7 +222,7 @@ app.delete("/agent/listing", function (req, res) {
 // Get Listing Image by listingId
 app.post("/listing/image", function (req, res) {
     var listingId = req.body.listingId;
-    var index = req.body.number;
+    var index = req.body.number - 1;
     console.log("Profile request received.");
     listing.getListingImageById(listingId, function (err, data) {
         if (err || data[index].image == null) {
