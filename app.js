@@ -91,8 +91,8 @@ app.post("/user/profile", function (req, res) {
     });
 });
 // Profile Picture
-app.post("/user/image", function (req, res) {
-    var userId = req.body.userId;
+app.get("/user/image", function (req, res) {
+    var userId = req.query.userId;
     console.log("Profile request received.");
     user.getUserImageById(userId, function (err, data) {
         if (err || data[0].image == null) {
@@ -101,8 +101,8 @@ app.post("/user/image", function (req, res) {
             } else
                 console.log("Error in Database Server: " + err);
         } else {
-            res.writeHead(200, {'Content-Type': 'image/jpeg'});
-            res.end(data[0].image);
+            res.writeHead(200, {'Content-Type': 'mimetype'});
+            res.end(new Buffer(data[0].image, 'base64'));
         }
     });
 });
