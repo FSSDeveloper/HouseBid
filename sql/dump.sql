@@ -39,22 +39,13 @@ CREATE TABLE `listing` (
   `location` varchar(255) DEFAULT NULL,
   `baths` int(11) DEFAULT '0',
   `beds` int(11) DEFAULT '0',
+  `total_images` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`listing_id`),
   KEY `agent_FK_idx` (`agent_id`),
   KEY `customer_FK_idx` (`customer_id`),
   CONSTRAINT `agent_FK` FOREIGN KEY (`agent_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `listing`
---
-
-LOCK TABLES `listing` WRITE;
-/*!40000 ALTER TABLE `listing` DISABLE KEYS */;
-INSERT INTO `listing` VALUES (6,'Flat in ABC Avenue','METROPOLIS RESIDENCY is located Off Jinnah Avenue, just opposite of Malir Cantt Karachi. Location of METROPOLIS RESIDENCY is ideal due to good proximity to Malir Cantt, Jinnah International Airport, Northern Bypass and University of Karachi.',5000,0,25,1,'Jinnah Avenue 2','2017-11-27 23:20:10',NULL,92,NULL,'Fulda','Jinnah Hospital',4,3),(7,'Flat in Fulda Expressway','Located in a serene and private enclave surrounded by scenic mountains and fresh water streams, it is at a 15-20 minutes leisurely drive from the Serena Hotel / Convention Centre. The signature project of Bahria Town',18500,0,25,1,'Iqbal Complex 2','2017-11-27 23:29:36',NULL,92,NULL,'Fulda','Jinnah Hospital',3,4),(8,'House in Munich','Located in a serene and private enclave surrounded by scenic mountains and fresh water streams, it is at a 15-20 minutes leisurely drive from the Serena Hotel / Convention Centre. The signature project of Bahria Town',19520,1,25,1,'Iqbal Complex 2','2017-11-27 23:29:36',NULL,93,NULL,'Munich','Jinnah Hospital',2,3),(9,'Some house in Munich','Having 7 Bedrooms With Attached Six Bathrooms ,Beautiful Wood Work,Shower Cabins, Lavish Drawing ,Dining And TV Lounge,Kitchen Fitted With All Appliances Like Heating And Cooling System, Ash Wood Work, Iconic Terrace Having A Splendid View, Granite And Tile Flooring, Servant Quarter, Large Car Parking .',19520,1,25,1,'Iqbal Complex 2','2017-11-27 23:29:36',NULL,94,91,'Munich','Jinnah Hospital',2,3),(10,'Luxury house in Fulda','Having 7 Bedrooms With Attached Six Bathrooms ,Beautiful Wood Work,Shower Cabins, Lavish Drawing ,Dining And TV Lounge,Kitchen Fitted With All Appliances Like Heating And Cooling System, Ash Wood Work, Iconic Terrace Having A Splendid View, Granite And Tile Flooring, Servant Quarter, Large Car Parking .',19520,1,25,1,'Iqbal Complex 2','2017-11-27 23:29:36','2017-11-28 07:13:24',94,95,'Fulda','Jinnah Hospital',2,3);
-/*!40000 ALTER TABLE `listing` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `listing_images`
@@ -65,21 +56,12 @@ DROP TABLE IF EXISTS `listing_images`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `listing_images` (
   `listing_id` int(11) NOT NULL,
-  `image` blob NOT NULL,
-  `image_thumbnail` blob NOT NULL,
+  `image` longblob,
+  `image_thumbnail` longblob,
   KEY `listing_FK_idx` (`listing_id`),
   CONSTRAINT `listing_FK` FOREIGN KEY (`listing_id`) REFERENCES `listing` (`listing_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `listing_images`
---
-
-LOCK TABLES `listing_images` WRITE;
-/*!40000 ALTER TABLE `listing_images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `listing_images` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `message`
@@ -92,9 +74,9 @@ CREATE TABLE `message` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `message` varchar(512) NOT NULL,
   `sender_id` int(11) NOT NULL,
-  `listing_id` int(11) DEFAULT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `listing_id` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `receiver_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `sender_FK_idx` (`sender_id`),
   KEY `listing_FK_idx` (`listing_id`),
@@ -102,18 +84,8 @@ CREATE TABLE `message` (
   CONSTRAINT `listing_FK2` FOREIGN KEY (`listing_id`) REFERENCES `listing` (`listing_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `receiver_FK` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sender_FK` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `message`
---
-
-LOCK TABLES `message` WRITE;
-/*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (9,'Hello, I am interested.',91,6,'2017-11-27 23:28:30',91),(10,'Can you contact me?',95,6,'2017-11-27 23:28:30',91),(11,'Please contact me at your convenience.',96,7,'2017-11-27 23:28:30',91),(12,'Hello, I am interested.',97,8,'2017-11-27 23:28:30',91),(13,'Can you contact me?',96,9,'2017-11-27 23:28:30',91),(14,'Please contact me at your convenience.',94,10,'2017-11-27 23:28:30',91),(15,'Hello there!',91,10,'2017-11-27 23:28:30',91),(16,'Please contact me at your convenience.',91,7,'2017-11-27 23:28:30',91),(17,'adfasdf',91,7,'2017-11-29 09:22:19',91),(18,'some message',91,6,'2017-11-29 11:38:06',91),(19,'abc',91,7,'2017-11-29 22:21:38',NULL);
-/*!40000 ALTER TABLE `message` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -133,18 +105,8 @@ CREATE TABLE `user` (
   `user_type` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (91,'Imam Bux','mr.imambux@gmail.com','12345','531646532','Wiesenmühlenstraße 3','?',1),(92,'SFStateHomes','SFStateHomes@agent.com','12345','664524568','SFStateHomes 5','?',2),(93,'SJStateRealtors','SJStateRealtors@agent.com','12345','456789889','SJStateRealtors 7','?',2),(94,'CSURealEstate','CSURealEstate@agent.com','12345','456456456','CSURealEstate 1','?',2),(95,'Farrukh Khan','farukh@abc.com','12345','456456456','Wiensem. 5',NULL,1),(96,'Vijay','vj@xyz.com','12345','645645665','Wiesen. 7',NULL,1),(97,'Saad','saad@abc.com','123456','655486654','Heinrich. 5',NULL,1);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -155,4 +117,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29 23:37:50
+-- Dump completed on 2017-12-10 16:08:39

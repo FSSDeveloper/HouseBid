@@ -90,6 +90,22 @@ app.post("/user/profile", function (req, res) {
         }
     });
 });
+// Profile Picture
+app.post("/user/image", function (req, res) {
+    var userId = req.body.userId;
+    console.log("Profile request received.");
+    user.getUserImageById(userId, function (err, data) {
+        if (err || data[0].image == null) {
+            if(data[0].image == null) {
+                res.status(404).send({error: 'Image not found'});
+            } else
+                console.log("Error in Database Server: " + err);
+        } else {
+            res.writeHead(200, {'Content-Type': 'image/jpeg'});
+            res.end(data[0].image);
+        }
+    });
+});
 // Fetchs all agents
 app.get("/user/agents", function (req, res) {
     console.log("Request for fetching agents.");
@@ -170,8 +186,9 @@ app.get("/agent/listings", function (req, res) {
 // Adds listing if POST request
 app.post("/agent/listing", function (req, res) {
     var body = req.body;
+    var imagesData = req.files ? req.files : null;
     console.log("Add Profile request received.");
-    listing.addListing(body, function (err, data) {
+    listing.addListing(body, imagesData, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
@@ -199,6 +216,23 @@ app.delete("/agent/listing", function (req, res) {
             console.log("Error in Database Server: " + err);
         } else {
             res.json(data);
+        }
+    });
+});
+// Get Listing Image by listingId
+app.post("/listing/image", function (req, res) {
+    var listingId = req.body.listingId;
+    var index = req.body.number - 1;
+    console.log("Profile request received.");
+    listing.getListingImageById(listingId, function (err, data) {
+        if (err || data[index].image == null) {
+            if(data[index].image == null) {
+                res.status(404).send({error: 'Image not found'});
+            } else
+                console.log("Error in Database Server: " + err);
+        } else {
+            res.writeHead(200, {'Content-Type': 'image/jpeg'});
+            res.end(data[index].image);
         }
     });
 });

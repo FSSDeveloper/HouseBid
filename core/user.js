@@ -64,6 +64,18 @@ function getUserById(userId, callback) {
     });
 }
 
+function getUserImageById(userId, callback) {
+    mysql.getConnection(function(err, con) {
+        var sql = "SELECT image FROM user WHERE user_id = " + userId;
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
+    });
+}
+
 function getAgents(callback) {
     mysql.getConnection(function(err, con) {
         var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE user_type = 2";
@@ -81,3 +93,4 @@ module.exports.login = login;
 module.exports.getUserById = getUserById;
 module.exports.getAgents = getAgents;
 module.exports.updateUser = updateUser;
+module.exports.getUserImageById = getUserImageById;

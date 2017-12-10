@@ -92,28 +92,55 @@ function deleteListingImagesByListingId(listingId) {
     });
 }
 
-function addListing(listing, callback) {
+function addListing(listing, imagesData, callback) {
     mysql.getConnection(function(err, con) {
         var sql = "INSERT INTO listing SET ?",
             values = {
                 title: listing.title,
                 description: listing.description,
                 price: listing.price,
-                is_biddable: listing.isBiddable,
+                is_biddable: listing.biddable ? (listing.biddable === "on" ? 1 : 0) : 0,
                 area: listing.area,
-                status: listing.status,
+                status: listing.status != null && listing.status != '' ? listing.status : 0,
                 address: listing.address,
-                expiry_date: listing.expiryDate ? listing.expiryDate : null,
+                expiry_date: listing.expiryDate != null && listing.expiryDate != "" ? listing.expiryDate : null,
                 agent_id: listing.agentId,
-                customer_id: listing.customerId,
+                customer_id: listing.customerId != null && listing.customerId != "null" ? listing.customerId : null,
                 city: listing.city,
                 location: listing.location,
                 baths: listing.baths,
-                beds: listing.beds
+                beds: listing.beds,
+                total_images: imagesData.images ? (imagesData.images instanceof Array ? imagesData.images.length : 1) : 0
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
-            else callback(null, result);
+            else {
+                if(imagesData.images) {
+                    if(imagesData.images instanceof Array) {
+                        imagesData.images.forEach(function(img) {
+                            addListingImage(result.insertId, img);
+                        });
+                    } else{
+                        addListingImage(result.insertId, imagesData.images);
+                    }
+                }
+                callback(null, result);
+            }
+        });
+        con.release();
+    });
+}
+
+function addListingImage(listingId, image) {
+    mysql.getConnection(function(err, con) {
+        var sql = "INSERT INTO listing_images SET ?",
+            values = {
+                listing_id: listingId,
+                image: image ? image.data : null,
+            };
+        con.query(sql, values, function (err, result) {
+            if (err) console.log("Error while uploading image.");
+            else console.log("Image uploaded successfully");
         });
         con.release();
     });
@@ -145,9 +172,24 @@ function updateListing(listing, callback) {
     });
 }
 
+
+function getListingImageById(listingId, callback) {
+    mysql.getConnection(function(err, con) {
+        var sql = "SELECT image FROM listing_images WHERE listing_id = " + listingId;
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
+    });
+}
+
 module.exports.getListings = getListings;
 module.exports.getListingByListingId = getListingByListingId;
 module.exports.addListing = addListing;
 module.exports.getListingsByUserId = getListingsByUserId;
 module.exports.deleteListingByListingId = deleteListingByListingId;
 module.exports.updateListing = updateListing;
+module.exports.getListingImageById = getListingImageById;
+module.exports.addListingImage = addListingImage;
