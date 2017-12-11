@@ -220,9 +220,9 @@ app.delete("/agent/listing", function (req, res) {
     });
 });
 // Get Listing Image by listingId
-app.post("/listing/image", function (req, res) {
-    var listingId = req.body.listingId;
-    var index = req.body.number - 1;
+app.get("/listing/image", function (req, res) {
+    var listingId = req.query.listingId;
+    var index = req.query.number - 1;
     console.log("Profile request received.");
     listing.getListingImageById(listingId, function (err, data) {
         if (err || data[index].image == null) {
@@ -235,6 +235,17 @@ app.post("/listing/image", function (req, res) {
             res.end(data[index].image);
         }
     });
+});
+
+
+// lisitng Cities--Farrukh
+app.get("/listing/cities",function(req,result){
+
+    listing.getCities(function(err,res){
+        if(err) console.log("ERROR--Cannot get cities");
+        else result.json(res);
+    });
+
 });
 /** END - LISTING **/
 
@@ -294,6 +305,8 @@ app.get("/user/conversation", function (req, res) {
         }
     });
 });
+
+
 
 
 
