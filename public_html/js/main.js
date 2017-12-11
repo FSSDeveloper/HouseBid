@@ -72,7 +72,25 @@ $(document).ready(function () {
     }
 
     loadHomePage();
-  
+
+    // Cities AJAX
+        $.ajax({
+        url: apiEndPoint+"listing/cities",
+        type: "get",
+        success: function(data) {
+            console.log("Main hoon");
+           data.forEach(function(element){
+                 $('#city').append($('<option>', {         
+                 text: element.City           
+            }));
+           });
+
+
+        },
+        error: function(data, status, er) {
+            console.log("Error while fetching cities.");
+        }
+        });
 
 
 
@@ -93,7 +111,7 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-                else if (city == "" || location == ""){
+                else if (city == ""){
                         //$('#uiView').load("./pages/searchListings.html");
                     window.location.hash = "search?city="+city+"&location="+searchLocation;
                     var searchUrl = "search?city="+city+"&location="+searchLocation;
@@ -115,6 +133,25 @@ $(document).ready(function () {
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./pages/searchListings.html", function(){
+
+            $.ajax({
+            url: apiEndPoint+"listing/cities",
+            type: "get",
+            success: function(data) {
+            console.log("Main hoon");
+            data.forEach(function(element){
+            $('#city').append($('<option>', {         
+            text: element.City           
+            }));
+            });
+
+
+            },
+            error: function(data, status, er) {
+            console.log("Error while fetching cities.");
+            }
+            });
+
 
                 $('#ListingPageSearchBtn').click(function(){
                 
@@ -438,6 +475,9 @@ $(document).ready(function () {
             });
         }
     });
+
+
+
 
     // Validates sign up form fields
     function validateForm() {
