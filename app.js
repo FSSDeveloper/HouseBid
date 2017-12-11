@@ -236,6 +236,17 @@ app.get("/listing/image", function (req, res) {
         }
     });
 });
+
+
+// lisitng Cities--Farrukh
+app.get("/listing/cities",function(req,result){
+
+    listing.getCities(function(err,res){
+        if(err) console.log("ERROR--Cannot get cities");
+        else result.json(res);
+    });
+
+});
 /** END - LISTING **/
 
 /** START - MESSAGE **/
@@ -294,6 +305,8 @@ app.get("/user/conversation", function (req, res) {
         }
     });
 });
+
+
 
 
 
