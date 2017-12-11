@@ -130,9 +130,9 @@ CREATE TABLE `message` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'SF State Homes','SFStateHomes@info.de','55dc87','+49 30237890-9','Charlottenstraße 155, 10117 Berlin','?',1),
-						  (2,'SJ State Realtors','SJStateRealtors@info.de','55dc87','+49 605535434','Tränke 1, 36039 Fulda','?',1),
-                          (3,'CSU Real Estate','CSURealEstate@info.de','55dc87','+49 6589134445-7','Zentgrafenstraße 89, 34130 Kassel','?',1);
+INSERT INTO `user` VALUES (1,'SF State Homes','SFStateHomes@info.de','55dc87','+49 30237890-9','Charlottenstraße 155, 10117 Berlin',null,2),
+						  (2,'SJ State Realtors','SJStateRealtors@info.de','55dc87','+49 605535434','Tränke 1, 36039 Fulda',null,2),
+                          (3,'CSU Real Estate','CSURealEstate@info.de','55dc87','+49 6589134445-7','Zentgrafenstraße 89, 34130 Kassel',null,2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
