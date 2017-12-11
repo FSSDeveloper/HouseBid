@@ -577,8 +577,8 @@ label small{
     width: 100%;
 }
 .input-group-btn .btn{
-    background-color: #FFC500;
-    border-color: #FFC500;
+    background-color: #7ce166;
+    border-color: #7ce166;
     border-radius: 0px;
     height: 44px;
     color: #FFF; 
@@ -2585,7 +2585,7 @@ padding-bottom: 15px;
 } 
 .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
     color: #FFF;
-    background-color: #FFC500;
+    background-color: #7ce166;
 }
 .nav-pills > li > a {
     border-radius: 0px;
@@ -3117,7 +3117,7 @@ padding: 10px;
 .group input:focus ~ label, input:valid ~ label        {
   top:-20px;
   font-size:14px;
-  color:#FFC500;
+  color:#7ce166;
 }
 
 /* BOTTOM BARS ================================= */
@@ -3128,7 +3128,7 @@ padding: 10px;
   width:0;
   bottom:1px; 
   position:absolute;
-  background:#FFC500; 
+  background:#7ce166; 
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
@@ -3165,15 +3165,15 @@ padding: 10px;
 
 /* ANIMATIONS ================ */
 @-webkit-keyframes inputHighlighter {
-    from { background:#FFC500; }
+    from { background:#7ce166; }
   to    { width:0; background:transparent; }
 }
 @-moz-keyframes inputHighlighter {
-    from { background:#FFC500; }
+    from { background:#7ce166; }
   to    { width:0; background:transparent; }
 }
 @keyframes inputHighlighter {
-    from { background:#FFC500; }
+    from { background:#7ce166; }
   to    { width:0; background:transparent; }
 }
 .formItems .btn-group{
