@@ -1,3 +1,8 @@
+// NOTE: DO NOT COMMIT YOUR LOCAL CONFIG TO GIT
+//-- Imam Bux
+//-- Farzaneh Sabzi
+
+
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
