@@ -1,8 +1,11 @@
+//-- Imam Bux
+//-- Farzaneh Sabzi
+
 var mysql = require("./db-connection").pool;
 
 function getMessageByMessageId(messageId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM message WHERE message_id = " + messageId;
+        var sql = "SELECT * FROM message WHERE message_id = " + con.escape(messageId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -13,7 +16,7 @@ function getMessageByMessageId(messageId, callback) {
 
 function getMessagesByUserId(userId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT m.*, u.name \"sender_name\" FROM message m, user u WHERE m.sender_id = u.user_id and receiver_id = " + userId;
+        var sql = "SELECT m.*, u.name \"sender_name\" FROM message m, user u WHERE m.sender_id = u.user_id and receiver_id = " + con.escape(userId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -45,7 +48,8 @@ function getMessagesByUserId(userId, callback) {
 function getConversation(senderId, receiverId, callback) {
     mysql.getConnection(function(err, con) {
         // var sql = "SELECT * FROM user WHERE user_id = " + userId;
-        var sql = "SELECT * FROM message WHERE sender_id IN(" + senderId  +"," + receiverId + ") AND receiver_id in(" + senderId  +"," + receiverId + ")";
+        var sql = "SELECT * FROM message WHERE sender_id IN(" + con.escape(senderId)  +"," + con.escape(receiverId) + ") AND \n\
+        receiver_id in(" + con.escape(senderId)  +"," + con.escape(receiverId) + ")";
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);

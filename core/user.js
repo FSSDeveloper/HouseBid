@@ -1,9 +1,13 @@
+//-- Imam Bux
+//-- Farzaneh Sabzi
+
 var mysql = require("./db-connection").pool;
 var encryptionUtil = require("./encryptionUtil");
 
 function login(user, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = \"" + user.email + "\" AND password = \"" + encryptionUtil.encrypt(user.password) + "\"";
+        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = \"" + 
+                con.escape(user.email) + "\" AND password = \"" + con.escape(encryptionUtil.encrypt(user.password)) + "\"";
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -35,7 +39,7 @@ function signUp(user, image, callback) {
 
 function updateUser(user, image, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "UPDATE user SET ? WHERE user_id = " + user.userId,
+        var sql = "UPDATE user SET ? WHERE user_id = " + con.escape(user.userId),
             values = {
                 name: user.name,
                 email: user.email,
@@ -55,7 +59,7 @@ function updateUser(user, image, callback) {
 
 function getUserById(userId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE user_id = " + userId;
+        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE user_id = " + con.escape(userId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -67,7 +71,7 @@ function getUserById(userId, callback) {
 
 function getUserImageById(userId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT image FROM user WHERE user_id = " + userId;
+        var sql = "SELECT image FROM user WHERE user_id = " + con.escape(userId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -96,188 +100,3 @@ module.exports.getAgents = getAgents;
 module.exports.updateUser = updateUser;
 module.exports.getUserImageById = getUserImageById;
 
-
-
-
-
-// module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;module.exports.signUp = signUp;
-// module.exports.login = login;
-// module.exports.getUserById = getUserById;
-// module.exports.getAgents = getAgents;
-// module.exports.updateUser = updateUser;
-// module.exports.getUserImageById = getUserImageById;
