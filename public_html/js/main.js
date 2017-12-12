@@ -249,18 +249,43 @@ $(document).ready(function () {
                         var longitude = 9.6708009;
                         // var latitude = response[0].latitude;
                         // var longitude = response[0].longitude;
+
                         
                         $("#showLocation").attr("style","display:none;");
-                        template.find("#listingMapDiv")[0].innerHTML = '<iframe id="locationListing" width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+latitude+' ,'+longitude+' &amp;key=AIzaSyDzLEmHTY7AydmTHxcpZuu7tPREhO1lYeU"></iframe>'
+                        //template.find("#listingMapDiv")[0].innerHTML = '<iframe id="locationListing" width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+latitude+' ,'+longitude+' &amp;key=AIzaSyDzLEmHTY7AydmTHxcpZuu7tPREhO1lYeU"></iframe>'
 
                        template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                       var addr = response[0].address+", "+response[0].location+", "+response[0].city;
+                        locateInMap(addr);
+                        function locateInMap(address){
+                            var address = address || 'Germany';
+                            geocoder = new google.maps.Geocoder();
+                            if (geocoder) {
+                                geocoder.geocode({
+                                    'address': address
+                                }, function (results, status) {
+                                    if (status == google.maps.GeocoderStatus.OK) {
+                                    
+                                        document.getElementById('listingMapDiv').innerHTML = "<iframe src='https://maps.google.com/maps?q="+results[0].geometry.location.lat()+","+results[0].geometry.location.lng()+"&hl=es;z=14&amp;output=embed'></iframe>";
+
+                                    }else{
+                                        document.getElementById('listingMapDiv').innerHTML = "<iframe src='https://maps.google.com/maps?q=51.165691,10.451526000000058&hl=es;z=14&amp;output=embed'></iframe>";
+                                    }
+                                });
+                            }else{
+                                document.getElementById('listingMapDiv').innerHTML = "<iframe src='https://maps.google.com/maps?q=51.165691,10.451526000000058&hl=es;z=14&amp;output=embed'></iframe>";
+
+                            }
+                        }
                     }else{
                       $("#contactBtn").hide();  
                       $("#locationListing").show();
                       $("#showLocation").hide();
                     }
 
-                }else{
+                }
+
+                else{
                         $("#contactBtn").hide();
                         $("#locationListing").attr("style","display:none;");
                         $("#showLocation").show();
@@ -342,7 +367,7 @@ $(document).ready(function () {
             $("#loginButton").show();
             $("#logoutButton").hide();
             $("#dashboardTab").hide();
-            window.location.href="../";
+            window.location.href="./index.html";
         })
 
         window.scrollTo(0, 0);
