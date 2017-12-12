@@ -13,13 +13,13 @@ function getListings(query, callback) {
         if (city || location) {
             sql += " WHERE";
             if (city) {
-                sql += (" city LIKE '%" + city + "%'");
+                sql += (" UPPER(city) LIKE UPPER('%" + city + "%')");
             }
             if (location) {
                 if (city) {
                     sql += " AND"
                 }
-                sql += (" location LIKE '%" + location + "%'");
+                sql += (" UPPER(location) LIKE UPPER('%" + location + "%')");
             }
              sql += " AND status != 2"
         }
