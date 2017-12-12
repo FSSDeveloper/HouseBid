@@ -1,4 +1,4 @@
-<div class="container agentDashboardDiv"> 
+<div class="container-fluid agentDashboardDiv"> 
 	<ul class="nav nav-pills" role="tablist">
 	  <li role="presentation" id="navInbox" class="active"><a id="agentInboxBtn">Inbox</a></li>
 	  <li role="presentation" id="navMl"><a id="agentMlBtn">Manage Listings</a></li>
@@ -6,13 +6,13 @@
 	  <li role="presentation" id="navProfile"><a id="agentProfileBtn">Profile</a></li>
 	</ul>
 	<div class="row" id="agentInbox" style="display: none;"> 
-		<div class="col-md-4 chatList well" > 
+		<div class="col-md-4 chatList materialCard" style="padding:20px;"> 
 			<div class="list-group" id="appendChatList" style="height: 50vh;">
 			  
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
-		<div class="col-md-5  well" id="agentChatDetails">
+		<div class="col-md-5  materialCard" id="agentChatDetails" style="padding:20px;">
 			<div id="chatDetails" style="height: 50vh;overflow-y: scroll;"> 
 
 			</div>
@@ -26,13 +26,13 @@
 			</div><br> 
 		</div>
 	</div>
-	<div class="well row" id="agentMl" style="display: none;"> 
-		<div class="col-md-12" id="appendListings"> 
+	<div class="materialCard row" id="agentMl" style="display: none;"> 
+		<div class="col-md-12" id="appendListings" style="background-color: #efefef;"> 
 			
 		</div>
 		<div style="display: none;"> 
             <div class="col-sm-6 col-md-4" id="searchListingTemplate" style="padding-top: 15px;">
-                <div class="box-two proerty-item">
+                <div class="box-two proerty-item materialCard hoverMaterialCard">
                     <div class="item-thumb">
                         <a ><img src="../images/demo/property-3.jpg"></a>
                     </div>
@@ -64,7 +64,7 @@
         </div>
 		<div class="col-md-12" id="appendListingEdit"> 
 			<div class="container"> 
-				<form> 
+				<form style="padding: 20px;"> 
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
@@ -185,15 +185,15 @@
 		</div>
 	</div>
 	
-	<div class="well row wow fadeIn" id="agentPl" style="display: none;" data-wow-delay=".9s"> 
+	<div class="materialCard row wow fadeIn" id="agentPl" style="display: none;" data-wow-delay=".9s"> 
 		
 		<div class="col-md-12">
 			<div class="container"> 
-				<form> 
+				<form method="post" style="padding: 20px;" enctype="multipart/form-data" id="postAgentListingForm">
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postTitle" required>
+						      <input type="text" id="postTitle" name="title" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Title</label>
@@ -201,7 +201,7 @@
 						</div>
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postCity" required>
+						      <input type="text" id="postCity" name="city" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>City</label>
@@ -211,7 +211,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postLocation" required>
+						      <input type="text" id="postLocation" name="location" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Location</label>
@@ -219,7 +219,7 @@
 						</div>
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postAddress" required>
+						      <input type="text" id="postAddress" name="address" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Address</label>
@@ -229,7 +229,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postPrice" required>
+						      <input type="text" id="postPrice" name="price" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Price</label>
@@ -237,7 +237,7 @@
 						</div>
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postArea" required>
+						      <input type="text" id="postArea" name="area" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Area</label>
@@ -247,7 +247,7 @@
 					<div class="row"> 
 						<div class="col-md-4"> 
 							<div class="group">      
-						      <input type="Date" id="postExpiryDate" required>
+						      <input type="Date" id="postExpiryDate" name="expiryDate" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Expiry Date</label>
@@ -255,7 +255,7 @@
 						</div>
 						<div class="col-md-4"> 
 							<div class="group">      
-						      <input type="number" id="postBeds" required>
+						      <input type="number" id="postBeds" name="beds" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Beds</label>
@@ -263,7 +263,7 @@
 						</div>
 						<div class="col-md-4"> 
 							<div class="group">      
-						      <input type="number"  id="postBaths" required>
+						      <input type="number"  id="postBaths" name="baths" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Baths</label>
@@ -274,16 +274,16 @@
 						<div class="col-md-6"> 
 							<fieldset>
 					    		<label for="postStatus"> Status:</label>
-						    	<select id="postStatus" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
-			                        <option value="0">Active</option>
-			                        <option value="1">Expired</option>
-			                        <option value="2">Sold</option>
+						    	<select id="postStatus" name="status" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Status" >
+			                        <option value="1" selected>Active</option>
+			                        <option value="2">Expired</option>
+			                        <option value="3">Sold</option>
 		                    	</select>
 					    	</fieldset>
 						</div>
 						<div class="col-md-3">
 					        <div class="checkbox">
-					            <label> <input type="checkbox" id="postBiddable" checked> Biddable</label>
+					            <label> <input type="checkbox" id="postBiddable" name="biddable" checked> Biddable</label>
 					        </div> 
 					    </div>
 					</div>
@@ -291,10 +291,15 @@
 						<div class="col-md-6">
 							<div class="form-group">
 		                        <label for="postDescription">Description</label>
-		                        <textarea  id="postDescription" class="form-control"></textarea>
+		                        <textarea  id="postDescription" name="description" class="form-control"></textarea>
 	                    	</div>
 						</div>
-						<div class="col-md-6"> </div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="postImages">Upload Images</label>
+								<input type="file" id="postImages" accept="image/*" name="images" multiple>
+							</div>
+						</div>
 					</div>
 					<div class="row"> 
 						<div class="col-md-6"> </div>
@@ -302,14 +307,14 @@
 					</div>
 				</form>
 			</div>
-			<div class="pull-right"> 
+			<div class="pull-right">
 				<button class="btn btn-default" id="postAgentListingBtn">Post</button>
 			</div>
 		</div>
 	</div>
-	<div class="well row" id="agentProfile" style="display: none;"> 
+	<div class="materialCard row" id="agentProfile" style="display: none;"> 
 		<div class="col-md-12">
-			<div class="box-for overflow">
+			<div class=" overflow" style="padding: 20px;">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>Edit Profile : </h2> 
                     <div class="form-group">

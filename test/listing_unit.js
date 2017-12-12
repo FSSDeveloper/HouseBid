@@ -1,9 +1,12 @@
+//-- Sample Unit Test
+//-- Farzaneh Sabzi
+
 var expect = require ('chai').expect;
 var listing = require('../core/listing.js');
 var assert = require ('chai').assert;
 
 describe ('getListings()' , function(){
-  it('Return 5 listings', function(done){
+  it('Return listings', function(done){
 	//arrange
 	
 	//act
@@ -15,7 +18,6 @@ describe ('getListings()' , function(){
         });
 
 	//assert
-	//console.log(result);
 	assert.isNotNull(result,' Data from listing is not empty');
   });	
 });

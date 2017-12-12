@@ -1,3 +1,7 @@
+//--Imam bux
+//-- Farzaneh Sabzi
+
+
 // libraries
 var express = require("express");
 var sessions = require("express-session");
@@ -90,6 +94,22 @@ app.post("/user/profile", function (req, res) {
         }
     });
 });
+// Profile Picture
+app.get("/user/image", function (req, res) {
+    var userId = req.query.userId;
+    console.log("Profile request received.");
+    user.getUserImageById(userId, function (err, data) {
+        if (err || data[0].image == null) {
+            if(data[0].image == null) {
+                res.status(404).send({error: 'Image not found'});
+            } else
+                console.log("Error in Database Server: " + err);
+        } else {
+            res.writeHead(200, {'Content-Type': 'mimetype'});
+            res.end(new Buffer(data[0].image, 'base64'));
+        }
+    });
+});
 // Fetchs all agents
 app.get("/user/agents", function (req, res) {
     console.log("Request for fetching agents.");
@@ -125,10 +145,7 @@ app.post("/user/update", function (req, res) {
 
 /** START - LISTING **/
 app.get("/search", function (req, res) {
-    var city = req.query.city;
-    var location = req.query.location;
-    console.log(city + ", " + location);
-    listing.getListings(city, location, function (err, data) {
+    listing.getListings(req.query, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
@@ -173,8 +190,9 @@ app.get("/agent/listings", function (req, res) {
 // Adds listing if POST request
 app.post("/agent/listing", function (req, res) {
     var body = req.body;
+    var imagesData = req.files ? req.files : null;
     console.log("Add Profile request received.");
-    listing.addListing(body, function (err, data) {
+    listing.addListing(body, imagesData, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);
         } else {
@@ -204,6 +222,34 @@ app.delete("/agent/listing", function (req, res) {
             res.json(data);
         }
     });
+});
+// Get Listing Image by listingId
+app.get("/listing/image", function (req, res) {
+    var listingId = req.query.listingId;
+    var index = req.query.number - 1;
+    console.log("Profile request received.");
+    listing.getListingImageById(listingId, function (err, data) {
+        if (err || data[index].image == null) {
+            if(data[index].image == null) {
+                res.status(404).send({error: 'Image not found'});
+            } else
+                console.log("Error in Database Server: " + err);
+        } else {
+            res.writeHead(200, {'Content-Type': 'image/jpeg'});
+            res.end(data[index].image);
+        }
+    });
+});
+
+
+// lisitng Cities--Farrukh
+app.get("/listing/cities",function(req,result){
+
+    listing.getCities(function(err,res){
+        if(err) console.log("ERROR--Cannot get cities");
+        else result.json(res);
+    });
+
 });
 /** END - LISTING **/
 
@@ -263,6 +309,8 @@ app.get("/user/conversation", function (req, res) {
         }
     });
 });
+
+
 
 
 

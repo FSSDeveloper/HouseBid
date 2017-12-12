@@ -27,12 +27,6 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <select id="city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
-                                    <option>Fulda</option>
-                                    <option>Berlin</option>
-                                    <option>Munich</option>
-                                    <option>San Francisco</option>
-                                    <option>New York</option>
-                                    <option>Frankfurt</option>
                                 </select>
                             </div>
                             <!-- <div class="col-xs-6">
@@ -42,6 +36,27 @@
 
                                 </select>
                             </div> -->
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-12 pull-right">
+                                <div class="col-xs-10 page-subheader sorting pl0">
+                                    <ul class="sort-by-list">
+                                        <li class="active">
+                                            <a id="byDate" href="javascript:void(0);" onclick="$(this).attr('data-order') === 'ASC' ? $(this).attr('data-order', 'DESC')  : ($(this).attr('data-order') === 'DESC' ?  $(this).attr('data-order', 'ASC') : $(this).attr('data-order', 'DESC')); $($(this)[0].childNodes[1]).toggleClass('fa-sort-amount-desc fa-sort-amount-asc')" class="order_by_date" data-orderby="property_date" data-order="DESC">
+                                                Property Date <i class="fa fa-sort-amount-asc"></i>
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a  id = "byPrice" href="javascript:void(0);" onclick="$(this).attr('data-order') === 'ASC' ? $(this).attr('data-order', 'DESC')  : ($(this).attr('data-order') === 'DESC' ?  $(this).attr('data-order', 'ASC') : $(this).attr('data-order', 'DESC')); $($(this)[0].childNodes[1]).toggleClass('fa-sort-numeric-desc fa-sort-numeric-asc')" class="order_by_price" data-orderby="property_price" data-order="DESC">
+                                                Property Price <i class="fa fa-sort-numeric-desc"></i>
+                                                <!--     <button type="button" class="btnSortP">Sort By Price  </button> -->
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
                     <fieldset >
@@ -55,33 +70,15 @@
             </div>
         </div>
     </div>
-    <div class="row"> 
-        <div class="col-md-12 pull-right"> 
-            <div class="col-xs-10 page-subheader sorting pl0">
-                <ul class="sort-by-list">
-                    <li class="active">
-                        <a href="javascript:void(0);" class="order_by_date" data-orderby="property_date" data-order="ASC">
-                            Property Date <i class="fa fa-sort-amount-asc"></i>                 
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a  id = "byPrice" href="javascript:void(0);" class="order_by_price" data-orderby="property_price" data-order="DESC">
-                            Property Price <i class="fa fa-sort-numeric-desc"></i>        
-                     <!--     <button type="button" class="btnSortP">Sort By Price  </button> -->
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
     <div class="row appendHere"> 
 
     </div>
 </div>
 <div style="display: none;"> 
-    <div class="col-sm-6 col-md-4"  id="searchListingTemplate" style="padding-top: 15px;">
-        <div class="box-two proerty-item">
-            <div class="item-thumb" style="margin-left: 3rem;">
+    <div class="col-sm-6 col-md-4 "  id="searchListingTemplate" style="padding-top: 15px;">
+        <div class="box-two proerty-item materialCard hoverMaterialCard">
+            <div class="item-thumb">
                 <a ><img src="./images/demo/property-3.jpg"></a>
             </div>
             <div class="item-entry overflow">

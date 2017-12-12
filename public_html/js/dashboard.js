@@ -181,7 +181,7 @@ $(document).ready(function () {
                                     chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                     //chatBoxTemplate.attr("class","pull-right")
                                     }else{
-                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                       //  chatBoxTemplate.attr("class","pull-left");
                                     }
                                 chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[0].message;
@@ -222,7 +222,7 @@ $(document).ready(function () {
                                     chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                     //chatBoxTemplate.attr("class","pull-right")
                                     }else{
-                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                        chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                       //  chatBoxTemplate.attr("class","pull-left");
                                     }
                                 chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
@@ -494,7 +494,7 @@ $(document).ready(function () {
                                 chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                 //chatBoxTemplate.attr("class","pull-right")
                                 }else{
-                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                   //  chatBoxTemplate.attr("class","pull-left");
                                 }
                             chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[0].message;
@@ -535,7 +535,7 @@ $(document).ready(function () {
                                 chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #dcf8c6;width:max-content;margin:10px;margin-left:auto;");
                                 //chatBoxTemplate.attr("class","pull-right")
                                 }else{
-                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #FFFF;width:max-content;margin:10px;");    
+                                    chatBoxTemplate.attr("style","border-radius: 8px 3px 3px 8px;padding: 5px;color: black;background-color: #eef8f1;width:max-content;margin:10px;");    
                                   //  chatBoxTemplate.attr("class","pull-left");
                                 }
                             chatBoxTemplate.find("#chatMessage")[0].innerHTML = response[x].message;
@@ -758,68 +758,54 @@ $(document).ready(function () {
 
 
         });
-        
     }
+
     // agent Post Listing
     function agentPostListing(){
-        var isBiddable = document.getElementById("postBiddable").value;
-        var bidFlag = 0;
-        if(isBiddable == "on"){
-            bidFlag = 0;
-        }else{
-            bidFlag = 1;
-        }
-        var dataObj = {
-            title:document.getElementById("postTitle").value,
-            description:document.getElementById("postDescription").value,
-            price:parseInt(document.getElementById("postPrice").value),
-            isBiddable:bidFlag,
-            area:parseInt(document.getElementById("postArea").value),
-            status:parseInt(document.getElementById("postStatus").value),
-            address:document.getElementById("postAddress").value,
-            expiryDate:document.getElementById("postExpiryDate").value,
-            agentId:userObj.user_id,
-            customerId:null,
-            city:document.getElementById("postCity").value,
-            location:document.getElementById("postLocation").value,
-            baths:parseInt(document.getElementById("postBaths").value),
-            beds:parseInt(document.getElementById("postBeds").value),
-            customerId:0
+        $("#postAgentListingForm").unbind();
+        $("#postAgentListingForm").submit( function(event) {
+            event.preventDefault();
 
-        }
-        console.log("Data Obj post listing",dataObj);
-        $.ajax({
-            url: apiEndPoint+"agent/listing",
-            type: "POST",
-            data: dataObj,
-            success: function(data) {
-            console.log("data after success login",data);
-            $("#postTitle").val("");
-            $("#postDescription").val("");
-            $("#postPrice").val("");
-            $("#postStatus").val("");
-            $("#postAddress").val("");
-            $("#postExpiryDate").val("");
-            $("#postCity").val("");
-            $("#postLocation").val("");
-            $("#postBaths").val("");
-            $("#postBeds").val("");
-            $("#postArea").val("");
-            $("#toaster-success").show();
-                document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
-                setTimeout(function(){
-                  hideToaster();
-                }, 4000);
-            },
-            error: function(data, status, er) {
-             $("#toaster-fail").show();
-                document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
-                setTimeout(function(){
-                  hideToaster();
-                }, 4000);
-            }
-        });
+            var formData = new FormData(this);
 
+            // Adds Agent and Customer Id
+            formData.append("agentId", userObj.user_id);
+            formData.append("customerId", null);
+
+            $.ajax({
+                url: apiEndPoint+"agent/listing",
+                type: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log("data after success login",data);
+                    $("#postTitle").val("");
+                    $("#postDescription").val("");
+                    $("#postPrice").val("");
+                    $("#postStatus").val("");
+                    $("#postAddress").val("");
+                    $("#postExpiryDate").val("");
+                    $("#postCity").val("");
+                    $("#postLocation").val("");
+                    $("#postBaths").val("");
+                    $("#postBeds").val("");
+                    $("#postArea").val("");
+                    $("#toaster-success").show();
+                    document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
+                    setTimeout(function(){
+                        hideToaster();
+                    }, 4000);
+                },
+                error: function() {
+                    $("#toaster-fail").show();
+                    document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                    setTimeout(function(){
+                        hideToaster();
+                    }, 4000);
+                }
+            });
+        }).submit();
     }
 
 
@@ -948,3 +934,56 @@ $(document).ready(function () {
 // Initializing WOW.JS
 
 new WOW().init();
+
+// Initializing WOW.JS
+
+
+// Initializing WOW.JS
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+// Initializing WOW.JS
+
+

@@ -1,17 +1,17 @@
-<div class="container customerDashboardDiv"> 
+<div class="container-fluid customerDashboardDiv"> 
 	<ul class="nav nav-pills" role="tablist">
 	  <li role="presentation" id="navInbox" class="active"><a id="cusInboxBtn">Inbox</a></li>
 	  <li role="presentation" id="navRL"><a id="cusRLBtn">Request For Listing</a></li>
 	  <li role="presentation" id="navProfile"><a id="cusProfileBtn">Profile</a></li>
 	</ul>
 	<div class="row" id="customerInbox" style="display: none;"> 
-		<div class="col-md-4 chatList well" > 
+		<div class="col-md-4 chatList materialCard" style="padding: 10px;"> 
 			<div class="list-group" id="appendChatList">
 			  
 			</div>
 		</div>
 		<div class="col-md-1"> </div>
-		<div class="col-md-5  well" id="customerChatDetails">
+		<div class="col-md-5  materialCard well" id="customerChatDetails" style="padding: 10px;">
 			<div id="chatDetails" style="height: 50vh;overflow-y: scroll;">	</div>
 			<div class="newChatBox"> 
 				<input type="text" id="newChatMessage" style="border: 2px solid #dcdcdc;margin: 5px;" placeholder="Text your message here" /> <button type="button" class="pull-right" id="newChatSendBtn" style="margin:5px;"> Send </button>
@@ -23,9 +23,9 @@
 			</div><br> 
 		</div>
 	</div>
-	<div class="well row wow fadeIn" id="customerRfl" style="display: none;"> 
+	<div class="materialCard row wow fadeIn" id="customerRfl" style="display: none;"> 
 		<form id="customerRflFrom"> 
-			<div class ="col-md-12">
+			<div class ="col-md-12" style="padding:20px;">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="group">
@@ -121,9 +121,9 @@
 			</div>
 		</form>
 	</div>
-	<div class="well row" id="customerProfile" style="display: none;"> 
+	<div class="materialCard row" id="customerProfile" style="display: none;"> 
 		<div class="col-md-12">
-			<div class="box-for overflow">
+			<div class="overflow" style="padding: 20px;">
                 <div class="col-md-12 col-xs-12 register-blocks">
                     <h2>Update Profile : </h2> 
                     <div class="form-group">

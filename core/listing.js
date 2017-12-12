@@ -1,21 +1,41 @@
+//-- Imam Bux
+//-- Farzaneh Sabzi
+
 var mysql = require("./db-connection").pool;
 
-function getListings(city, location, callback) {
+function getListings(query, callback) {
+    var city = query.city;
+    var location = query.location;
+    var sortByPrice = query.sortByPrice;
+    var sortByDate = query.sortByDate;
     mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing";
         if (city || location) {
             sql += " WHERE";
             if (city) {
-                sql += (" city LIKE '%" + city + "%'");
+                sql += (" UPPER(city) LIKE UPPER('%" + city + "%')");
             }
             if (location) {
                 if (city) {
                     sql += " AND"
                 }
-                sql += (" location LIKE '%" + location + "%'");
+                sql += (" UPPER(location) LIKE UPPER('%" + location + "%')");
             }
-             sql += " AND status = 1"
+             sql += " AND status != 2"
         }
+
+        if(sortByPrice || sortByDate) {
+            sql += " ORDER BY "
+            if(sortByPrice) {
+                sql += " price " + sortByPrice;
+            }
+            if(sortByDate) {
+                if(sortByPrice) sql += ", ";
+                sql += " listed_date " + sortByDate;
+            }
+
+        }
+
         console.log("Query to be executed: " + sql);
 
         con.query(sql, function (err, result) {
@@ -26,9 +46,24 @@ function getListings(city, location, callback) {
     });
 }
 
+
+//GET CITIES -- FARRUKh
+function getCities(callback)
+{
+    mysql.getConnection(function(err,conn){
+
+        conn.query("select distinct concat(ucase(Left(city,1)),substr(city,2)) as 'City' from listing order by city",function(err,result){
+            if(err) callback(err,null);
+            else callback(null,result);
+        });
+
+    });
+}
+
+
 function getListingsByUserId(agentId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM listing WHERE agent_id = " + agentId;
+        var sql = "SELECT * FROM listing WHERE agent_id = " + con.escape(agentId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -40,7 +75,8 @@ function getListingsByUserId(agentId, callback) {
 
 function getListingByListingId(listingId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT l.*, a.name 'agent_name', a.email 'agent_email', a.contact 'agent_contact', a.address 'agent_address' FROM listing l, user a WHERE listing_id = " + listingId + " and l.agent_id = a.user_id";
+        var sql = "SELECT l.*, a.name 'agent_name', a.email 'agent_email', a.contact 'agent_contact', a.address 'agent_address' FROM listing l, user a \n\
+        WHERE listing_id = " + con.escape(listingId) + " and l.agent_id = a.user_id";
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -50,10 +86,10 @@ function getListingByListingId(listingId, callback) {
     });
 }
 
-function deleteListingByListingId(listingId) {
+function deleteListingByListingId(listingId, callback) {
     mysql.getConnection(function(err, con) {
         deleteListingImagesByListingId(listingId);
-        var sql = "DELETE FROM listing WHERE listing_id = " + listingId;
+        var sql = "DELETE FROM listing WHERE listing_id = " + con.escape(listingId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -65,38 +101,65 @@ function deleteListingByListingId(listingId) {
 
 function deleteListingImagesByListingId(listingId) {
     mysql.getConnection(function(err, con) {
-        var sql = "DELETE FROM listing_images WHERE listing_id = " + listingId;
+        var sql = "DELETE FROM listing_images WHERE listing_id = " + con.escape(listingId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
-            if (err) callback(err, null);
-            else callback(null, result);
+            if (err) return false;
+            else return true;
         });
         con.release();
     });
 }
 
-function addListing(listing, callback) {
+function addListing(listing, imagesData, callback) {
     mysql.getConnection(function(err, con) {
         var sql = "INSERT INTO listing SET ?",
             values = {
                 title: listing.title,
                 description: listing.description,
                 price: listing.price,
-                is_biddable: listing.isBiddable,
+                is_biddable: listing.biddable ? (listing.biddable === "on" ? 1 : 0) : 0,
                 area: listing.area,
-                status: listing.status,
+                status: listing.status != null && listing.status != '' ? listing.status : 0,
                 address: listing.address,
-                expiry_date: listing.expiryDate ? listing.expiryDate : null,
+                expiry_date: listing.expiryDate != null && listing.expiryDate != "" ? listing.expiryDate : null,
                 agent_id: listing.agentId,
-                customer_id: listing.customerId,
+                customer_id: listing.customerId != null && listing.customerId != "null" ? listing.customerId : null,
                 city: listing.city,
                 location: listing.location,
                 baths: listing.baths,
-                beds: listing.beds
+                beds: listing.beds,
+                total_images: imagesData.images ? (imagesData.images instanceof Array ? imagesData.images.length : 1) : 0
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
-            else callback(null, result);
+            else {
+                if(imagesData.images) {
+                    if(imagesData.images instanceof Array) {
+                        imagesData.images.forEach(function(img) {
+                            addListingImage(result.insertId, img);
+                        });
+                    } else{
+                        addListingImage(result.insertId, imagesData.images);
+                    }
+                }
+                callback(null, result);
+            }
+        });
+        con.release();
+    });
+}
+
+function addListingImage(listingId, image) {
+    mysql.getConnection(function(err, con) {
+        var sql = "INSERT INTO listing_images SET ?",
+            values = {
+                listing_id: listingId,
+                image: image ? image.data : null,
+            };
+        con.query(sql, values, function (err, result) {
+            if (err) console.log("Error while uploading image.");
+            else console.log("Image uploaded successfully");
         });
         con.release();
     });
@@ -104,7 +167,7 @@ function addListing(listing, callback) {
 
 function updateListing(listing, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "UPDATE listing SET ? WHERE listing_id = " + listing.listingId,
+        var sql = "UPDATE listing SET ? WHERE listing_id = " + con.escape(listing.listingId),
             values = {
                 title: listing.title,
                 description: listing.description,
@@ -128,9 +191,27 @@ function updateListing(listing, callback) {
     });
 }
 
+
+function getListingImageById(listingId, callback) {
+    mysql.getConnection(function(err, con) {
+        var sql = "SELECT image FROM listing_images WHERE listing_id = " + con.escape(listingId);
+        console.log("Query to be executed: " + sql);
+        con.query(sql, function (err, result) {
+            if (err) callback(err, null);
+            else callback(null, result);
+        });
+        con.release();
+    });
+}
+
 module.exports.getListings = getListings;
 module.exports.getListingByListingId = getListingByListingId;
 module.exports.addListing = addListing;
 module.exports.getListingsByUserId = getListingsByUserId;
 module.exports.deleteListingByListingId = deleteListingByListingId;
 module.exports.updateListing = updateListing;
+module.exports.getListingImageById = getListingImageById;
+module.exports.addListingImage = addListingImage;
+module.exports.getCities = getCities;
+
+

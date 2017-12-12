@@ -72,7 +72,25 @@ $(document).ready(function () {
     }
 
     loadHomePage();
-  
+
+    // Cities AJAX
+        $.ajax({
+        url: apiEndPoint+"listing/cities",
+        type: "get",
+        success: function(data) {
+            console.log("Main hoon");
+           data.forEach(function(element){
+                 $('#city').append($('<option>', {         
+                 text: element.City           
+            }));
+           });
+
+
+        },
+        error: function(data, status, er) {
+            console.log("Error while fetching cities.");
+        }
+        });
 
 
 
@@ -93,16 +111,47 @@ $(document).ready(function () {
                 	var hash = location.hash.substring(1);
                 	var searchUrl = hash;
                 }
-                else if (city == "" || location == ""){
+                else if (city == ""){
                         //$('#uiView').load("./pages/searchListings.html");
                     window.location.hash = "search?city="+city+"&location="+searchLocation;
                     var searchUrl = "search?city="+city+"&location="+searchLocation;
                     }
 
+            // For sorting/filter data
+            var priceOrder = $($("#byPrice")[0]).attr("data-order");
+            var dateOrder = $($("#byDate")[0]).attr("data-order");
+
+            if(priceOrder || dateOrder) {
+                if(priceOrder) {
+                    searchUrl += "&sortByPrice=" + priceOrder;
+                }
+                if(dateOrder) {
+                    searchUrl += "&sortByDate=" + dateOrder;
+                }
+            }
     		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
             apicalled = false;
             $('#uiView').load("./pages/searchListings.html", function(){
+
+            $.ajax({
+            url: apiEndPoint+"listing/cities",
+            type: "get",
+            success: function(data) {
+            console.log("Main hoon");
+            data.forEach(function(element){
+            $('#city').append($('<option>', {         
+            text: element.City           
+            }));
+            });
+
+
+            },
+            error: function(data, status, er) {
+            console.log("Error while fetching cities.");
+            }
+            });
+
 
                 $('#ListingPageSearchBtn').click(function(){
                 
@@ -303,7 +352,13 @@ $(document).ready(function () {
         
     });
 
-    
+    function sort() {
+        $('#byPrice').click(function(event) {
+            event.preventDefault();
+            alert($($("#byPrice")[0]).attr("data-order"));
+        });
+    }
+
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-yellow',
         radioClass: 'iradio_square-yellow',
@@ -420,6 +475,9 @@ $(document).ready(function () {
             });
         }
     });
+
+
+
 
     // Validates sign up form fields
     function validateForm() {

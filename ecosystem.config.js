@@ -1,3 +1,5 @@
+//-- Farzaneh Sabzi
+
 module.exports = {
   /**
    * Application configuration section
