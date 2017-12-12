@@ -6,8 +6,8 @@ var encryptionUtil = require("./encryptionUtil");
 
 function login(user, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = \"" + 
-                con.escape(user.email) + "\" AND password = \"" + con.escape(encryptionUtil.encrypt(user.password)) + "\"";
+        var sql = "SELECT user_id, name, email, contact, address, user_type FROM user WHERE email = " + 
+                con.escape(user.email) + " AND password = " + con.escape(encryptionUtil.encrypt(user.password));
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
