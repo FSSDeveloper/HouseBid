@@ -5,8 +5,6 @@ $(window).load(function () { // makes sure the whole site is loaded
     $('body').delay(350).css({'overflow': 'visible'});
 })
 $(document).ready(function () {
-
-
     function hideToaster(){
         $("#toaster-success").fadeOut(5000);
         $('#toaster-fail').fadeOut(5000);
@@ -14,6 +12,7 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
+    var counterForOptions = 0;
     var userObj = JSON.parse(localStorage.getItem('userObj'));
     console.log("local storage",localStorage);
 
@@ -24,13 +23,9 @@ $(document).ready(function () {
     }
 	
 	$(window).on('hashchange', function(){
-        
         if(location.hash){
-            
             hash = location.hash.substring(1);
-            console.log('parameters present', hash.indexOf('search'));
-            // var params = hash.split('&');
-           
+
             switch(true){
                 case(hash.indexOf('search') == '0'):
                     console.log('search');
@@ -63,10 +58,8 @@ $(document).ready(function () {
             $('#addBodyContent').attr("style","background-color: #FCFCFC; padding-bottom: 15px;display:block;visibility:visible;");
         	$('#homeSlider').attr('style','display:block;visibility:visible;');
            
-            $('#homeSearchBtn').click(function(){
-                
+            $('#homeSearchBtn').click(function(){          
                 searchListings();
-
             })
         });
     }
@@ -75,146 +68,117 @@ $(document).ready(function () {
 
     // Cities AJAX
         $.ajax({
-        url: apiEndPoint+"listing/cities",
-        type: "get",
-        success: function(data) {
-            console.log("Main hoon");
-           data.forEach(function(element){
-                 $('#city').append($('<option>', {         
-                 text: element.City           
-            }));
-           });
-
-
-        },
-        error: function(data, status, er) {
-            console.log("Error while fetching cities.");
-        }
-        });
-
-
-
-
-
-
-    function searchListings(){
-    	apiCalled = true;
-    		var searchLocation = $('#searchLocation').val();
-            console.log("searchLocation",searchLocation);
-                var city = $('#city').val();
-                console.log("city",city,"location",location);
-                //var url = window.location.href;
-                if(city || searchLocation){
-                	window.location.hash = "search?city="+city+"&location="+searchLocation;
-                	var searchUrl = "search?city="+city+"&location="+searchLocation;
-                }else if(location.hash){
-                	var hash = location.hash.substring(1);
-                	var searchUrl = hash;
-                }
-                else if (city == ""){
-                        //$('#uiView').load("./pages/searchListings.html");
-                    window.location.hash = "search?city="+city+"&location="+searchLocation;
-                    var searchUrl = "search?city="+city+"&location="+searchLocation;
-                    }
-
-            // For sorting/filter data
-            var priceOrder = $($("#byPrice")[0]).attr("data-order");
-            var dateOrder = $($("#byDate")[0]).attr("data-order");
-
-            if(priceOrder || dateOrder) {
-                if(priceOrder) {
-                    searchUrl += "&sortByPrice=" + priceOrder;
-                }
-                if(dateOrder) {
-                    searchUrl += "&sortByDate=" + dateOrder;
-                }
-            }
-    		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
-            console.log('api called result',response);
-            apicalled = false;
-            $('#uiView').load("./pages/searchListings.html", function(){
-
-            $.ajax({
             url: apiEndPoint+"listing/cities",
             type: "get",
             success: function(data) {
-            console.log("Main hoon");
-            data.forEach(function(element){
-            $('#city').append($('<option>', {         
-            text: element.City           
-            }));
-            });
-
-
+                console.log("Main hoon");
+               data.forEach(function(element){
+                    $('#city').append($('<option>', {         
+                     text: element.City           
+                    }));
+                });
             },
             error: function(data, status, er) {
-            console.log("Error while fetching cities.");
+                console.log("Error while fetching cities.");
             }
-            });
+        });
+    function searchListings(){
+    	apiCalled = true;
+        $('#status').fadeOut();
+        $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+        //$('body').delay(350).css({'overflow': 'visible'});
+		var searchLocation = $('#searchLocation').val();
+        var city = $('#city').val();
+        console.log("city",city,"location",location);
 
+        if(city || searchLocation){
+        	window.location.hash = "search?city="+city+"&location="+searchLocation;
+        	var searchUrl = "search?city="+city+"&location="+searchLocation;
+        }else if(location.hash){
+        	var hash = location.hash.substring(1);
+        	var searchUrl = hash;
+        }
+        else if (city == ""){
+                //$('#uiView').load("./pages/searchListings.html");
+            window.location.hash = "search?city="+city+"&location="+searchLocation;
+            var searchUrl = "search?city="+city+"&location="+searchLocation;
+        }
 
-                $('#ListingPageSearchBtn').click(function(){
-                
-                    searchListings();
+            // For sorting/filter data
+        var priceOrder = $($("#byPrice")[0]).attr("data-order");
+        var dateOrder = $($("#byDate")[0]).attr("data-order");
 
-                })
-                $('#addBodyContent').attr("style","display:none;");
-                
-                for(var i=0; i < response.length; i++){
-                    var template = $('#searchListingTemplate').clone();
-                    var searchIdx = "searchListingTemplate"+i;
-                    template.attr('id',searchIdx);
-                    console.log("response[i]",template.find("#listingPrice"));
-                    template.attr("data",response[i].listing_id);
+        if(priceOrder || dateOrder) {
+            if(priceOrder) {
+                searchUrl += "&sortByPrice=" + priceOrder;
+            }
+            if(dateOrder) {
+                searchUrl += "&sortByDate=" + dateOrder;
+            }
+        }
 
-                    template.attr("class","view-listing-details col-sm-6 col-md-4");
-                    template.find('#listingId')[0].innerHTML = response[i].listing_id;
-                    template.find("#listingTitle")[0].innerHTML = response[i].title;
-                    template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
-                    template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
-                    template.find("#listingDescription")[0].innerHTML = response[i].description;
-                    template.appendTo(".appendHere");
+		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
+            console.log('api called result',response);
+            apicalled = false;
+            counterForOptions = counterForOptions+1;
+            $('#uiView').load("./pages/searchListings.html", function(){
+                $('#searchLocation').val("");
+                    $.ajax({
+                        url: apiEndPoint+"listing/cities",
+                        type: "get",
+                        success: function(data) {
+                            data.forEach(function(element){
+                                $('.cityPicker').append($('<option>', {         
+                                    text: element.City           
+                                }));
+                            });
+                            if($('#city').val()!== ""){
 
-                }
+                             $('#city').val(city);
+                            }
+                        },
+                        error: function(data, status, er) {
+                            console.log("Error while fetching cities.");
+                        }
+                    });
 
                
 
-
-
-                //Sorting Function
-                
-                //         $(".btnSortP").click(function() {
-//         console.log("Clicked");
-//         var divList = $(".price");
-//         console.log(divList);
-//         divList.sort(function(a, b){
-//             var result = parseFloat($(a).find('[data-price]').data('price'))- parseFloat($(b).find('[data-price]').data('price'));
-//             return result;
-//         });
-//         $("#container").html(divList);
-//     });
-// });
-
-
-                var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
-    
-                for(var i=0;i < listingDetailsLinks.length;i++) {
-                    listingDetailsLinks[i].addEventListener("click", function() {
-                        var element = document.getElementById(this.id);
-                        var idx = element.getAttribute("data");
-                        getListingDetails(idx);
-                    });
+                $('#ListingPageSearchBtn').click(function(){
+                    searchListings();
+                })
+                $('#addBodyContent').attr("style","display:none;");
+                if(response.length > 0){
+                        for(var i=0; i < response.length; i++){
+                            var template = $('#searchListingTemplate').clone();
+                            var searchIdx = "searchListingTemplate"+i;
+                            template.attr('id',searchIdx);
+                            console.log("response[i]",template.find("#listingPrice"));
+                            template.attr("data",response[i].listing_id);
+                            template.attr("class","view-listing-details col-sm-6 col-md-4");
+                            template.find('#listingId')[0].innerHTML = response[i].listing_id;
+                            template.find("#listingTitle")[0].innerHTML = response[i].title;
+                            template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
+                            template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
+                            template.find("#listingDescription")[0].innerHTML = response[i].description;
+                            template.appendTo(".appendHere");
+                        }
+                        var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
+                        for(var i=0;i < listingDetailsLinks.length;i++) {
+                            listingDetailsLinks[i].addEventListener("click", function() {
+                                var element = document.getElementById(this.id);
+                                var idx = element.getAttribute("data");
+                                getListingDetails(idx);
+                            });
+                        } 
+                }else{
+                    $(".appendHere").append("<h3 style='margin-left:20px;'> <i> No results Matching your criteria!</i> </h3>");
                 }
+                
             });
             var appnd = document.getElementById('appendHere');
         }});
-    	
     };
-
-
-
- 
-
 
 
     function getListingDetails(listingId){

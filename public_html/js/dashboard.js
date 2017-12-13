@@ -761,18 +761,21 @@ $(document).ready(function () {
     }
 
     // agent Post Listing
+    var apiInProcess = false;
     function agentPostListing(){
         $("#postAgentListingForm").unbind();
         $("#postAgentListingForm").submit( function(event) {
             event.preventDefault();
+            apiInProcess = true;
 
             var formData = new FormData(this);
-
+            console.log("formData",formData);
             // Adds Agent and Customer Id
             formData.append("agentId", userObj.user_id);
             formData.append("customerId", null);
-
-            $.ajax({
+            console.log("formData",formData);
+            if($(apiInProcess && "#postTitle").val()!== '' && $("#postDescription").val() !== '' && $("#postPrice").val()!== '' && $("#postStatus").val()!== '' && $("#postAddress").val()!== '' && $("#postExpiryDate").val()!== '' && $("#postCity").val()!== '' && $("#postLocation").val()!== '' && $("#postBaths").val()!== '' && $("#postBeds").val()!== '' && $("#postArea").val()!== ''){
+                $.ajax({
                 url: apiEndPoint+"agent/listing",
                 type: "post",
                 data: formData,
@@ -780,6 +783,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (data) {
                     console.log("data after success login",data);
+                    apiInProcess = false;
                     $("#postTitle").val("");
                     $("#postDescription").val("");
                     $("#postPrice").val("");
@@ -805,6 +809,10 @@ $(document).ready(function () {
                     }, 4000);
                 }
             });
+            }else{
+                console.log("empty");
+            }
+            
         }).submit();
     }
 
