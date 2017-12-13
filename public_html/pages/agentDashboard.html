@@ -178,7 +178,7 @@
 				</form>
 			</div>
 			<div class="pull-right"> 
-				<button class="btn btn-default" id="agentEditListingBtn">Update</button>
+				<button type="submit" class="btn btn-default" id="agentEditListingBtn">Update</button>
 				<button class="btn btn-default" id="agentCancEditListingBtn">Cancel</button>
 				<button class="btn btn-default" id="agentDeleteListingBtn">Delete</button>
 			</div>
@@ -188,8 +188,8 @@
 	<div class="materialCard row wow fadeIn" id="agentPl" style="display: none;" data-wow-delay=".9s"> 
 		
 		<div class="col-md-12">
-			<div class="container"> 
-				<form method="post" style="padding: 20px;" enctype="multipart/form-data" id="postAgentListingForm">
+			<form method="post" style="padding: 20px;" enctype="multipart/form-data" id="postAgentListingForm">
+				<div class="container"> 
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
@@ -305,11 +305,11 @@
 						<div class="col-md-6"> </div>
 						<div class="col-md-6"> </div>
 					</div>
-				</form>
-			</div>
-			<div class="pull-right">
-				<button class="btn btn-default" id="postAgentListingBtn">Post</button>
-			</div>
+				</div>
+				<div class="pull-right">
+					<button type="submit" class="btn btn-default" id="postAgentListingBtn">Post</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	<div class="materialCard row" id="agentProfile" style="display: none;"> 
