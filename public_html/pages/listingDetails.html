@@ -22,8 +22,8 @@
                             </ol>
 
                             <!-- Wrapper for slides -->
-                            <div class="carousel-inner">
-                              <div class="item active">
+                            <div class="carousel-inner" id="listingCarousalImg">
+                              <!-- <div class="item active">
                                 <img src="./images/property-1/property1.jpg" alt="Los Angeles" style="width:100%;">
                               </div>
 
@@ -33,7 +33,7 @@
                             
                               <div class="item">
                                 <img src="./images/property-1/property4.jpg" alt="New york" style="width:100%;">
-                              </div>
+                              </div> -->
                             </div>
 
                             <!-- Left and right controls -->
@@ -65,31 +65,10 @@
                                         <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
                                         <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
                                     </li>
-
                                     <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Built In</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2003</span>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Status</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">For Sale</span>
                                     </li>
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2 Or More Spaces,Covered Parking,Valet Parking</span>
-                                    </li>
-
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
-                                    </li>
-
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">View</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Intracoastal View,Direct ew</span>
-                                    </li>
-
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Waterfront Description:</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Intracoastal Front,Ocean Access</span>
-                                    </li> 
-
                                 </ul>
                             </div>  
                             <!-- End additional-details area  -->
@@ -97,12 +76,9 @@
                             <div class="section property-features">      
                                 <h4 class="s-property-title">Features</h4>                            
                                 <ul>
-                                    <li><a href="properties.html">Swimming Pool</a></li>   
-                                    <li><a href="properties.html">3 Stories</a></li>
+                                    <li><a href="properties.html">Swimming Pool</a></li>
                                     <li><a href="properties.html">Central Cooling</a></li>
-                                    <li><a href="properties.html">Jog Path 2</a></li>
                                     <li><a href="properties.html">2 Lawn</a></li>
-                                    <li><a href="properties.html">Bike Path</a></li>
                                 </ul>
                             </div>
                             <!-- End features area  -->
@@ -114,7 +90,7 @@
                                 <div class="dealer-content">
                                     <div class="inner-wrapper">
                                         <div class="single-property-header">                                   
-                                            <h1 class="property-title">Villa in <span id="listingTitleAdd"> </span></h1>
+                                            <h1 class="property-title"> <span id="listingMetaTitle"> </span>  <span id="listingTitleAdd"> </span></h1>
                                             <span class="property-price" id="listingPrice">$825,000</span>
                                         </div>
                                         <div class="property-meta entry-meta clearfix ">   
@@ -186,43 +162,24 @@
                                                     <span class="property-info-label">Biddable</span>
                                                     <span class="property-info-value" id="listingBiddable">2</span>
                                                 </span>
-                                                <input  type="number" id="bidNumber">
+                                                <!-- <input  type="number" id="bidNumber"> -->
                                                 <h5 id = "bidCount" style="display: none;">Bid Starting from 10000$</h5>
                                             </div> 
-
-                                            
                                         </div>
                                         <div class="dealer-section-space">
                                             <span>Dealer information</span>
                                         </div>
                                         <div class="clear">
                                             <div class="col-xs-4 col-sm-4 dealer-face">
-                                                <a href="">
-                                                    <img src="./images/client-face1.png" class="img-circle">
+                                                <a href="" id="listingAgentPic">
+                                                    <!-- <img src="./images/client-face1.png" class="img-circle"> -->
                                                 </a>
                                             </div>
                                             <div class="col-xs-8 col-sm-8 ">
                                                 <h3 class="dealer-name">
-                                                    <a id="listingAgentName" href="">Nathan James</a>
+                                                    <a id="listingAgentName" href=""></a>
                                                     <span>Real Estate Agency</span>        
                                                 </h3>
-                                                <!-- <div class="dealer-social-media">
-                                                    <a class="twitter" target="_blank" href="">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                    <a class="facebook" target="_blank" href="">
-                                                        <i class="fa fa-facebook"></i>
-                                                    </a>
-                                                    <a class="gplus" target="_blank" href="">
-                                                        <i class="fa fa-google-plus"></i>
-                                                    </a>
-                                                    <a class="linkedin" target="_blank" href="">
-                                                        <i class="fa fa-linkedin"></i>
-                                                    </a> 
-                                                    <a class="instagram" target="_blank" href="">
-                                                        <i class="fa fa-instagram"></i>
-                                                    </a>       
-                                                </div> -->
                                                 <button id="contactBtn" class="contactDealerBtn pull-center">  <span> Contact </span> </button>
                                             </div>
                                         </div>

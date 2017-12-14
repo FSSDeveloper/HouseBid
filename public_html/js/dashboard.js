@@ -131,25 +131,29 @@ $(document).ready(function () {
             $.ajax({url:apiEndPoint+url, success: function(response){
                 console.log("response",response);
                 var currentChatObj = "";
-                for(var i=0;i < response.length;i++) {
-                    var template = $('#chatListItemTemplate').clone();
+                if(response.length > 0){
+                    for(var i=0;i < response.length;i++) {
+                        var template = $('#chatListItemTemplate').clone();
 
-                    template.attr("class","list-group-item");
-                    template.attr("data",i);
-                    template.attr("id","chatItem"+i);
-                    template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
-                    template.attr("style","dsiplay:block;");
-                    template.appendTo("#appendChatList");
-                }
-                var chatListingLinks = document.getElementsByClassName("list-group-item");
-                console.log("chatListingLinks",chatListingLinks);
-                for(var i=0;i < chatListingLinks.length;i++) {
-                    chatListingLinks[i].addEventListener("click", function() {
-                        var element = document.getElementById(this.id);
-                        var idx = element.getAttribute("data");
-                        getChatDetails(idx,response);
+                        template.attr("class","list-group-item");
+                        template.attr("data",i);
+                        template.attr("id","chatItem"+i);
+                        template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
+                        template.attr("style","dsiplay:block;");
+                        template.appendTo("#appendChatList");
+                    }
+                    var chatListingLinks = document.getElementsByClassName("list-group-item");
+                    console.log("chatListingLinks",chatListingLinks);
+                    for(var i=0;i < chatListingLinks.length;i++) {
+                        chatListingLinks[i].addEventListener("click", function() {
+                            var element = document.getElementById(this.id);
+                            var idx = element.getAttribute("data");
+                            getChatDetails(idx,response);
 
-                    });
+                        });
+                    }
+                }else{
+                    document.getElementById('appendChatList').innerHTML = "<h3> <i> No messages here!!</i></h3>";
                 }
                 
                 $("#newChatSendBtn").click(function() {
@@ -329,6 +333,7 @@ $(document).ready(function () {
        $("#upEmail").val(userObj.email);
        $("#upAddress").val(userObj.address);
        $("#upContact").val(userObj.contact);
+       document.getElementById("customerProfileImg").innerHTML = "<img  src="+apiEndPoint+"user/image?userId="+userObj.user_id+" style='width:150px;height:150px;'>"; 
 
        $("#upCusBtn").click(function(argument) {
         var dataObj = {
@@ -448,26 +453,30 @@ $(document).ready(function () {
         $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
             var currentChatObj = "";
-            for(var i=0;i < response.length;i++) {
-                var template = $('#chatListItemTemplate').clone();
+            if(response.length > 0){
+                for(var i=0;i < response.length;i++) {
+                    var template = $('#chatListItemTemplate').clone();
 
-                template.attr("class","list-group-item");
-                template.attr("data",i);
-                template.attr("id","chatItem"+i);
-                template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
-                template.attr("style","dsiplay:block;");
-                template.appendTo("#appendChatList");
-            }
-            var chatListingLinks = document.getElementsByClassName("list-group-item");
-            console.log("chatListingLinks",chatListingLinks);
-            for(var i=0;i < chatListingLinks.length;i++) {
-                chatListingLinks[i].addEventListener("click", function() {
-                    var element = document.getElementById(this.id);
-                    var idx = element.getAttribute("data");
-                    getChatDetails(idx,response);
-                   // getListingDetails(idx);
+                    template.attr("class","list-group-item");
+                    template.attr("data",i);
+                    template.attr("id","chatItem"+i);
+                    template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
+                    template.attr("style","dsiplay:block;");
+                    template.appendTo("#appendChatList");
+                }
+                var chatListingLinks = document.getElementsByClassName("list-group-item");
+                console.log("chatListingLinks",chatListingLinks);
+                for(var i=0;i < chatListingLinks.length;i++) {
+                    chatListingLinks[i].addEventListener("click", function() {
+                        var element = document.getElementById(this.id);
+                        var idx = element.getAttribute("data");
+                        getChatDetails(idx,response);
+                       // getListingDetails(idx);
 
-                });
+                    });
+                } 
+            }else{
+                document.getElementById('appendChatList').innerHTML = "<h3> <i> No messages here!!</i></h3>";
             }
             
             $("#newChatSendBtn").click(function() {
@@ -577,6 +586,11 @@ $(document).ready(function () {
                 template.find("#listingActionBtn")[0].innerHTML = '<button type="button" class="pull-right agentActionEdit" data="'+response[i].listing_id+'"  style="margin:5px;"> Edit </button><button type="button" class="pull-right agentActionDelete" data="'+response[i].listing_id+'"  style="margin:5px;"> Delete </button>';
                 template.find("#listingBedValue")[0].innerHTML = "("+response[i].beds+")";
                 template.find("#listingBathValue")[0].innerHTML = "("+response[i].baths+")";
+                if(response[i].total_images > 0){
+                    template.find("#searchListingImg")[0].innerHTML = "<img style='width:300px;height:248px;' src='"+apiEndPoint+"listing/image?listingId="+response[i].listing_id+"&number=1'>"; 
+                }else{
+                  template.find("#searchListingImg")[0].innerHTML = "<img src=../images/demo/property-3.jpg>";  
+                }
                // template.find("#listingDescription")[0].innerHTML = response[i].description;
                 template.appendTo("#appendListings");
                 
@@ -720,6 +734,7 @@ $(document).ready(function () {
         $("#upAddress").val(userObj.address);
         $("#upContact").val(userObj.contact);
         //$("#upPassword").val(userObj.passowrd);
+        document.getElementById("agentProfileImg").innerHTML = "<img  src="+apiEndPoint+"user/image?userId="+userObj.user_id+" style='width:150px;height:150px;'>"; 
 
         $("#upAgenBtn").click(function(argument) {
             var dataObj = {
@@ -763,18 +778,17 @@ $(document).ready(function () {
     // agent Post Listing
     var apiInProcess = false;
     function agentPostListing(){
-        $("#postAgentListingForm").unbind();
-        $("#postAgentListingForm").submit( function(event) {
+        $(".postAgentListingForm").unbind();
+        $(".postAgentListingForm").submit( function(event) {
             event.preventDefault();
-            apiInProcess = true;
-
             var formData = new FormData(this);
             console.log("formData",formData);
             // Adds Agent and Customer Id
             formData.append("agentId", userObj.user_id);
             formData.append("customerId", null);
             console.log("formData",formData);
-            if($(apiInProcess && "#postTitle").val()!== '' && $("#postDescription").val() !== '' && $("#postPrice").val()!== '' && $("#postStatus").val()!== '' && $("#postAddress").val()!== '' && $("#postExpiryDate").val()!== '' && $("#postCity").val()!== '' && $("#postLocation").val()!== '' && $("#postBaths").val()!== '' && $("#postBeds").val()!== '' && $("#postArea").val()!== ''){
+            if(!apiInProcess && $("#postTitle").val()!== '' && $("#postDescription").val() !== '' && $("#postPrice").val()!== '' && $("#postStatus").val()!== '' && $("#postAddress").val()!== '' && $("#postExpiryDate").val()!== '' && $("#postCity").val()!== '' && $("#postLocation").val()!== '' && $("#postBaths").val()!== '' && $("#postBeds").val()!== '' && $("#postArea").val()!== ''){
+                apiInProcess = true;
                 $.ajax({
                 url: apiEndPoint+"agent/listing",
                 type: "post",
@@ -783,7 +797,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (data) {
                     console.log("data after success login",data);
-                    apiInProcess = false;
+                    
                     $("#postTitle").val("");
                     $("#postDescription").val("");
                     $("#postPrice").val("");

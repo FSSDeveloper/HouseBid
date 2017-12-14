@@ -46,8 +46,7 @@ $(document).ready(function () {
             };
         }else if(location.pathname == '/index.html'){
 
-          loadHomePage();
-            
+          loadHomePage(); 
         }
     }).trigger('hashchange');
 
@@ -141,9 +140,6 @@ $(document).ready(function () {
                             console.log("Error while fetching cities.");
                         }
                     });
-
-               
-
                 $('#ListingPageSearchBtn').click(function(){
                     searchListings();
                 })
@@ -161,6 +157,11 @@ $(document).ready(function () {
                             template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                             template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                             template.find("#listingDescription")[0].innerHTML = response[i].description;
+                            if(response[i].total_images > 0){
+                                template.find("#searchListingImg")[0].innerHTML = "<img style='width:300px;height:248px;' src='"+apiEndPoint+"listing/image?listingId="+response[i].listing_id+"&number=1'>"; 
+                            }else{
+                              template.find("#searchListingImg")[0].innerHTML = "<img src=./images/demo/property-3.jpg>";  
+                            }
                             template.appendTo(".appendHere");
                         }
                         var listingDetailsLinks = document.getElementsByClassName("view-listing-details");
@@ -196,21 +197,39 @@ $(document).ready(function () {
                 var bidabble = "";
                 console.log("template",template);
                 template.find("#listingTitle")[0].innerHTML = response[0].title;
+                template.find("#listingMetaTitle")[0].innerHTML = response[0].title;
                 template.find("#listingDescription")[0].innerHTML = response[0].description;
                 template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
-
+                template.find("#listingAgentPic")[0].innerHTML = "<img src="+apiEndPoint+"user/image?userId="+response[0].agent_id+"/>";
                 template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
                 template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
                 template.find("#listingAgentPhone")[0].innerHTML = response[0].agent_contact;
                 template.find("#listingAgentAddress")[0].innerHTML = response[0].agent_address;
+                var imgArr = [];
+                if(response[0].total_images > 0){
+                    console.log("in if");
+                    var str = "";
+                    for(i = 1; i <= response[0].total_images;i++){
+                        if(i == 1){
+                            str =str + "<div class='item active'><img style='height: -webkit-fill-available;' src='"+apiEndPoint+"listing/image?listingId="+response[0].listing_id+"&number="+i+"'/></div>";
+                      
+                        }else{
+                            str =str + "<div class='item'><img style='height: -webkit-fill-available;' src='"+apiEndPoint+"listing/image?listingId="+response[0].listing_id+"&number="+i+"'/></div>";
+                        }
+                        
+                    }
+                    document.getElementById("listingCarousalImg").innerHTML = str;
+                }else{
+                    console.log("in else");
+                 document.getElementById("listingCarousalImg").innerHTML = "<div class='item active'><img src='./images/property-1/property1.jpg' alt='Los Angeles' style='width:100%;'></div><div class='item'><img src='./images/property-1/property3.jpg' alt='Chicago' style='width:100%;'></div>"+
+                    "<div class='item'><img src='./images/property-1/property4.jpg' alt='New york' style='width:100%;'></div>";   
+                }
                 if(userObj){
                     if(userObj.user_type == 1){
                         $("#contactBtn").show();
                         $("#locationListing").show();
-                        var latitude = 50.5526664;
-                        var longitude = 9.6708009;
                         // var latitude = response[0].latitude;
                         // var longitude = response[0].longitude;
 
@@ -218,7 +237,7 @@ $(document).ready(function () {
                         $("#showLocation").attr("style","display:none;");
                         //template.find("#listingMapDiv")[0].innerHTML = '<iframe id="locationListing" width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+latitude+' ,'+longitude+' &amp;key=AIzaSyDzLEmHTY7AydmTHxcpZuu7tPREhO1lYeU"></iframe>'
 
-                       template.find("#listingTitleAdd")[0].innerHTML = response[0].address+", "+response[0].location+", "+response[0].city; 
+                       template.find("#listingTitleAdd")[0].innerHTML = " IN" +response[0].address+", "+response[0].location+", "+response[0].city; 
                        var addr = response[0].address+", "+response[0].location+", "+response[0].city;
                         locateInMap(addr);
                         function locateInMap(address){
@@ -238,7 +257,6 @@ $(document).ready(function () {
                                 });
                             }else{
                                 document.getElementById('listingMapDiv').innerHTML = "<iframe src='https://maps.google.com/maps?q=51.165691,10.451526000000058&hl=es;z=14&amp;output=embed'></iframe>";
-
                             }
                         }
                     }else{
@@ -246,15 +264,14 @@ $(document).ready(function () {
                       $("#locationListing").show();
                       $("#showLocation").hide();
                     }
-
                 }
 
                 else{
-                        $("#contactBtn").hide();
-                        $("#locationListing").attr("style","display:none;");
-                        $("#showLocation").show();
-                        template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
-                    }
+                    $("#contactBtn").hide();
+                    $("#locationListing").attr("style","display:none;");
+                    $("#showLocation").show();
+                    template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
+                }
 
                 //template.find("#listingTitleAdd")[0].innerHTML = response[0].city;
                 
@@ -657,4 +674,3 @@ $(document).ready(function () {
 // Initializing WOW.JS
 
 new WOW().init();
-
