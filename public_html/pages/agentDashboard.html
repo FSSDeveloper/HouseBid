@@ -49,6 +49,11 @@
                                   <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
                                 </div>
                             </div>
+                            <div class="row"> 
+                                <div class="col-md-6" style="display:inline-flex;"> 
+                                    <p> <b> City : </b> <p id="listingCity" style="margin:auto;">  </p>
+                                </div>
+                            </div>
                             <div class="property-icon">
                                 <img src="../images/icon/bed.png"><span id="listingBedValue"> </span>
                                 <img src="../images/icon/shawer.png"><span id="listingBathValue"> </span>
@@ -104,7 +109,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="agentEditPrice" required>
+						      <input type="number" id="agentEditPrice" min="0" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Price</label>
@@ -183,6 +188,9 @@
 				<button class="btn btn-default" id="agentDeleteListingBtn">Delete</button>
 			</div>
 		</div>
+		<div class="col-md-12" id="agentMLNoState"> 
+			<h3> <i> No Listings!!</i></h3>
+		</div>
 	</div>
 	
 	<div class="materialCard row wow fadeIn" id="agentPl" style="display: none;" data-wow-delay=".9s"> 
@@ -229,7 +237,7 @@
 					<div class="row"> 
 						<div class="col-md-6"> 
 							<div class="group">      
-						      <input type="text" id="postPrice" name="price" required>
+						      <input type="number" min="0" id="postPrice" name="price" required>
 						      <span class="highlight"></span>
 						      <span class="bar"></span>
 						      <label>Price</label>

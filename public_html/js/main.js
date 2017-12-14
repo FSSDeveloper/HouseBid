@@ -13,7 +13,11 @@ $(document).ready(function () {
     var isLocal = false;
     var apiEndPoint ="";
     var counterForOptions = 0;
-    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    if(localStorage.length > 0){
+        var userObj = JSON.parse(localStorage.getItem('userObj'));
+    }else{
+        var userObj ={};
+    }
     console.log("local storage",localStorage);
 
     if(window.location.hostname == "localhost"){
@@ -156,7 +160,8 @@ $(document).ready(function () {
                             template.find("#listingTitle")[0].innerHTML = response[i].title;
                             template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
                             template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
-                            template.find("#listingDescription")[0].innerHTML = response[i].description;
+                            template.find("#listingDescription")[0].innerHTML = response[i].description;      
+                            template.find("#listingCity")[0].innerHTML = response[i].city;
                             if(response[i].total_images > 0){
                                 template.find("#searchListingImg")[0].innerHTML = "<img style='width:300px;height:248px;' src='"+apiEndPoint+"listing/image?listingId="+response[i].listing_id+"&number=1'>"; 
                             }else{
@@ -294,7 +299,14 @@ $(document).ready(function () {
                     $("#bidNumber").attr("style","display:none;");
 
                 }else{
-                    bidabble = "Yes";
+                    if(userObj.user_type == 1){
+                        template.find("#listingBiddableArea")[0].innerHTML = "<input  type='number' min='0' id='bidNumber' placeholder='Quote your Bid'><button class='contactDealerBtn' id='sendBidBtn' style='margin-top:10px;'>Send Quote </button>";
+                         bidabble = "YES";
+                     }else{
+                        bidabble = "YES";
+                     }
+                   
+                     
                     $("#bidNumber").show();
                 }
                 template.find("#listingBiddable")[0].innerHTML = bidabble;
@@ -315,15 +327,56 @@ $(document).ready(function () {
                             },
                             success: function(data) {
                             console.log("message sent",data);
-                            alert("Message Sent Successfully!");
+                            $("#toaster-success").show();
+                            $("#chatMessage").val("");
+                            document.getElementById("succesToasterData").innerHTML = "Message sent successful!";
+                                setTimeout(function(){
+                                  hideToaster();
+                                }, 4000);
                             },
                             error: function(data, status, er) {
-                                console.log("Error",data);
-                                alert("Oops! Something went Wrong!!");
+                            console.log("Error",data);
+                            document.getElementById("failToasterData").innerHTML = "Oops! Something went Wrong!!";
+                            $("#toaster-fail").show();
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
                             }
                         });
                     })
                 });
+                $("#sendBidBtn").click(function() {
+                        var bidAmt = $("#bidNumber").val();
+                        var  message= "I bid "+ bidAmt + "EUR";
+                        $.ajax({
+                            url: apiEndPoint+"user/message",
+                            type: "POST",
+                            data: {
+                                message: message,
+                                senderId: userObj.user_id,
+                                listingId:response[0].listing_id,
+                                receiverId:response[0].agent_id
+                            },
+                            success: function(data) {
+                            console.log("message sent",data);
+                            $("#toaster-success").show();
+                            $("#bidNumber").val("");
+                            document.getElementById("succesToasterData").innerHTML = "Message sent successful!";
+                                setTimeout(function(){
+                                  hideToaster();
+                                }, 4000);
+                            },
+                            error: function(data, status, er) {
+                            console.log("Error",data);
+                            document.getElementById("failToasterData").innerHTML = "Oops! Something went Wrong!!";
+                            $("#toaster-fail").show();
+                            setTimeout(function(){
+                              hideToaster();
+                            }, 4000);
+                            }
+                        });
+                    })
+
             });
             
         }});
