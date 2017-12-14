@@ -35,7 +35,7 @@ CREATE TABLE `user` (
   `user_type` tinyint DEFAULT '1',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -76,7 +76,7 @@ CREATE TABLE `listing` (
   KEY `agent_FK_idx` (`agent_id`),
   KEY `customer_FK_idx` (`customer_id`),
   CONSTRAINT `agent_FK` FOREIGN KEY (`agent_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -119,7 +119,7 @@ CREATE TABLE `message` (
   CONSTRAINT `listing_FK2` FOREIGN KEY (`listing_id`) REFERENCES `listing` (`listing_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `receiver_FK` FOREIGN KEY (`receiver_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sender_FK` FOREIGN KEY (`sender_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -131,7 +131,7 @@ CREATE TABLE `message` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES (1,'SF State Homes','SFStateHomes@info.de','55dc87','+49 30237890-9','Charlottenstraße 155, 10117 Berlin',null,2),
-						  (2,'SJ State Realtors','SJStateRealtors@info.de','55dc87','+49 605535434','Tränke 1, 36039 Fulda',null,2),
+			  (2,'SJ State Realtors','SJStateRealtors@info.de','55dc87','+49 605535434','Tränke 1, 36039 Fulda',null,2),
                           (3,'CSU Real Estate','CSURealEstate@info.de','55dc87','+49 6589134445-7','Zentgrafenstraße 89, 34130 Kassel',null,2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;

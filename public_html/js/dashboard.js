@@ -8,7 +8,12 @@ $(document).ready(function () {
     var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
-    var userObj = JSON.parse(localStorage.getItem('userObj'));
+    if(localStorage.length > 0){
+        var userObj = JSON.parse(localStorage.getItem('userObj'));
+    }else {
+        var userObj ={};
+    }
+
     console.log("userObj",userObj);
     if(localStorage.length > 0){
         $("#loginButton").hide();
@@ -131,25 +136,29 @@ $(document).ready(function () {
             $.ajax({url:apiEndPoint+url, success: function(response){
                 console.log("response",response);
                 var currentChatObj = "";
-                for(var i=0;i < response.length;i++) {
-                    var template = $('#chatListItemTemplate').clone();
+                if(response.length > 0){
+                    for(var i=0;i < response.length;i++) {
+                        var template = $('#chatListItemTemplate').clone();
 
-                    template.attr("class","list-group-item");
-                    template.attr("data",i);
-                    template.attr("id","chatItem"+i);
-                    template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
-                    template.attr("style","dsiplay:block;");
-                    template.appendTo("#appendChatList");
-                }
-                var chatListingLinks = document.getElementsByClassName("list-group-item");
-                console.log("chatListingLinks",chatListingLinks);
-                for(var i=0;i < chatListingLinks.length;i++) {
-                    chatListingLinks[i].addEventListener("click", function() {
-                        var element = document.getElementById(this.id);
-                        var idx = element.getAttribute("data");
-                        getChatDetails(idx,response);
+                        template.attr("class","list-group-item");
+                        template.attr("data",i);
+                        template.attr("id","chatItem"+i);
+                        template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
+                        template.attr("style","dsiplay:block;");
+                        template.appendTo("#appendChatList");
+                    }
+                    var chatListingLinks = document.getElementsByClassName("list-group-item");
+                    console.log("chatListingLinks",chatListingLinks);
+                    for(var i=0;i < chatListingLinks.length;i++) {
+                        chatListingLinks[i].addEventListener("click", function() {
+                            var element = document.getElementById(this.id);
+                            var idx = element.getAttribute("data");
+                            getChatDetails(idx,response);
 
-                    });
+                        });
+                    }
+                }else{
+                    document.getElementById('appendChatList').innerHTML = "<h3> <i> No messages here!!</i></h3>";
                 }
                 
                 $("#newChatSendBtn").click(function() {
@@ -329,6 +338,7 @@ $(document).ready(function () {
        $("#upEmail").val(userObj.email);
        $("#upAddress").val(userObj.address);
        $("#upContact").val(userObj.contact);
+       document.getElementById("customerProfileImg").innerHTML = "<img  src="+apiEndPoint+"user/image?userId="+userObj.user_id+" style='width:150px;height:150px;'>"; 
 
        $("#upCusBtn").click(function(argument) {
         var dataObj = {
@@ -448,26 +458,30 @@ $(document).ready(function () {
         $.ajax({url:apiEndPoint+url, success: function(response){
             console.log("response",response);
             var currentChatObj = "";
-            for(var i=0;i < response.length;i++) {
-                var template = $('#chatListItemTemplate').clone();
+            if(response.length > 0){
+                for(var i=0;i < response.length;i++) {
+                    var template = $('#chatListItemTemplate').clone();
 
-                template.attr("class","list-group-item");
-                template.attr("data",i);
-                template.attr("id","chatItem"+i);
-                template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
-                template.attr("style","dsiplay:block;");
-                template.appendTo("#appendChatList");
-            }
-            var chatListingLinks = document.getElementsByClassName("list-group-item");
-            console.log("chatListingLinks",chatListingLinks);
-            for(var i=0;i < chatListingLinks.length;i++) {
-                chatListingLinks[i].addEventListener("click", function() {
-                    var element = document.getElementById(this.id);
-                    var idx = element.getAttribute("data");
-                    getChatDetails(idx,response);
-                   // getListingDetails(idx);
+                    template.attr("class","list-group-item");
+                    template.attr("data",i);
+                    template.attr("id","chatItem"+i);
+                    template.find(".chatItemText")[0].innerHTML = response[i][0].sender_name;
+                    template.attr("style","dsiplay:block;");
+                    template.appendTo("#appendChatList");
+                }
+                var chatListingLinks = document.getElementsByClassName("list-group-item");
+                console.log("chatListingLinks",chatListingLinks);
+                for(var i=0;i < chatListingLinks.length;i++) {
+                    chatListingLinks[i].addEventListener("click", function() {
+                        var element = document.getElementById(this.id);
+                        var idx = element.getAttribute("data");
+                        getChatDetails(idx,response);
+                       // getListingDetails(idx);
 
-                });
+                    });
+                } 
+            }else{
+                document.getElementById('appendChatList').innerHTML = "<h3> <i> No messages here!!</i></h3>";
             }
             
             $("#newChatSendBtn").click(function() {
@@ -563,154 +577,160 @@ $(document).ready(function () {
         document.getElementById("appendListings").innerHTML = " ";
         $.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log("response in Agent Ml ",response);
-            for(var i=0; i < response.length; i++){
-                var template = $('#searchListingTemplate').clone();
-                var searchIdx = "searchListingTemplate"+i;
-                template.attr('id',searchIdx);
-                console.log("response[i]",template.find("#listingPrice"));
-                template.attr("data",response[i].listing_id);
-                template.attr("class","view-listing-details col-sm-6 col-md-4");
-                template.find('#listingId')[0].innerHTML = response[i].listing_id;
-                template.find("#listingTitle")[0].innerHTML = response[i].title;
-                template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
-                template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
-                template.find("#listingActionBtn")[0].innerHTML = '<button type="button" class="pull-right agentActionEdit" data="'+response[i].listing_id+'"  style="margin:5px;"> Edit </button><button type="button" class="pull-right agentActionDelete" data="'+response[i].listing_id+'"  style="margin:5px;"> Delete </button>';
-                template.find("#listingBedValue")[0].innerHTML = "("+response[i].beds+")";
-                template.find("#listingBathValue")[0].innerHTML = "("+response[i].baths+")";
-               // template.find("#listingDescription")[0].innerHTML = response[i].description;
-                template.appendTo("#appendListings");
-                
-            $("#appendListingEdit").hide();
-                 
-            }
-            var agentActionEditBtns = document.getElementsByClassName("agentActionEdit");
-            console.log("agentActionEdit",agentActionEditBtns);
-            for(var i=0;i < agentActionEditBtns.length;i++) {
-                agentActionEditBtns[i].addEventListener("click", function() {
-                    var idx = this.getAttribute("data");
-                    console.log("id of the listing",idx);
-                    $("#appendListingEdit").show();
-                    $("#appendListings").hide();
-                    $.ajax({
-                        url: apiEndPoint+"listing?listingId="+idx,
-                        type: "GET", // By default GET,
-                        success: function(response) {
-                            console.log("response",response);
-                            $("#agentEditTitle").val(response[0].title);
-                            $("#agentEditCity").val(response[0].city);
-                            $("#agentEditLocation").val(response[0].location);
-                            $("#agentEditAddress").val(response[0].address);
-                            $("#agentEditPrice").val(response[0].price);
-                            $("#agentEditArea").val(response[0].area);
-                            $("#agentEditBeds").val(response[0].beds);
-                            $("#agentEditBaths").val(response[0].baths);
-                            $("#agentEditStatus").val(response[0].status);
-                            if(response[0].is_biddable == 0){
-                                $("#agentEditBiddable").val("on");
-                            }
-                            $("#agentEditDescription").val(response[0].description);
-                            var dateStr = response[0].expiry_date.split('T')[0];
-                            $("#agentEditExpiryDate").val(dateStr);
-                        },
-                        error: function(data, status, er) {
-                            alert("data Failed!");
-                        }
-                    });
-
-                    
-                    $("#agentCancEditListingBtn").click(function(){
-                        agentManageListing();
-                    });
-                    $("#agentEditListingBtn").click(function() {
-                        var biddableValue = 1;
-
-                        if($("#agentEditBiddable").val() == "on"){
-                            biddableValue = 0;
-                        }
-                        var dataObj ={
-                            title :$("#agentEditTitle").val(),
-                            city:$("#agentEditCity").val(),
-                            location:$("#agentEditLocation").val(),
-                            address:$("#agentEditAddress").val(),
-                            price: $("#agentEditPrice").val(),
-                            area:$("#agentEditArea").val(),
-                            expiryDate:$("#agentEditExpiryDate").val(),
-                            beds:$("#agentEditBeds").val(),
-                            baths:$("#agentEditBaths").val(),
-                            status:$("#agentEditStatus").val(),
-                            description:$("#agentEditDescription").val(),
-                            isBiddable:biddableValue,
-                            listingId:idx,
-                            agentAddress:response[0].agent_address,
-                            agentContact:response[0].agent_contact,
-                            agentEmail:response[0].agent_email,
-                            agentId:response[0].agent_id,
-                            agentName:response[0].agent_name,
-                            customerId:response[0].customer_id,
-                            listedDate:response[0].listed_date
-                        };
-
+            if(response.length == 0){
+                console.log("no data");
+                $("#appendListingEdit").hide();
+                $("#agentMLNoState").show();
+            }else{
+                for(var i=0; i < response.length; i++){
+                    var template = $('#searchListingTemplate').clone();
+                    var searchIdx = "searchListingTemplate"+i;
+                    template.attr('id',searchIdx);
+                    console.log("response[i]",template.find("#listingPrice"));
+                    template.attr("data",response[i].listing_id);
+                    template.attr("class","view-listing-details col-sm-6 col-md-4");
+                    template.find('#listingId')[0].innerHTML = response[i].listing_id;
+                    template.find("#listingTitle")[0].innerHTML = response[i].title;
+                    template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
+                    template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
+                    template.find("#listingActionBtn")[0].innerHTML = '<button type="button" class="pull-right agentActionEdit" data="'+response[i].listing_id+'"  style="margin:5px;"> Edit </button><button type="button" class="pull-right agentActionDelete" data="'+response[i].listing_id+'"  style="margin:5px;"> Delete </button>';
+                    template.find("#listingBedValue")[0].innerHTML = "("+response[i].beds+")";
+                    template.find("#listingBathValue")[0].innerHTML = "("+response[i].baths+")";
+                    template.find("#listingCity")[0].innerHTML = response[i].city;
+                    if(response[i].total_images > 0){
+                        template.find("#searchListingImg")[0].innerHTML = "<img style='width:300px;height:248px;' src='"+apiEndPoint+"listing/image?listingId="+response[i].listing_id+"&number=1'>"; 
+                    }else{
+                      template.find("#searchListingImg")[0].innerHTML = "<img src=../images/demo/property-3.jpg>";  
+                    }
+                   // template.find("#listingDescription")[0].innerHTML = response[i].description;
+                    template.appendTo("#appendListings"); 
+                    $("#appendListingEdit").hide();   
+                }
+                var agentActionEditBtns = document.getElementsByClassName("agentActionEdit");
+                console.log("agentActionEdit",agentActionEditBtns);
+                for(var i=0;i < agentActionEditBtns.length;i++) {
+                    agentActionEditBtns[i].addEventListener("click", function(){
+                        var idx = this.getAttribute("data");
+                        console.log("id of the listing",idx);
+                        $("#appendListingEdit").show();
+                        $("#appendListings").hide();
                         $.ajax({
-                        url: apiEndPoint+"agent/listing/update",
-                        type: "POST", // By default GET,
-                        data:dataObj,
-                        success: function(response) {
-                            console.log("response",response);
-                            $("#toaster-success").show();
-                            document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
-                            setTimeout(function(){
-                              hideToaster();
-                            }, 4000);
-                            agentManageListing();
-                        },
-                        error: function(data, status, er) {
-                            $("#toaster-fail").show();
-                            document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
-                            setTimeout(function(){
-                              hideToaster();
-                            }, 4000);
-                        }
+                            url: apiEndPoint+"listing?listingId="+idx,
+                            type: "GET", // By default GET,
+                            success: function(response) {
+                                console.log("response",response);
+                                $("#agentEditTitle").val(response[0].title);
+                                $("#agentEditCity").val(response[0].city);
+                                $("#agentEditLocation").val(response[0].location);
+                                $("#agentEditAddress").val(response[0].address);
+                                $("#agentEditPrice").val(response[0].price);
+                                $("#agentEditArea").val(response[0].area);
+                                $("#agentEditBeds").val(response[0].beds);
+                                $("#agentEditBaths").val(response[0].baths);
+                                $("#agentEditStatus").val(response[0].status);
+                                if(response[0].is_biddable == 0){
+                                    $("#agentEditBiddable").val("on");
+                                }
+                                $("#agentEditDescription").val(response[0].description);
+                                var dateStr = response[0].expiry_date.split('T')[0];
+                                $("#agentEditExpiryDate").val(dateStr);
+                            },
+                            error: function(data, status, er) {
+                                alert("data Failed!");
+                            }
                         });
-
-                    })
-                    
-                });
-            }
-            var agentActionDeleteBtns = document.getElementsByClassName("agentActionDelete");
-    
-            for(var i=0;i < agentActionDeleteBtns.length;i++) {
-                agentActionDeleteBtns[i].addEventListener("click", function() {
-                    var idx = this.getAttribute("data");
-                    console.log("id of the listing",idx);
-
-                    var dataObj = {
-                        listingId:idx
-                    };
-                    $.ajax({
-                        url: apiEndPoint+"agent/listing",
-                        data:dataObj,
-                        method:"DELETE",
-                        success: function(response) {
-                            console.log("response after deleteting",response);
-                            $("#toaster-success").show();
-                            document.getElementById("succesToasterData").innerHTML = "Deleted Successfully!";
-                            setTimeout(function(){
-                              hideToaster();
-                            }, 4000);
+                        $("#agentCancEditListingBtn").click(function(){
                             agentManageListing();
-                        },
-                        error: function(data, status, er) {
-                            $("#toaster-fail").show();
-                            document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
-                            setTimeout(function(){
-                              hideToaster();
-                            }, 4000);
-                        }
                         });
-                    
-                });
+                        $("#agentEditListingBtn").click(function() {
+                            var biddableValue = 1;
+                            if($("#agentEditBiddable").val() == "on"){
+                                biddableValue = 0;
+                            }
+                            var dataObj ={
+                                title :$("#agentEditTitle").val(),
+                                city:$("#agentEditCity").val(),
+                                location:$("#agentEditLocation").val(),
+                                address:$("#agentEditAddress").val(),
+                                price: $("#agentEditPrice").val(),
+                                area:$("#agentEditArea").val(),
+                                expiryDate:$("#agentEditExpiryDate").val(),
+                                beds:$("#agentEditBeds").val(),
+                                baths:$("#agentEditBaths").val(),
+                                status:$("#agentEditStatus").val(),
+                                description:$("#agentEditDescription").val(),
+                                isBiddable:biddableValue,
+                                listingId:idx,
+                                agentAddress:response[0].agent_address,
+                                agentContact:response[0].agent_contact,
+                                agentEmail:response[0].agent_email,
+                                agentId:response[0].agent_id,
+                                agentName:response[0].agent_name,
+                                customerId:response[0].customer_id,
+                                listedDate:response[0].listed_date
+                            };
+
+                            $.ajax({
+                                url: apiEndPoint+"agent/listing/update",
+                                type: "POST", // By default GET,
+                                data:dataObj,
+                                success: function(response) {
+                                    console.log("response",response);
+                                    $("#toaster-success").show();
+                                    document.getElementById("succesToasterData").innerHTML = "Updated Successfully!";
+                                    setTimeout(function(){
+                                      hideToaster();
+                                    }, 4000);
+                                    agentManageListing();
+                                },
+                                error: function(data, status, er) {
+                                    $("#toaster-fail").show();
+                                    document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                                    setTimeout(function(){
+                                      hideToaster();
+                                    }, 4000);
+                                }
+                            });
+                        }); 
+                    });
+                }
+                var agentActionDeleteBtns = document.getElementsByClassName("agentActionDelete");
+
+                for(var i=0;i < agentActionDeleteBtns.length;i++) {
+                    agentActionDeleteBtns[i].addEventListener("click", function() {
+                        var idx = this.getAttribute("data");
+                        console.log("id of the listing",idx);
+
+                        var dataObj = {
+                            listingId:idx
+                        };
+                        $.ajax({
+                            url: apiEndPoint+"agent/listing",
+                            data:dataObj,
+                            method:"DELETE",
+                            success: function(response) {
+                                console.log("response after deleteting",response);
+                                $("#toaster-success").show();
+                                document.getElementById("succesToasterData").innerHTML = "Deleted Successfully!";
+                                setTimeout(function(){
+                                  hideToaster();
+                                }, 4000);
+                                agentManageListing();
+                            },
+                            error: function(data, status, er) {
+                                $("#toaster-fail").show();
+                                document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
+                                setTimeout(function(){
+                                  hideToaster();
+                                }, 4000);
+                            }
+                            });
+                        
+                    });
+                }
             }
-        }});
+        }
+    });
             var appnd = document.getElementById('appendHere');        
     }
     //agent Profile
@@ -720,6 +740,7 @@ $(document).ready(function () {
         $("#upAddress").val(userObj.address);
         $("#upContact").val(userObj.contact);
         //$("#upPassword").val(userObj.passowrd);
+        document.getElementById("agentProfileImg").innerHTML = "<img  src="+apiEndPoint+"user/image?userId="+userObj.user_id+" style='width:150px;height:150px;'>"; 
 
         $("#upAgenBtn").click(function(argument) {
             var dataObj = {
@@ -761,18 +782,20 @@ $(document).ready(function () {
     }
 
     // agent Post Listing
+    var apiInProcess = false;
     function agentPostListing(){
-        $("#postAgentListingForm").unbind();
-        $("#postAgentListingForm").submit( function(event) {
+        $(".postAgentListingForm").unbind();
+        $(".postAgentListingForm").submit( function(event) {
             event.preventDefault();
-
             var formData = new FormData(this);
-
+            console.log("formData",formData);
             // Adds Agent and Customer Id
             formData.append("agentId", userObj.user_id);
             formData.append("customerId", null);
-
-            $.ajax({
+            console.log("formData",formData);
+            if(!apiInProcess && $("#postTitle").val()!== '' && $("#postDescription").val() !== '' && $("#postPrice").val()!== '' && $("#postStatus").val()!== '' && $("#postAddress").val()!== '' && $("#postExpiryDate").val()!== '' && $("#postCity").val()!== '' && $("#postLocation").val()!== '' && $("#postBaths").val()!== '' && $("#postBeds").val()!== '' && $("#postArea").val()!== ''){
+                apiInProcess = true;
+                $.ajax({
                 url: apiEndPoint+"agent/listing",
                 type: "post",
                 data: formData,
@@ -780,6 +803,7 @@ $(document).ready(function () {
                 processData: false,
                 success: function (data) {
                     console.log("data after success login",data);
+                    
                     $("#postTitle").val("");
                     $("#postDescription").val("");
                     $("#postPrice").val("");
@@ -805,6 +829,10 @@ $(document).ready(function () {
                     }, 4000);
                 }
             });
+            }else{
+                console.log("empty");
+            }
+            
         }).submit();
     }
 
@@ -934,56 +962,4 @@ $(document).ready(function () {
 // Initializing WOW.JS
 
 new WOW().init();
-
-// Initializing WOW.JS
-
-
-// Initializing WOW.JS
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
-// Initializing WOW.JS
-
 

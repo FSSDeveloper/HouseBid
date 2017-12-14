@@ -7,41 +7,36 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row"> 
-        <div class="col-md-4"> 
-            <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
-                <div class="panel-heading">
-                    <h3 class="panel-title">Smart search</h3>
-                </div>
-                <div class="panel-body search-widget">
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-md-12 panel panel-default sidebar-menu"> 
+            <div class="panel-heading">
+                <h3 class="panel-title">Search</h3>
+            </div>
+            <div class="panel-body search-widget">
                     <fieldset>
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-sm-4 col-md-4">
                                 <input type="text" class="form-control" id="searchLocation" name="location"  placeholder="Location">
                             </div>
-                        </div>
-                    </fieldset>
-
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <select id="city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
+                            <div class="col-sm-4 col-md-4">
+                                <!-- <select id="city" class="selectpicker cityPicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
+                                </select -->
+                                <select id="city" class="custom-select cityPicker form-control">
+                                  <option selected>Select City</option>
                                 </select>
                             </div>
-                            <!-- <div class="col-xs-6">
-                                <select id="basic" class="selectpicker show-tick form-control">
-                                    <option> -Status- </option>
-                                    <option>Buy </option> 
-
-                                </select>
-                            </div> -->
                         </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-md-12 pull-right">
-                                <div class="col-xs-10 page-subheader sorting pl0">
+                        <div class="row" style="padding-top: 10px;"> 
+                            <div class="col-sm-4 col-sm-4"> 
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Sort</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top: 10px;"> 
+                            <div class="col-sm-4 col-md-4">
+                                <div class="page-subheader sorting pl0">
                                     <ul class="sort-by-list">
                                         <li class="active">
                                             <a id="byDate" href="javascript:void(0);" onclick="$(this).attr('data-order') === 'ASC' ? $(this).attr('data-order', 'DESC')  : ($(this).attr('data-order') === 'DESC' ?  $(this).attr('data-order', 'ASC') : $(this).attr('data-order', 'DESC')); $($(this)[0].childNodes[1]).toggleClass('fa-sort-amount-desc fa-sort-amount-asc')" class="order_by_date" data-orderby="property_date" data-order="DESC">
@@ -57,13 +52,9 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
-                    <fieldset >
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btn largesearch-btn" id="ListingPageSearchBtn"><i class="fa fa-search"></i>&nbsp;Search</button>
-                            </div>  
+                            <div class="col-sm-8 col-md-8 ">
+                                <button class="btn largesearch-btn pull-right" id="ListingPageSearchBtn"><i class="fa fa-search"></i>&nbsp;Search</button>
+                            </div>
                         </div>
                     </fieldset>
                 </div>
@@ -76,10 +67,10 @@
     </div>
 </div>
 <div style="display: none;"> 
-    <div class="col-sm-6 col-md-4 "  id="searchListingTemplate" style="padding-top: 15px;">
+    <div class="col-sm-6 col-md-4 "  id="searchListingTemplate" style="padding: 15px;">
         <div class="box-two proerty-item materialCard hoverMaterialCard">
             <div class="item-thumb">
-                <a ><img src="./images/demo/property-3.jpg"></a>
+                <a id="searchListingImg"></a>
             </div>
             <div class="item-entry overflow">
                 <h5 style="padding:5px;"> <b> Listing ID: </b> <p id="listingId" style="display:inline;"> </p> </h5>
@@ -92,6 +83,11 @@
                         </div>
                         <div class="col-md-6 price" style="display:inline-flex;"> 
                           <p> <b> Price : </b>  <p id="listingPrice" style="margin:auto;"> </p> </p>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-6" style="display:inline-flex;"> 
+                            <p> <b> City : </b> <p id="listingCity" style="margin:auto;">  </p>
                         </div>
                     </div>
                    <p> <b> Description : </b> </p> 
