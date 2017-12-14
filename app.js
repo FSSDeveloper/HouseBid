@@ -229,12 +229,10 @@ app.get("/listing/image", function (req, res) {
     var index = req.query.number - 1;
     console.log("Profile request received.");
     listing.getListingImageById(listingId, function (err, data) {
-        if (err || data[index].image == null) {
-            if(data[index].image == null) {
-                res.status(404).send({error: 'Image not found'});
-            } else
-                console.log("Error in Database Server: " + err);
-        } else {
+        if (err || data[index] == null) {
+            res.status(404).send({error: 'Image not found'});
+            }
+        else {
             res.writeHead(200, {'Content-Type': 'image/jpeg'});
             res.end(data[index].image);
         }
