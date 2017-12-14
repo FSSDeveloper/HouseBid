@@ -11,6 +11,7 @@ function getMessageByMessageId(messageId, callback) {
             if (err) callback(err, null);
             else callback(null, result);
         });
+        con.release();
     });
 }
 
