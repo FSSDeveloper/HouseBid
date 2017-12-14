@@ -51,12 +51,11 @@ function getListings(query, callback) {
 function getCities(callback)
 {
     mysql.getConnection(function(err,conn){
-
         conn.query("select distinct concat(ucase(Left(city,1)),substr(city,2)) as 'City' from listing order by city",function(err,result){
             if(err) callback(err,null);
             else callback(null,result);
         });
-
+        conn.release();
     });
 }
 
