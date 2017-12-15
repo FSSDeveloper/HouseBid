@@ -625,8 +625,7 @@ $(document).ready(function () {
                                     $("#agentEditBiddable").val("on");
                                 }
                                 $("#agentEditDescription").val(response[0].description);
-                                var dateStr = response[0].expiry_date.split('T')[0];
-                                $("#agentEditExpiryDate").val(dateStr);
+                                
                             },
                             error: function(data, status, er) {
                                 alert("data Failed!");
@@ -647,7 +646,7 @@ $(document).ready(function () {
                                 address:$("#agentEditAddress").val(),
                                 price: $("#agentEditPrice").val(),
                                 area:$("#agentEditArea").val(),
-                                expiryDate:$("#agentEditExpiryDate").val(),
+                                
                                 beds:$("#agentEditBeds").val(),
                                 baths:$("#agentEditBaths").val(),
                                 status:$("#agentEditStatus").val(),
@@ -786,7 +785,7 @@ $(document).ready(function () {
             formData.append("agentId", userObj.user_id);
             formData.append("customerId", null);
             console.log("formData",formData);
-            if(!apiInProcess && $("#postTitle").val()!== '' && $("#postDescription").val() !== '' && $("#postPrice").val()!== '' && $("#postStatus").val()!== '' && $("#postAddress").val()!== '' && $("#postExpiryDate").val()!== '' && $("#postCity").val()!== '' && $("#postLocation").val()!== '' && $("#postBaths").val()!== '' && $("#postBeds").val()!== '' && $("#postArea").val()!== ''){
+            if(!apiInProcess && $("#postTitle").val()!== '' && $("#postDescription").val() !== '' && $("#postPrice").val()!== '' && $("#postStatus").val()!== '' && $("#postAddress").val()!== '' && $("#postCity").val()!== '' && $("#postLocation").val()!== '' && $("#postBaths").val()!== '' && $("#postBeds").val()!== '' && $("#postArea").val()!== ''){
                 apiInProcess = true;
                 $.ajax({
                 url: apiEndPoint+"agent/listing",
@@ -802,7 +801,7 @@ $(document).ready(function () {
                     $("#postPrice").val("");
                     $("#postStatus").val("");
                     $("#postAddress").val("");
-                    $("#postExpiryDate").val("");
+
                     $("#postCity").val("");
                     $("#postLocation").val("");
                     $("#postBaths").val("");
