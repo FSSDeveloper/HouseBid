@@ -29,10 +29,9 @@ $(document).ready(function () {
 	$(window).on('hashchange', function(){
         if(location.hash){
             hash = location.hash.substring(1);
-
             switch(true){
                 case(hash.indexOf('search') == '0'):
-                    console.log('search');
+                    console.log('search',apiCalled);
                     if(!apiCalled){
                     	searchListings();
                     }
@@ -74,7 +73,6 @@ $(document).ready(function () {
             url: apiEndPoint+"listing/cities",
             type: "get",
             success: function(data) {
-                console.log("Main hoon");
                data.forEach(function(element){
                     $('#city').append($('<option>', {         
                      text: element.City           
@@ -122,7 +120,7 @@ $(document).ready(function () {
 
 		$.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log('api called result',response);
-            apicalled = false;
+            apiCalled = false;
             counterForOptions = counterForOptions+1;
             $('#uiView').load("./pages/searchListings.html", function(){
                 $('#searchLocation').val("");
@@ -204,7 +202,8 @@ $(document).ready(function () {
                 template.find("#listingTitle")[0].innerHTML = response[0].title;
                 template.find("#listingMetaTitle")[0].innerHTML = response[0].title;
                 template.find("#listingDescription")[0].innerHTML = response[0].description;
-                template.find("#listingArea")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
+                template.find("#listingAreaVal")[0].innerHTML = response[0].area+"m<sup> 2 </sup>";
+                template.find("#listingGarageVal")[0].innerHTML = "2";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
                 template.find("#listingAgentPic")[0].innerHTML = "<img src="+apiEndPoint+"user/image?userId="+response[0].agent_id+"/>";
@@ -240,9 +239,9 @@ $(document).ready(function () {
 
                         
                         $("#showLocation").attr("style","display:none;");
-                        //template.find("#listingMapDiv")[0].innerHTML = '<iframe id="locationListing" width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q='+latitude+' ,'+longitude+' &amp;key=AIzaSyDzLEmHTY7AydmTHxcpZuu7tPREhO1lYeU"></iframe>'
 
                        template.find("#listingTitleAdd")[0].innerHTML = " IN" +response[0].address+", "+response[0].location+", "+response[0].city; 
+                       
                        var addr = response[0].address+", "+response[0].location+", "+response[0].city;
                         locateInMap(addr);
                         function locateInMap(address){
@@ -270,7 +269,6 @@ $(document).ready(function () {
                       $("#showLocation").hide();
                     }
                 }
-
                 else{
                     $("#contactBtn").hide();
                     $("#locationListing").attr("style","display:none;");
@@ -347,7 +345,7 @@ $(document).ready(function () {
                 });
                 $("#sendBidBtn").click(function() {
                         var bidAmt = $("#bidNumber").val();
-                        var  message= "I bid "+ bidAmt + "EUR";
+                        var  message= "I bid "+ bidAmt + "EUR for listing Number:"+response[0].listing_id;
                         $.ajax({
                             url: apiEndPoint+"user/message",
                             type: "POST",
