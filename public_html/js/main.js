@@ -157,6 +157,7 @@ $(document).ready(function () {
                             template.find('#listingId')[0].innerHTML = response[i].listing_id;
                             template.find("#listingTitle")[0].innerHTML = response[i].title;
                             template.find("#listingArea")[0].innerHTML = response[i].area+"m2";
+                            template.find("#listingAreaVal")[0].innerHTML = response[i].area+"m2";
                             template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                             template.find("#listingDescription")[0].innerHTML = response[i].description;      
                             template.find("#listingCity")[0].innerHTML = response[i].city;
