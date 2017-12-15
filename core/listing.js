@@ -121,19 +121,18 @@ function addListing(listing, imagesData, callback) {
                 area: listing.area,
                 status: listing.status != null && listing.status != '' ? listing.status : 0,
                 address: listing.address,
-                expiry_date: listing.expiryDate != null && listing.expiryDate != "" ? listing.expiryDate : null,
                 agent_id: listing.agentId,
                 customer_id: listing.customerId != null && listing.customerId != "null" ? listing.customerId : null,
                 city: listing.city,
                 location: listing.location,
                 baths: listing.baths,
                 beds: listing.beds,
-                total_images: imagesData.images ? (imagesData.images instanceof Array ? imagesData.images.length : 1) : 0
+                total_images: imagesData ? (imagesData.images instanceof Array ? imagesData.images.length : 1) : 0
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
             else {
-                if(imagesData.images) {
+                if(imagesData) {
                     if(imagesData.images instanceof Array) {
                         imagesData.images.forEach(function(img) {
                             addListingImage(result.insertId, img);
@@ -175,7 +174,6 @@ function updateListing(listing, callback) {
                 area: listing.area,
                 status: listing.status,
                 address: listing.address,
-                expiry_date: listing.expiryDate,
                 agent_id: listing.agentId,
                 city: listing.city,
                 location: listing.location,

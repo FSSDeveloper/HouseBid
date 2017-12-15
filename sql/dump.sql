@@ -64,7 +64,6 @@ CREATE TABLE `listing` (
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `address` varchar(255) DEFAULT NULL,
   `listed_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `expiry_date` timestamp NULL DEFAULT NULL,
   `agent_id` int(11) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
