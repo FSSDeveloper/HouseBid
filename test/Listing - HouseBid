@@ -1,0 +1,1101 @@
+{
+	"id": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+	"name": "Listing - HouseBid",
+	"description": "",
+	"order": [
+		"ad7683da-6a56-f41f-2b4a-5e606d1ef32b",
+		"ada158c8-2a16-1631-141e-19ed59cc80a4",
+		"b232bef1-ca21-d4f5-097d-2816b00f71b1",
+		"2eed080e-6786-cbe2-ae5a-912c72d34598",
+		"ab76eb38-5e97-390c-5b7a-3fab8a01cd3b",
+		"084cfc70-309e-5206-bee9-01a7189e75b5",
+		"5f847ff2-9e33-c4b8-f0cd-02d31c624694",
+		"6d3ec2be-d02e-53fa-64f1-ce01b84ff56e",
+		"826e9953-bff9-f492-3b5c-22b6ffd654c6"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1513118456121,
+	"owner": "3360631",
+	"public": false,
+	"requests": [
+		{
+			"id": "084cfc70-309e-5206-bee9-01a7189e75b5",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/agent/listing/update",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "listingId",
+					"value": "87",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "title",
+					"value": "Test Listing Agent 1",
+					"description": ""
+				},
+				{
+					"key": "description",
+					"value": "description test 500",
+					"description": ""
+				},
+				{
+					"key": "price",
+					"value": "100",
+					"description": ""
+				},
+				{
+					"key": "isBiddable",
+					"value": "1",
+					"description": ""
+				},
+				{
+					"key": "area",
+					"value": "20",
+					"description": ""
+				},
+				{
+					"key": "status",
+					"value": "1",
+					"description": ""
+				},
+				{
+					"key": "address",
+					"value": "address",
+					"description": ""
+				},
+				{
+					"key": "expiry_date",
+					"value": "",
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "agentId",
+					"value": "1",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "customer_id",
+					"value": "40",
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "city",
+					"value": "Fulda",
+					"description": ""
+				},
+				{
+					"key": "location",
+					"value": "location",
+					"description": ""
+				},
+				{
+					"key": "baths",
+					"value": "0",
+					"description": ""
+				},
+				{
+					"key": "beds",
+					"value": "1",
+					"description": ""
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513291059027,
+			"name": "https://www.sfsuse.com/fa17g20/agent/listing/update",
+			"description": "Update listing",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": []
+		},
+		{
+			"id": "2eed080e-6786-cbe2-ae5a-912c72d34598",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/agent/listings?userId=1",
+			"queryParams": [
+				{
+					"key": "userId",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513215659290,
+			"name": "https://www.sfsuse.com/fa17g20/agent/listings",
+			"description": "Find listing of an agent",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 174,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "925",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:40:36 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"39d-bl/oBqkeyHlZCAag50NYrnSD5eg\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[{\"listing_id\":87,\"title\":\"Test 1\",\"description\":\"Test 1 description\",\"price\":330,\"is_biddable\":0,\"area\":20,\"status\":1,\"address\":\"Liepzing\",\"listed_date\":\"2017-12-12T11:23:44.000Z\",\"expiry_date\":null,\"agent_id\":1,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"DownTown\",\"baths\":1,\"beds\":1,\"total_images\":0},{\"listing_id\":88,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":100,\"is_biddable\":0,\"area\":20,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T01:35:38.000Z\",\"expiry_date\":null,\"agent_id\":1,\"customer_id\":134,\"city\":\"city\",\"location\":\"location\",\"baths\":0,\"beds\":0,\"total_images\":0},{\"listing_id\":89,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":100,\"is_biddable\":0,\"area\":20,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T01:35:56.000Z\",\"expiry_date\":null,\"agent_id\":1,\"customer_id\":134,\"city\":\"Fulda\",\"location\":\"location\",\"baths\":0,\"beds\":0,\"total_images\":0}]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/agent/listings",
+					"id": "7fa2869f-c9c2-db5d-2b2f-c1c6d84735ac",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/agent/listings?userId=1",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "userId",
+								"value": "1",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": null,
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "5f847ff2-9e33-c4b8-f0cd-02d31c624694",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/agent/listing",
+			"queryParams": [
+				{
+					"key": "listingId",
+					"value": "89",
+					"equals": true,
+					"description": "",
+					"enabled": false
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513216813836,
+			"name": "https://www.sfsuse.com/fa17g20/agent/listing",
+			"description": "Delete a listing",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 494,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "127",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:58:42 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"7f-r8bKvcfQJxHfmO4yrVRF/uUE37I\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"fieldCount\":0,\"affectedRows\":1,\"insertId\":0,\"serverStatus\":2,\"warningCount\":0,\"message\":\"\",\"protocol41\":true,\"changedRows\":0}",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/agent/listing",
+					"id": "a56ade30-b219-94f7-9b8e-833576502f84",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/agent/listing",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "listingId",
+								"value": "89",
+								"equals": true,
+								"description": "",
+								"enabled": false
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "listingId",
+								"value": "89",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "DELETE",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "6d3ec2be-d02e-53fa-64f1-ce01b84ff56e",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/listing/image?listingId=87",
+			"queryParams": [
+				{
+					"key": "listingId",
+					"value": "87",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "image",
+					"value": "",
+					"equals": false,
+					"description": "",
+					"enabled": false
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513217513247,
+			"name": "https://www.sfsuse.com/fa17g20/listing/image",
+			"description": "Get images of a listing",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": []
+		},
+		{
+			"id": "826e9953-bff9-f492-3b5c-22b6ffd654c6",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/listing/cities",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"data": null,
+			"dataMode": "params",
+			"name": "https://www.sfsuse.com/fa17g20/listing/cities",
+			"description": "Find cities",
+			"descriptionFormat": "html",
+			"time": 1513118976483,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "ab76eb38-5e97-390c-5b7a-3fab8a01cd3b",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/agent/listing",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "files",
+					"value": "Screen Shot 2017-12-14 at 10.51.24 PM.png",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				},
+				{
+					"key": "title",
+					"value": "Test Listing Agent 1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "description",
+					"value": "description",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "price",
+					"value": "980",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "biddable",
+					"value": "on",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "area",
+					"value": "79",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "status",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "address",
+					"value": "address",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "expiry_date",
+					"value": "",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "agentId",
+					"value": "2",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "customer_id",
+					"value": "40",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				},
+				{
+					"key": "city",
+					"value": "Fulda",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "location",
+					"value": "location",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "baths",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "beds",
+					"value": "2",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513291930004,
+			"name": "https://www.sfsuse.com/fa17g20/agent/listings",
+			"description": "Add listing for an agent",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 185,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "128",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:35:56 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"80-3vrucHO6qPpzf9ihI02ppcN945I\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"fieldCount\":0,\"affectedRows\":1,\"insertId\":89,\"serverStatus\":2,\"warningCount\":0,\"message\":\"\",\"protocol41\":true,\"changedRows\":0}",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/agent/listings",
+					"id": "e92833c6-62cd-8c66-0fee-5a74aab9806b",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/agent/listing",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "files",
+								"value": {
+									"0": {}
+								},
+								"description": "",
+								"type": "file",
+								"enabled": true
+							},
+							{
+								"key": "title",
+								"value": "Test Listing Agent 1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "description",
+								"value": "description",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "price",
+								"value": "100",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "is_biddable",
+								"value": "0",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "area",
+								"value": "20",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "status",
+								"value": "1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "address",
+								"value": "address",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "expiry_date",
+								"value": "",
+								"description": "",
+								"type": "text",
+								"enabled": false
+							},
+							{
+								"key": "agentId",
+								"value": "1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "customerId",
+								"value": "134",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "city",
+								"value": "Fulda",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "location",
+								"value": "location",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "baths",
+								"value": "0",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "beds",
+								"value": "0",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				},
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 1314,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "128",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:44:55 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"80-suADvhllIi4MyNG9ZaOWTnat7tc\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"fieldCount\":0,\"affectedRows\":1,\"insertId\":91,\"serverStatus\":2,\"warningCount\":0,\"message\":\"\",\"protocol41\":true,\"changedRows\":0}",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/agent/listings",
+					"id": "4369d786-5740-0ab7-51cb-cb50fbbfb9d1",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/agent/listing",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "files",
+								"value": {
+									"0": {}
+								},
+								"description": "",
+								"type": "file",
+								"enabled": true
+							},
+							{
+								"key": "title",
+								"value": "Test Listing Agent 1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "description",
+								"value": "description",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "price",
+								"value": "100",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "is_biddable",
+								"value": "0",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "area",
+								"value": "20",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "status",
+								"value": "1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "address",
+								"value": "address",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "expiryDate",
+								"value": "2017-10-10",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "agentId",
+								"value": "1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "customerId",
+								"value": "134",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "city",
+								"value": "city",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "location",
+								"value": "location",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "baths",
+								"value": "0",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "beds",
+								"value": "0",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "ad7683da-6a56-f41f-2b4a-5e606d1ef32b",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/search",
+			"queryParams": [
+				{
+					"key": "city",
+					"value": "Fulda",
+					"equals": true,
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "location",
+					"value": "downtown",
+					"equals": true,
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "sortByPrice",
+					"value": "true",
+					"equals": true,
+					"description": "",
+					"enabled": false
+				},
+				{
+					"key": "sortByDate",
+					"value": "true",
+					"equals": true,
+					"description": "",
+					"enabled": false
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513215425645,
+			"name": "https://www.sfsuse.com/fa17g20/search",
+			"description": "Get listings",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": []
+		},
+		{
+			"id": "ada158c8-2a16-1631-141e-19ed59cc80a4",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/agent/listing?listingId=10",
+			"queryParams": [
+				{
+					"key": "listingId",
+					"value": "10",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513170391425,
+			"name": "https://www.sfsuse.com/fa17g20/agent/listing",
+			"description": "Get listing by ID",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"responses": []
+		},
+		{
+			"id": "b232bef1-ca21-d4f5-097d-2816b00f71b1",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/listing",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
+			"data": null,
+			"dataMode": "params",
+			"name": "https://www.sfsuse.com/fa17g20/listing",
+			"description": "???",
+			"descriptionFormat": "html",
+			"time": 1513118573206,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}

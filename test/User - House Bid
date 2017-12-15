@@ -1,0 +1,738 @@
+{
+	"id": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+	"name": "User - House Bid",
+	"description": "Test user module",
+	"order": [
+		"c3df7046-ce2c-449b-6518-9607d6275f77",
+		"40cc3f69-05df-25ab-1600-6c8fce50c09c",
+		"1c786169-eab9-0990-c64f-65cc3107caba",
+		"fb9bc796-af45-822c-6751-3f1730a6ddbb",
+		"01f1e538-f452-543c-ebe9-226cc549195c",
+		"bb505b08-e014-80d3-81bd-0b012a2ee945",
+		"87acf597-6bbe-e34c-d321-501b256e3b34"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1513041746983,
+	"owner": "3360631",
+	"public": false,
+	"requests": [
+		{
+			"id": "01f1e538-f452-543c-ebe9-226cc549195c",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/image?userId=134",
+			"queryParams": [
+				{
+					"key": "userId",
+					"value": "134",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513204570069,
+			"name": "https://www.sfsuse.com/fa17g20/user/image",
+			"description": "Get user images",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"responses": []
+		},
+		{
+			"id": "1c786169-eab9-0990-c64f-65cc3107caba",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/login?email=farzaneh@test.de&password=123",
+			"queryParams": [
+				{
+					"key": "email",
+					"value": "farzaneh@test.de",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "123",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": "\n",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "email",
+					"value": "test200@test.de",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "123",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Response time is less than 200ms\"] = responseTime < 1000;\n\ntests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513197743140,
+			"name": "https://www.sfsuse.com/fa17g20/user/login",
+			"description": "User login",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 196,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "139",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Wed, 13 Dec 2017 21:31:14 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"8b-BwZ09Lw0Ng3PaZycH2qUWKGYsdY\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[{\"user_id\":134,\"name\":\"Changed Name Test 1\",\"email\":\"test200@test.de\",\"contact\":\"978687565\",\"address\":\"new address Test 1\",\"user_type\":1}]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/user/login",
+					"id": "53781b64-9c81-e2a9-1da0-6ec3f89e7ca1",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/user/login?email=farzaneh@test.de&password=123",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "email",
+								"value": "farzaneh@test.de",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "password",
+								"value": "123",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "email",
+								"value": "test200@test.de",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "password",
+								"value": "12345",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "40cc3f69-05df-25ab-1600-6c8fce50c09c",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/signup",
+			"queryParams": [],
+			"preRequestScript": "\n",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "Test No 200",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "email",
+					"value": "test200@test.de",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "password",
+					"value": "123",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "contact",
+					"value": "01111111",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "address",
+					"value": "Test 200 address street city postcode",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "userType",
+					"value": "1",
+					"type": "text",
+					"enabled": true,
+					"description": ""
+				},
+				{
+					"key": "image",
+					"value": "Screen Shot 2017-12-13 at 12.10.17 AM.png",
+					"description": "",
+					"type": "file",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Response time is less than 200ms\"] = responseTime < 1000;\n\ntests[\"Status code is 200\"] = responseCode.code === 200;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513197706407,
+			"name": "https://www.sfsuse.com/fa17g20/signup",
+			"description": "user signup",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 494,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "129",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Wed, 13 Dec 2017 21:03:39 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"81-Ok2RGgaMkKbxUbbqZ5TpXNB6NvM\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "{\"fieldCount\":0,\"affectedRows\":1,\"insertId\":135,\"serverStatus\":2,\"warningCount\":0,\"message\":\"\",\"protocol41\":true,\"changedRows\":0}",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/signup",
+					"id": "2a235df5-e29f-bfe7-9ea7-bb644a9a4d87",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/signup",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "name",
+								"value": "Test No 201",
+								"type": "text",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "email",
+								"value": "test201@test.de",
+								"type": "text",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "password",
+								"value": "123",
+								"type": "text",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "contact",
+								"value": "01111111",
+								"type": "text",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "address",
+								"value": "Test 201 address street city postcode",
+								"type": "text",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "userType",
+								"value": "1",
+								"type": "text",
+								"enabled": true,
+								"description": ""
+							},
+							{
+								"key": "image",
+								"value": {
+									"0": {}
+								},
+								"description": "",
+								"type": "file",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "87acf597-6bbe-e34c-d321-501b256e3b34",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/update",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"data": null,
+			"dataMode": "params",
+			"name": "https://www.sfsuse.com/fa17g20/user/profile",
+			"description": "???",
+			"descriptionFormat": "html",
+			"time": 1513118277614,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "bb505b08-e014-80d3-81bd-0b012a2ee945",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/agents",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"data": null,
+			"dataMode": "params",
+			"name": "https://www.sfsuse.com/fa17g20/user/agents",
+			"description": "Get agents list",
+			"descriptionFormat": "html",
+			"time": 1513118225435,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "c3df7046-ce2c-449b-6518-9607d6275f77",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/login?email=farzaneh@test.de&password=123",
+			"queryParams": [
+				{
+					"key": "email",
+					"value": "farzaneh@test.de",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "123",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": "\n",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "email",
+					"value": "test200@test.der",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "123555555",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Response time is less than 200ms\"] = responseTime < 1000;\n\ntests[\"Status code is 200\"] = responseCode.code === 404;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513197893402,
+			"name": "https://www.sfsuse.com/fa17g20/user/login",
+			"description": "User login",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 404,
+						"name": "Not Found",
+						"detail": "The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible."
+					},
+					"time": 174,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "2",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Wed, 13 Dec 2017 20:44:48 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/user/login",
+					"id": "801d2eb0-8571-526e-8e84-8d4d6f20facf",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/user/login?email=farzaneh@test.de&password=123",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "email",
+								"value": "farzaneh@test.de",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "password",
+								"value": "123",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "email",
+								"value": "test200@test.der",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "password",
+								"value": "123555555",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "fb9bc796-af45-822c-6751-3f1730a6ddbb",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/update",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "name",
+					"value": "Changed Name Test 1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "test200@test.de",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "12345",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "address",
+					"value": "new address Test 1",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "userId",
+					"value": "134",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "contact",
+					"value": "978687565",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"test user id \"] = jsonData.user_id === 134;",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513200450830,
+			"name": "https://www.sfsuse.com/fa17g20/user/update",
+			"description": "update user profile",
+			"collectionId": "e54ea220-7864-5fc7-acef-7bd5d74eea26",
+			"responses": []
+		}
+	]
+}

@@ -1,0 +1,498 @@
+{
+	"id": "50620a97-cd52-8764-0d2b-17d518fb379f",
+	"name": "Message - HouseBid",
+	"description": "",
+	"order": [
+		"78c18bdd-0612-1ef2-48cf-58db2aaa55b2",
+		"0e047f0c-dda3-8bf5-fbff-6c6db0ee457d",
+		"16731ead-3011-3f4a-5979-41d616dbc99f",
+		"4af3bc7d-877c-443d-cbe8-5de7a343ce34"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1513119071865,
+	"owner": "3360631",
+	"public": false,
+	"requests": [
+		{
+			"id": "0e047f0c-dda3-8bf5-fbff-6c6db0ee457d",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/message?messageId=12",
+			"queryParams": [
+				{
+					"key": "messageId",
+					"value": "12",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513214644616,
+			"name": "https://www.sfsuse.com/fa17g20/user/message",
+			"description": "get a message by ID",
+			"collectionId": "50620a97-cd52-8764-0d2b-17d518fb379f",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 181,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "127",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:16:28 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"7f-nPG0WL0ewuMwaOxOsYmDMFnhrFk\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[{\"message_id\":12,\"message\":\"Test Message \",\"sender_id\":134,\"receiver_id\":1,\"listing_id\":87,\"date\":\"2017-12-14T01:14:47.000Z\"}]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/user/message",
+					"id": "e155926f-df70-e45d-92ea-8eb4cbe85e07",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/user/message?messageId=12",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "messageId",
+								"value": "12",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": null,
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "16731ead-3011-3f4a-5979-41d616dbc99f",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/messages?userId=10",
+			"queryParams": [
+				{
+					"key": "userId",
+					"value": "10",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513195060520,
+			"name": "https://www.sfsuse.com/fa17g20/user/messages",
+			"description": "Get messages for a user",
+			"collectionId": "50620a97-cd52-8764-0d2b-17d518fb379f",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 181,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "165",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:20:26 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"a5-Io1xnxRfaH6XonMn+4S3jS3jVaU\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[[{\"message_id\":12,\"message\":\"Test Message \",\"sender_id\":134,\"receiver_id\":1,\"listing_id\":87,\"date\":\"2017-12-14T01:14:47.000Z\",\"sender_name\":\"Changed Name Test 1\"}]]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/user/messages",
+					"id": "058c2d07-6e02-7de3-9062-676539d0f8d9",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/user/messages?userId=1",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "userId",
+								"value": "1",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": null,
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			]
+		},
+		{
+			"id": "4af3bc7d-877c-443d-cbe8-5de7a343ce34",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/conversation?senderId=134&receiverId=1",
+			"queryParams": [
+				{
+					"key": "senderId",
+					"value": "134",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "receiverId",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513214614519,
+			"name": "https://www.sfsuse.com/fa17g20/user/conversation",
+			"description": "Return conversation",
+			"collectionId": "50620a97-cd52-8764-0d2b-17d518fb379f",
+			"responses": []
+		},
+		{
+			"id": "78c18bdd-0612-1ef2-48cf-58db2aaa55b2",
+			"headers": "",
+			"headerData": [],
+			"url": "https://www.sfsuse.com/fa17g20/user/message",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [
+				{
+					"key": "message",
+					"value": "Test Message ",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "sender_id",
+					"value": "100",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "receiver_id",
+					"value": "88",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "listing_id",
+					"value": "20",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1513214663854,
+			"name": "https://www.sfsuse.com/fa17g20/user/message",
+			"description": "Send a message",
+			"collectionId": "50620a97-cd52-8764-0d2b-17d518fb379f",
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 496,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "127",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Thu, 14 Dec 2017 01:14:47 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"7f-nPG0WL0ewuMwaOxOsYmDMFnhrFk\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[{\"message_id\":12,\"message\":\"Test Message \",\"sender_id\":134,\"receiver_id\":1,\"listing_id\":87,\"date\":\"2017-12-14T01:14:47.000Z\"}]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/user/message",
+					"id": "75573571-ae45-89e1-226c-f6c6b1c79f0d",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/user/message",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [],
+						"headerData": [],
+						"headers": "",
+						"data": [
+							{
+								"key": "message",
+								"value": "Test Message ",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "senderId",
+								"value": "134",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "receiverId",
+								"value": "1",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							},
+							{
+								"key": "listingId",
+								"value": "87",
+								"description": "",
+								"type": "text",
+								"enabled": true
+							}
+						],
+						"method": "POST",
+						"dataMode": "params"
+					}
+				}
+			]
+		}
+	]
+}
