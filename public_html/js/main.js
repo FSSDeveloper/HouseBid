@@ -345,7 +345,7 @@ $(document).ready(function () {
                 });
                 $("#sendBidBtn").click(function() {
                         var bidAmt = $("#bidNumber").val();
-                        var  message= "I bid "+ bidAmt + "EUR for listing Number:"+response[0].listing_id;
+                        var  message= "I bid "+ bidAmt + " EUR for <a href='../index.html#listing?listingId="+response[0].listing_id+"'>"+response[0].title+ "</a>";
                         $.ajax({
                             url: apiEndPoint+"user/message",
                             type: "POST",
