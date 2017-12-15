@@ -284,6 +284,7 @@ app.get("/user/message", function (req, res) {
 });
 
 // Inbox (All sent and received messages)
+// Vijay Bhaskar
 app.get("/user/messages", function (req, res) {
     var userId = req.query.userId;
     message.getMessagesByUserId(userId, function (err, data) {
@@ -296,6 +297,7 @@ app.get("/user/messages", function (req, res) {
 });
 
 // Inbox (All sent and received messages)
+// Vijay Bhaskar
 app.get("/user/conversation", function (req, res) {
     var senderId = req.query.senderId;
     var receiverId = req.query.receiverId;
