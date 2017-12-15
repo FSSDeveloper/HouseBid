@@ -26,7 +26,6 @@ $(document).ready(function () {
     }
 
     $("#logoutButton").click(function() {
-        console.log("in logut button");
         localStorage.removeItem("userObj");
         $("#loginButton").show();
         $("#logoutButton").hide();
@@ -63,10 +62,6 @@ $(document).ready(function () {
                 case(hash.indexOf('agent') == '15'):
                         
                     break;
-                // default:
-                //     console.log('profile');
-                //     $("#uiView").load("./public/pages/profile.html", function(){
-                //     });
             };
         }
     }).trigger('hashchange');
@@ -239,8 +234,6 @@ $(document).ready(function () {
                             }
                             var chatDivHeight = document.getElementById("chatDetails").scrollHeight;
                             $('#chatDetails').animate({scrollTop:chatDivHeight}, 'slow');
-                            //console.log("bid"+isBiddable);
-                            //console.log("agent ID" + agent_id);
                         console.log("data after success login"+response);
                         },
                         error: function(data, status, er) {
@@ -578,10 +571,10 @@ $(document).ready(function () {
         $.ajax({url:apiEndPoint+searchUrl, success: function(response){
             console.log("response in Agent Ml ",response);
             if(response.length == 0){
-                console.log("no data");
                 $("#appendListingEdit").hide();
                 $("#agentMLNoState").show();
             }else{
+                $("#agentMLNoState").hide();
                 for(var i=0; i < response.length; i++){
                     var template = $('#searchListingTemplate').clone();
                     var searchIdx = "searchListingTemplate"+i;
