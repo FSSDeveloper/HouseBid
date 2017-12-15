@@ -127,12 +127,12 @@ function addListing(listing, imagesData, callback) {
                 location: listing.location,
                 baths: listing.baths,
                 beds: listing.beds,
-                total_images: imagesData.images ? (imagesData.images instanceof Array ? imagesData.images.length : 1) : 0
+                total_images: imagesData ? (imagesData.images instanceof Array ? imagesData.images.length : 1) : 0
             };
         con.query(sql, values, function (err, result) {
             if (err) callback(err, null);
             else {
-                if(imagesData.images) {
+                if(imagesData) {
                     if(imagesData.images instanceof Array) {
                         imagesData.images.forEach(function(img) {
                             addListingImage(result.insertId, img);
