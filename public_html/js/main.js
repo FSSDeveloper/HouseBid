@@ -206,7 +206,7 @@ $(document).ready(function () {
                 template.find("#listingGarageVal")[0].innerHTML = "2";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
-                template.find("#listingAreaVal")[0].innerHTML = response[i].area+"m2";
+                template.find("#listingAreaVal")[0].innerHTML = response[0].area+"m2";
                 template.find("#listingAgentPic")[0].innerHTML = "<img src="+apiEndPoint+"user/image?userId="+response[0].agent_id+"/>";
                 template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
                 template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
