@@ -997,7 +997,7 @@
 			"id": "ad7683da-6a56-f41f-2b4a-5e606d1ef32b",
 			"headers": "",
 			"headerData": [],
-			"url": "https://www.sfsuse.com/fa17g20/search?sortByPrice=true&order=asc",
+			"url": "https://www.sfsuse.com/fa17g20/search?sortByPrice=true&sortByDate=true&orderByPrice=asc&orderByDate=desc",
 			"queryParams": [
 				{
 					"key": "city",
@@ -1022,14 +1022,21 @@
 				},
 				{
 					"key": "sortByDate",
-					"value": "false",
+					"value": "true",
 					"equals": true,
 					"description": "",
-					"enabled": false
+					"enabled": true
 				},
 				{
-					"key": "order",
+					"key": "orderByPrice",
 					"value": "asc",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "orderByDate",
+					"value": "desc",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -1045,7 +1052,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1513518155281,
+			"time": 1513519388672,
 			"name": "https://www.sfsuse.com/fa17g20/search",
 			"description": "Get listings",
 			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
