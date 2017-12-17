@@ -90,7 +90,7 @@ $(document).ready(function () {
         //$('body').delay(350).css({'overflow': 'visible'});
 		var searchLocation = $('#searchLocation').val();
         var city = $('#city').val();
-        console.log("city",city,"location",location);
+        console.log("city",city,"location",searchLocation);
 
         if(city || searchLocation){
         	window.location.hash = "search?city="+city+"&location="+searchLocation;
@@ -123,7 +123,10 @@ $(document).ready(function () {
             apiCalled = false;
             counterForOptions = counterForOptions+1;
             $('#uiView').load("./pages/searchListings.html", function(){
-                $('#searchLocation').val("");
+                //$('#searchLocation').val("");
+                 console.log(city,searchLocation,"debba");
+                        $('#searchLocation').val(searchLocation);
+                        $('#city').val(city); 
                     $.ajax({
                         url: apiEndPoint+"listing/cities",
                         type: "get",
@@ -151,7 +154,6 @@ $(document).ready(function () {
                             var template = $('#searchListingTemplate').clone();
                             var searchIdx = "searchListingTemplate"+i;
                             template.attr('id',searchIdx);
-                            console.log("response[i]",template.find("#listingPrice"));
                             template.attr("data",response[i].listing_id);
                             template.attr("class","view-listing-details col-sm-6 col-md-4");
                             template.find('#listingId')[0].innerHTML = response[i].listing_id;
@@ -174,7 +176,8 @@ $(document).ready(function () {
                                 var idx = element.getAttribute("data");
                                 getListingDetails(idx);
                             });
-                        } 
+                        }
+
                 }else{
                     $(".appendHere").append("<h3 style='margin-left:20px;'> <i> No results Matching your criteria!</i> </h3>");
                 }
