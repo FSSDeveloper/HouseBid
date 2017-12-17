@@ -90,8 +90,10 @@ $(document).ready(function () {
         $('#status').fadeOut();
         $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         //$('body').delay(350).css({'overflow': 'visible'});
-		var searchLocation = $('#searchLocation').val();
-        var city = $('#city').val();
+        var city ="";
+        var searchLocation = "";
+		searchLocation = $('#searchLocation').val();
+        city = $('#city').val();
         var bedNo = $("#searchBeds").val();
         var bathNo = $("#searchBaths").val();
         if(!bedNo && !bathNo){
@@ -107,11 +109,11 @@ $(document).ready(function () {
         	var hash = location.hash.substring(1);
         	var searchUrl = hash;
         }
-        // else if (city == ""){
-        //         //$('#uiView').load("./pages/searchListings.html");
-        //     window.location.hash = "search?city="+city+"&location="+searchLocation;
-        //     var searchUrl = "search?city="+city+"&location="+searchLocation;
-        // }
+        else if (city == ""){
+                //$('#uiView').load("./pages/searchListings.html");
+            window.location.hash = "search?city="+city+"&location="+searchLocation;
+            var searchUrl = "search?city="+city+"&location="+searchLocation;
+        }
 
             // For sorting/filter data
         var priceOrder = $($("#byPrice")[0]).attr("data-order");
