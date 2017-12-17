@@ -108,13 +108,17 @@ $(document).ready(function () {
             // For sorting/filter data
         var priceOrder = $($("#byPrice")[0]).attr("data-order");
         var dateOrder = $($("#byDate")[0]).attr("data-order");
+        console.log("priceorder",priceOrder,dateOrder);
 
         if(priceOrder || dateOrder) {
+            // var test = priceOrder;
+            // var test2 =dateOrder;
+            // console.log(test,test2); 
             if(priceOrder) {
-                searchUrl += "&sortByPrice=" + priceOrder;
+                searchUrl += "&sortByPrice=true&orderByPrice=" + priceOrder.toLowerCase();
             }
             if(dateOrder) {
-                searchUrl += "&sortByDate=" + dateOrder;
+                searchUrl += "&sortByDate=false&orderByDate=" + dateOrder.toLowerCase();
             }
         }
 
