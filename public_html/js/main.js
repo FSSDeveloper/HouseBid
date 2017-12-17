@@ -90,23 +90,28 @@ $(document).ready(function () {
         $('#status').fadeOut();
         $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         //$('body').delay(350).css({'overflow': 'visible'});
-
 		var searchLocation = $('#searchLocation').val();
         var city = $('#city').val();
+        var bedNo = $("#searchBeds").val();
+        var bathNo = $("#searchBaths").val();
+        if(!bedNo && !bathNo){
+            bedNo = "";
+            bathNo = "";
+        }
         console.log("city",city,"location",searchLocation);
 
-        if(city || searchLocation){
-        	window.location.hash = "search?city="+city+"&location="+searchLocation;
-        	var searchUrl = "search?city="+city+"&location="+searchLocation;
+        if(city || searchLocation || bedNo || bathNo){
+        	window.location.hash = "search?city="+city+"&location="+searchLocation+"&bedNo="+bedNo+"&bathNo="+bathNo;
+        	var searchUrl = "search?city="+city+"&location="+searchLocation+"&bedNo="+bedNo+"&bathNo="+bathNo;
         }else if(location.hash){
         	var hash = location.hash.substring(1);
         	var searchUrl = hash;
         }
-        else if (city == ""){
-                //$('#uiView').load("./pages/searchListings.html");
-            window.location.hash = "search?city="+city+"&location="+searchLocation;
-            var searchUrl = "search?city="+city+"&location="+searchLocation;
-        }
+        // else if (city == ""){
+        //         //$('#uiView').load("./pages/searchListings.html");
+        //     window.location.hash = "search?city="+city+"&location="+searchLocation;
+        //     var searchUrl = "search?city="+city+"&location="+searchLocation;
+        // }
 
             // For sorting/filter data
         var priceOrder = $($("#byPrice")[0]).attr("data-order");
@@ -134,6 +139,9 @@ $(document).ready(function () {
                  console.log(city,searchLocation,"debba");
                         $('#searchLocation').val(searchLocation);
                         $('#city').val(city); 
+                        $("#searchBeds").val(bedNo);
+                        $("#searchBaths").val(bathNo);
+
                     $.ajax({
                         url: apiEndPoint+"listing/cities",
                         type: "get",
@@ -158,9 +166,17 @@ $(document).ready(function () {
                 $("#byPrice").click(function(){
                    sortByPriceBtn = true;
                 });
-                $('#ListingPageSearchBtn').click(function(){
+                $("#resetFilter").click(function(){
+                    $('#searchLocation').val("");
+                        $('#city').val(""); 
+                        $("#searchBeds").val("");
+                        $("#searchBaths").val("");
+                        window.location.hash = "search?city=&location=";
                     searchListings();
                 })
+                $('#ListingPageSearchBtn').click(function(){
+                    searchListings();
+                });
                 $('#addBodyContent').attr("style","display:none;");
                 if(response.length > 0){
                         for(var i=0; i < response.length; i++){
