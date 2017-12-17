@@ -16,18 +16,18 @@
             <div class="panel-body search-widget">
                     <fieldset>
                         <div class="row">
-                            <div class="col-sm-4 col-md-4">
+                            <div class="col-sm-4 col-md-3">
                                 <input type="text" class="form-control" id="searchLocation" name="location"  placeholder="Location">
                             </div>
-                            <div class="col-sm-4 col-md-4">
+                            <div class="col-sm-4 col-md-3">
                                 <input type="text" class="form-control" id="city" name="city"  placeholder="City">
                             </div>
-                           <!--  <div class="col-sm-4 col-md-4">
-                                <select id="city" class="selectpicker cityPicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
-                                </select
-                                <select id="city" class="custom-select cityPicker form-control" placeholder="Select City">
-                                </select>
-                            </div> -->
+                            <div class="col-sm-4 col-md-3">
+                                <input type="text" class="form-control" id="searchBeds" name="searchBeds"  placeholder="Beds">
+                            </div>
+                            <div class="col-sm-4 col-md-3">
+                                <input type="text" class="form-control" id="searchBaths" name="searchBaths"  placeholder="Baths">
+                            </div>
                         </div>
                         <div class="row" style="padding-top: 10px;"> 
                             <div class="col-sm-4 col-sm-4"> 
@@ -55,6 +55,8 @@
                                 </div>
                             </div>
                             <div class="col-sm-8 col-md-8 ">
+                                
+                                <button class="btn largesearch-btn pull-right" id="resetFilter"><i class="fa fa-times"></i>&nbsp;Reset</button>
                                 <button class="btn largesearch-btn pull-right" id="ListingPageSearchBtn"><i class="fa fa-search"></i>&nbsp;Search</button>
                             </div>
                         </div>
