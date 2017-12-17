@@ -15,7 +15,7 @@ function getListings(query, callback) {
     mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing";
         if (city || location || priceFrom || priceTo || bathNo || bedNo) {
-            sql += " WHERE status != 2 ";
+            sql += " WHERE status NOT IN (2,4) ";
             if (city) {
                 sql += (" AND UPPER(city) LIKE UPPER('%" + city + "%')");
             }
@@ -77,7 +77,7 @@ function getCities(callback)
 
 function getListingsByUserId(agentId, callback) {
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM listing WHERE agent_id = " + con.escape(agentId);
+        var sql = "SELECT * FROM listing WHERE status != 4 AND agent_id = " + con.escape(agentId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -102,8 +102,8 @@ function getListingByListingId(listingId, callback) {
 
 function deleteListingByListingId(listingId, callback) {
     mysql.getConnection(function(err, con) {
-        deleteListingImagesByListingId(listingId);
-        var sql = "DELETE FROM listing WHERE listing_id = " + con.escape(listingId);
+        //deleteListingImagesByListingId(listingId);
+        var sql = "UPDATE listing SET status  = 4 WHERE listing_id = " + con.escape(listingId);
         console.log("Query to be executed: " + sql);
         con.query(sql, function (err, result) {
             if (err) callback(err, null);
@@ -113,17 +113,17 @@ function deleteListingByListingId(listingId, callback) {
     });
 }
 
-function deleteListingImagesByListingId(listingId) {
-    mysql.getConnection(function(err, con) {
-        var sql = "DELETE FROM listing_images WHERE listing_id = " + con.escape(listingId);
-        console.log("Query to be executed: " + sql);
-        con.query(sql, function (err, result) {
-            if (err) return false;
-            else return true;
-        });
-        con.release();
-    });
-}
+//function deleteListingImagesByListingId(listingId) {
+//    mysql.getConnection(function(err, con) {
+//        var sql = "DELETE FROM listing_images WHERE listing_id = " + con.escape(listingId);
+//        console.log("Query to be executed: " + sql);
+//        con.query(sql, function (err, result) {
+//            if (err) return false;
+//            else return true;
+//        });
+//        con.release();
+//    });
+//}
 
 function addListing(listing, imagesData, callback) {
     mysql.getConnection(function(err, con) {
