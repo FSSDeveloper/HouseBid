@@ -8,11 +8,13 @@ function getListings(query, callback) {
     var location = query.location;
     var sortByPrice = query.sortByPrice;
     var sortByDate = query.sortByDate;
-    var orderByPrice = query.orderByPrice;
-    var orderByDate = query.orderByDate;
+    var priceFrom = query.priceFrom;
+    var priceTo = query.priceTo;
+    var bathNo = query.bathNo;
+    var bedNo = query.bedNo;
     mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing";
-        if (city || location) {
+        if (city || location || priceFrom || priceTo || bathNo || bedNo) {
             sql += " WHERE";
             if (city) {
                 sql += (" UPPER(city) LIKE UPPER('%" + city + "%')");
@@ -23,16 +25,32 @@ function getListings(query, callback) {
                 }
                 sql += (" UPPER(location) LIKE UPPER('%" + location + "%')");
             }
-             sql += " AND status != 2"
+            sql += " AND status != 2"
+            
+            if (priceFrom){
+                sql += " AND price >= "+ priceFrom 
+            }
+            if (priceTo){
+                sql += " AND price <= "+ priceTo 
+            }         
+            if (bathNo){
+                sql += " AND baths = "+ bathNo 
+            }   
+             if (bedNo){
+                sql += " AND beds = "+ bedNo 
+            }   
+     
         }
 
         if(sortByPrice || sortByDate) {
             sql += " ORDER BY "
             if(sortByPrice) {
+                var orderByPrice = query.orderByPrice;
                 sql += " price " + orderByPrice;
             }
             if(sortByDate) {
                 if(sortByPrice) sql += ", ";
+                var orderByDate = query.orderByDate;
                 sql += " listed_date " + orderByDate;
             }
 
