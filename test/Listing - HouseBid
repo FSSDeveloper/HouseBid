@@ -997,7 +997,7 @@
 			"id": "ad7683da-6a56-f41f-2b4a-5e606d1ef32b",
 			"headers": "",
 			"headerData": [],
-			"url": "https://www.sfsuse.com/fa17g20/search",
+			"url": "https://www.sfsuse.com/fa17g20/search?sortByPrice=true&order=asc",
 			"queryParams": [
 				{
 					"key": "city",
@@ -1018,14 +1018,21 @@
 					"value": "true",
 					"equals": true,
 					"description": "",
-					"enabled": false
+					"enabled": true
 				},
 				{
 					"key": "sortByDate",
-					"value": "true",
+					"value": "false",
 					"equals": true,
 					"description": "",
 					"enabled": false
+				},
+				{
+					"key": "order",
+					"value": "asc",
+					"equals": true,
+					"description": "",
+					"enabled": true
 				}
 			],
 			"preRequestScript": null,
@@ -1038,11 +1045,143 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1513215425645,
+			"time": 1513518155281,
 			"name": "https://www.sfsuse.com/fa17g20/search",
 			"description": "Get listings",
 			"collectionId": "40d40be3-5517-b89a-e49f-5dc12c26fcd6",
-			"responses": []
+			"responses": [
+				{
+					"status": "",
+					"responseCode": {
+						"code": 200,
+						"name": "OK",
+						"detail": "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action."
+					},
+					"time": 177,
+					"headers": [
+						{
+							"name": "access-control-allow-headers",
+							"key": "access-control-allow-headers",
+							"value": "Content-Type",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"name": "access-control-allow-methods",
+							"key": "access-control-allow-methods",
+							"value": "GET, PUT, POST, DELETE, OPTIONS",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"name": "access-control-allow-origin",
+							"key": "access-control-allow-origin",
+							"value": "*",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"name": "connection",
+							"key": "connection",
+							"value": "keep-alive",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"name": "content-length",
+							"key": "content-length",
+							"value": "2843",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"name": "content-type",
+							"key": "content-type",
+							"value": "application/json; charset=utf-8",
+							"description": "The mime type of this content"
+						},
+						{
+							"name": "date",
+							"key": "date",
+							"value": "Sun, 17 Dec 2017 13:36:23 GMT",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"name": "etag",
+							"key": "etag",
+							"value": "W/\"b1b-5ZUTmHN5t6ZBMe5WrEUOZsni1Ts\"",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"name": "server",
+							"key": "server",
+							"value": "nginx/1.13.7",
+							"description": "A name for the server"
+						},
+						{
+							"name": "x-powered-by",
+							"key": "x-powered-by",
+							"value": "Express",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookies": [],
+					"mime": "",
+					"text": "[{\"listing_id\":5,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":100,\"is_biddable\":0,\"area\":20,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T22:25:33.000Z\",\"expiry_date\":null,\"agent_id\":2,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"location\",\"baths\":0,\"beds\":0,\"total_images\":0},{\"listing_id\":13,\"title\":\"title\",\"description\":\"Description\\n\",\"price\":123,\"is_biddable\":0,\"area\":40,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-17T13:06:15.000Z\",\"expiry_date\":null,\"agent_id\":1,\"customer_id\":null,\"city\":\"city\",\"location\":\"location\",\"baths\":1,\"beds\":1,\"total_images\":3},{\"listing_id\":12,\"title\":\"Test 1\",\"description\":\"Description\",\"price\":390,\"is_biddable\":1,\"area\":36,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-15T19:18:52.000Z\",\"expiry_date\":null,\"agent_id\":1,\"customer_id\":null,\"city\":\"city\",\"location\":\"location\",\"baths\":1,\"beds\":1,\"total_images\":0},{\"listing_id\":6,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":800,\"is_biddable\":0,\"area\":79,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T22:41:03.000Z\",\"expiry_date\":null,\"agent_id\":2,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"location\",\"baths\":1,\"beds\":2,\"total_images\":0},{\"listing_id\":7,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":900,\"is_biddable\":0,\"area\":79,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T22:47:02.000Z\",\"expiry_date\":null,\"agent_id\":2,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"location\",\"baths\":1,\"beds\":2,\"total_images\":0},{\"listing_id\":8,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":980,\"is_biddable\":0,\"area\":79,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T22:49:01.000Z\",\"expiry_date\":null,\"agent_id\":2,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"location\",\"baths\":1,\"beds\":2,\"total_images\":0},{\"listing_id\":9,\"title\":\"Test Listing Agent 1\",\"description\":\"description\",\"price\":980,\"is_biddable\":1,\"area\":79,\"status\":1,\"address\":\"address\",\"listed_date\":\"2017-12-14T22:52:11.000Z\",\"expiry_date\":null,\"agent_id\":2,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"location\",\"baths\":1,\"beds\":2,\"total_images\":0},{\"listing_id\":10,\"title\":\"Deluxe Villa\",\"description\":\"Amazing Villa in the center of City\",\"price\":6000,\"is_biddable\":1,\"area\":3000,\"status\":1,\"address\":\"12\",\"listed_date\":\"2017-12-15T10:02:34.000Z\",\"expiry_date\":\"2017-12-31T00:00:00.000Z\",\"agent_id\":1,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"Wörthstraße\",\"baths\":3,\"beds\":4,\"total_images\":1},{\"listing_id\":11,\"title\":\"Nice Apartment\",\"description\":\"Deluxe Apartment Close to bahnhof\",\"price\":45000,\"is_biddable\":0,\"area\":3000,\"status\":2,\"address\":\"14\",\"listed_date\":\"2017-12-15T18:42:48.000Z\",\"expiry_date\":\"2017-12-17T00:00:00.000Z\",\"agent_id\":1,\"customer_id\":null,\"city\":\"Fulda\",\"location\":\"bahnhof\",\"baths\":1,\"beds\":3,\"total_images\":1}]",
+					"language": "json",
+					"rawDataType": "text",
+					"previewType": "text",
+					"searchResultScrolledTo": -1,
+					"forceNoPretty": false,
+					"write": true,
+					"empty": false,
+					"failed": false,
+					"name": "https://www.sfsuse.com/fa17g20/search",
+					"id": "c226d8b4-a72e-0865-bc41-7c36db57f792",
+					"request": {
+						"url": "https://www.sfsuse.com/fa17g20/search?sortByPrice=true&order=asc",
+						"pathVariables": {},
+						"pathVariableData": [],
+						"queryParams": [
+							{
+								"key": "city",
+								"value": "Fulda",
+								"equals": true,
+								"description": "",
+								"enabled": false
+							},
+							{
+								"key": "location",
+								"value": "downtown",
+								"equals": true,
+								"description": "",
+								"enabled": false
+							},
+							{
+								"key": "sortByPrice",
+								"value": "true",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							},
+							{
+								"key": "sortByDate",
+								"value": "false",
+								"equals": true,
+								"description": "",
+								"enabled": false
+							},
+							{
+								"key": "order",
+								"value": "asc",
+								"equals": true,
+								"description": "",
+								"enabled": true
+							}
+						],
+						"headerData": [],
+						"headers": "",
+						"data": null,
+						"method": "GET",
+						"dataMode": "params"
+					}
+				}
+			]
 		},
 		{
 			"id": "ada158c8-2a16-1631-141e-19ed59cc80a4",

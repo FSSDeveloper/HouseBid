@@ -214,7 +214,7 @@ app.post("/agent/listing/update", function (req, res) {
 // Delete Listing
 app.delete("/agent/listing", function (req, res) {
     var listingId = req.body.listingId;
-    console.log("Add Profile request received.");
+    console.log("Delete listing request received.");
     listing.deleteListingByListingId(listingId, function (err, data) {
         if (err) {
             console.log("Error in Database Server: " + err);

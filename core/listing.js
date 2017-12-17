@@ -8,6 +8,7 @@ function getListings(query, callback) {
     var location = query.location;
     var sortByPrice = query.sortByPrice;
     var sortByDate = query.sortByDate;
+    var order = query.order;
     mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing";
         if (city || location) {
@@ -27,11 +28,11 @@ function getListings(query, callback) {
         if(sortByPrice || sortByDate) {
             sql += " ORDER BY "
             if(sortByPrice) {
-                sql += " price " + sortByPrice;
+                sql += " price " + order;
             }
             if(sortByDate) {
                 if(sortByPrice) sql += ", ";
-                sql += " listed_date " + sortByDate;
+                sql += " listed_date " + order;
             }
 
         }
