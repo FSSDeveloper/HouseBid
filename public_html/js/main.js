@@ -12,6 +12,8 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
+    var sortByDateBtn = false;
+    var sortByPriceBtn = false;
     var counterForOptions = 0;
     if(localStorage.length > 0){
         var userObj = JSON.parse(localStorage.getItem('userObj'));
@@ -88,6 +90,7 @@ $(document).ready(function () {
         $('#status').fadeOut();
         $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         //$('body').delay(350).css({'overflow': 'visible'});
+
 		var searchLocation = $('#searchLocation').val();
         var city = $('#city').val();
         console.log("city",city,"location",searchLocation);
@@ -115,10 +118,10 @@ $(document).ready(function () {
             // var test2 =dateOrder;
             // console.log(test,test2); 
             if(priceOrder) {
-                searchUrl += "&sortByPrice=true&orderByPrice=" + priceOrder.toLowerCase();
+                searchUrl += "&sortByPrice="+sortByPriceBtn+"&orderByPrice=" + priceOrder.toLowerCase();
             }
             if(dateOrder) {
-                searchUrl += "&sortByDate=false&orderByDate=" + dateOrder.toLowerCase();
+                searchUrl += "&sortByDate="+sortByDateBtn+"&orderByDate=" + dateOrder.toLowerCase();
             }
         }
 
@@ -149,6 +152,12 @@ $(document).ready(function () {
                             console.log("Error while fetching cities.");
                         }
                     });
+                $("#byDate").click(function(){
+                   sortByDateBtn = true;
+                });
+                $("#byPrice").click(function(){
+                   sortByPriceBtn = true;
+                });
                 $('#ListingPageSearchBtn').click(function(){
                     searchListings();
                 })
