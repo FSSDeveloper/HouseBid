@@ -314,7 +314,7 @@ $(document).ready(function () {
                     $("#chatDiv").show();
 
                     $("#sendMessageBtn").click(function() {
-                        var message = $("#chatMessage").val();
+                        var message = "<a href='../index.html#listing?listingId="+response[0].listing_id+"'>"+response[0].title+ "</a> " + "$("#chatMessage").val();
                         $.ajax({
                             url: apiEndPoint+"user/message",
                             type: "POST",
