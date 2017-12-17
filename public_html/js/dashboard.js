@@ -411,7 +411,8 @@ $(document).ready(function () {
                 $('#navInbox').attr("class","inActive");
                 $('#navMl').attr("class","active");
                 $('#navPl').attr("class","inActive");
-               document.getElementById("navProfile").classList.remove("active");     
+               document.getElementById("navProfile").classList.remove("active");
+               agentManageListing();     
             });
 
             $('#agentPlBtn').click(function() {
@@ -632,7 +633,9 @@ $(document).ready(function () {
                             }
                         });
                         $("#agentCancEditListingBtn").click(function(){
-                            agentManageListing();
+                            $("#appendListingEdit").hide();
+                            //agentManageListing();
+                            $("#appendListings").show();
                         });
                         $("#agentEditListingBtn").click(function() {
                             var biddableValue = 1;
@@ -795,11 +798,11 @@ $(document).ready(function () {
                 processData: false,
                 success: function (data) {
                     console.log("data after success login",data);
-                    
+                    apiInProcess = false;
                     $("#postTitle").val("");
                     $("#postDescription").val("");
                     $("#postPrice").val("");
-                    $("#postStatus").val("");
+                    $("#postStatus").val("1");
                     $("#postAddress").val("");
 
                     $("#postCity").val("");
@@ -815,6 +818,7 @@ $(document).ready(function () {
                 },
                 error: function() {
                     $("#toaster-fail").show();
+                    apiInProcess=false;
                     document.getElementById("failToasterData").innerHTML = "Oops! Something went wrong!";
                     setTimeout(function(){
                         hideToaster();

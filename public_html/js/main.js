@@ -69,20 +69,20 @@ $(document).ready(function () {
     loadHomePage();
 
     // Cities AJAX
-        $.ajax({
-            url: apiEndPoint+"listing/cities",
-            type: "get",
-            success: function(data) {
-               data.forEach(function(element){
-                    $('#city').append($('<option>', {         
-                     text: element.City           
-                    }));
-                });
-            },
-            error: function(data, status, er) {
-                console.log("Error while fetching cities.");
-            }
-        });
+        // $.ajax({
+        //     url: apiEndPoint+"listing/cities",
+        //     type: "get",
+        //     success: function(data) {
+        //        data.forEach(function(element){
+        //             $('#city').append($('<option>', {         
+        //              text: element.City           
+        //             }));
+        //         });
+        //     },
+        //     error: function(data, status, er) {
+        //         console.log("Error while fetching cities.");
+        //     }
+        // });
     function searchListings(){
     	apiCalled = true;
         $('#status').fadeOut();
