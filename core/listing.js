@@ -15,18 +15,13 @@ function getListings(query, callback) {
     mysql.getConnection(function(err, con) {
         var sql = "SELECT * FROM listing";
         if (city || location || priceFrom || priceTo || bathNo || bedNo) {
-            sql += " WHERE";
+            sql += " WHERE status != 2 ";
             if (city) {
-                sql += (" UPPER(city) LIKE UPPER('%" + city + "%')");
+                sql += (" AND UPPER(city) LIKE UPPER('%" + city + "%')");
             }
             if (location) {
-                if (city) {
-                    sql += " AND"
-                }
-                sql += (" UPPER(location) LIKE UPPER('%" + location + "%')");
+                sql += (" AND UPPER(location) LIKE UPPER('%" + location + "%')");
             }
-            sql += " AND status != 2"
-            
             if (priceFrom){
                 sql += " AND price >= "+ priceFrom 
             }
