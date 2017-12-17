@@ -364,19 +364,19 @@ input[type="search"]::-webkit-search-decoration {
     background: #00A2DE
 }
 .form-control::-moz-placeholder{
-    color: #DDDDDD;
+    color: #777;
     opacity: 1;
 }
 .form-control:-moz-placeholder{
-    color: #DDDDDD;
+    color: #777;
     opacity: 1;  
 }  
 .form-control::-webkit-input-placeholder{
-    color: #DDDDDD;
+    color: #777;
     opacity: 1; 
 } 
 .form-control:-ms-input-placeholder{
-    color: #DDDDDD;
+    color: #777;
     opacity: 1; 
 }
 
