@@ -12,6 +12,8 @@ $(document).ready(function () {
 	var apiCalled = false;
     var isLocal = false;
     var apiEndPoint ="";
+    var sortByDateBtn = false;
+    var sortByPriceBtn = false;
     var counterForOptions = 0;
     if(localStorage.length > 0){
         var userObj = JSON.parse(localStorage.getItem('userObj'));
@@ -69,32 +71,40 @@ $(document).ready(function () {
     loadHomePage();
 
     // Cities AJAX
-        $.ajax({
-            url: apiEndPoint+"listing/cities",
-            type: "get",
-            success: function(data) {
-               data.forEach(function(element){
-                    $('#city').append($('<option>', {         
-                     text: element.City           
-                    }));
-                });
-            },
-            error: function(data, status, er) {
-                console.log("Error while fetching cities.");
-            }
-        });
+        // $.ajax({
+        //     url: apiEndPoint+"listing/cities",
+        //     type: "get",
+        //     success: function(data) {
+        //        data.forEach(function(element){
+        //             $('#city').append($('<option>', {         
+        //              text: element.City           
+        //             }));
+        //         });
+        //     },
+        //     error: function(data, status, er) {
+        //         console.log("Error while fetching cities.");
+        //     }
+        // });
     function searchListings(){
     	apiCalled = true;
         $('#status').fadeOut();
         $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
         //$('body').delay(350).css({'overflow': 'visible'});
-		var searchLocation = $('#searchLocation').val();
-        var city = $('#city').val();
-        console.log("city",city,"location",location);
+        var city ="";
+        var searchLocation = "";
+		searchLocation = $('#searchLocation').val();
+        city = $('#city').val();
+        var bedNo = $("#searchBeds").val();
+        var bathNo = $("#searchBaths").val();
+        if(!bedNo && !bathNo){
+            bedNo = "";
+            bathNo = "";
+        }
+        console.log("city",city,"location",searchLocation);
 
-        if(city || searchLocation){
-        	window.location.hash = "search?city="+city+"&location="+searchLocation;
-        	var searchUrl = "search?city="+city+"&location="+searchLocation;
+        if(city || searchLocation || bedNo || bathNo){
+        	window.location.hash = "search?city="+city+"&location="+searchLocation+"&bedNo="+bedNo+"&bathNo="+bathNo;
+        	var searchUrl = "search?city="+city+"&location="+searchLocation+"&bedNo="+bedNo+"&bathNo="+bathNo;
         }else if(location.hash){
         	var hash = location.hash.substring(1);
         	var searchUrl = hash;
@@ -108,13 +118,17 @@ $(document).ready(function () {
             // For sorting/filter data
         var priceOrder = $($("#byPrice")[0]).attr("data-order");
         var dateOrder = $($("#byDate")[0]).attr("data-order");
+        console.log("priceorder",priceOrder,dateOrder);
 
         if(priceOrder || dateOrder) {
+            // var test = priceOrder;
+            // var test2 =dateOrder;
+            // console.log(test,test2); 
             if(priceOrder) {
-                searchUrl += "&sortByPrice=" + priceOrder;
+                searchUrl += "&sortByPrice="+sortByPriceBtn+"&orderByPrice=" + priceOrder.toLowerCase();
             }
             if(dateOrder) {
-                searchUrl += "&sortByDate=" + dateOrder;
+                searchUrl += "&sortByDate="+sortByDateBtn+"&orderByDate=" + dateOrder.toLowerCase();
             }
         }
 
@@ -123,7 +137,13 @@ $(document).ready(function () {
             apiCalled = false;
             counterForOptions = counterForOptions+1;
             $('#uiView').load("./pages/searchListings.html", function(){
-                $('#searchLocation').val("");
+                //$('#searchLocation').val("");
+                 console.log(city,searchLocation,"debba");
+                        $('#searchLocation').val(searchLocation);
+                        $('#city').val(city); 
+                        $("#searchBeds").val(bedNo);
+                        $("#searchBaths").val(bathNo);
+
                     $.ajax({
                         url: apiEndPoint+"listing/cities",
                         type: "get",
@@ -142,16 +162,29 @@ $(document).ready(function () {
                             console.log("Error while fetching cities.");
                         }
                     });
-                $('#ListingPageSearchBtn').click(function(){
+                $("#byDate").click(function(){
+                   sortByDateBtn = true;
+                });
+                $("#byPrice").click(function(){
+                   sortByPriceBtn = true;
+                });
+                $("#resetFilter").click(function(){
+                    $('#searchLocation').val("");
+                        $('#city').val(""); 
+                        $("#searchBeds").val("");
+                        $("#searchBaths").val("");
+                        window.location.hash = "search?city=&location=";
                     searchListings();
                 })
+                $('#ListingPageSearchBtn').click(function(){
+                    searchListings();
+                });
                 $('#addBodyContent').attr("style","display:none;");
                 if(response.length > 0){
                         for(var i=0; i < response.length; i++){
                             var template = $('#searchListingTemplate').clone();
                             var searchIdx = "searchListingTemplate"+i;
                             template.attr('id',searchIdx);
-                            console.log("response[i]",template.find("#listingPrice"));
                             template.attr("data",response[i].listing_id);
                             template.attr("class","view-listing-details col-sm-6 col-md-4");
                             template.find('#listingId')[0].innerHTML = response[i].listing_id;
@@ -174,7 +207,8 @@ $(document).ready(function () {
                                 var idx = element.getAttribute("data");
                                 getListingDetails(idx);
                             });
-                        } 
+                        }
+
                 }else{
                     $(".appendHere").append("<h3 style='margin-left:20px;'> <i> No results Matching your criteria!</i> </h3>");
                 }
@@ -206,7 +240,7 @@ $(document).ready(function () {
                 template.find("#listingGarageVal")[0].innerHTML = "2";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
-                template.find("#listingAreaVal")[0].innerHTML = response[i].area+"m2";
+                template.find("#listingAreaVal")[0].innerHTML = response[0].area+"m2";
                 template.find("#listingAgentPic")[0].innerHTML = "<img src="+apiEndPoint+"user/image?userId="+response[0].agent_id+"/>";
                 template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
                 template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
@@ -241,7 +275,7 @@ $(document).ready(function () {
                         
                         $("#showLocation").attr("style","display:none;");
 
-                       template.find("#listingTitleAdd")[0].innerHTML = " IN" +response[0].address+", "+response[0].location+", "+response[0].city; 
+                       template.find("#listingTitleAdd")[0].innerHTML = " IN " +response[0].address+", "+response[0].location+", "+response[0].city; 
                        
                        var addr = response[0].address+", "+response[0].location+", "+response[0].city;
                         locateInMap(addr);
@@ -314,7 +348,8 @@ $(document).ready(function () {
                     $("#chatDiv").show();
 
                     $("#sendMessageBtn").click(function() {
-                        var message = "<a href='../index.html#listing?listingId="+response[0].listing_id+"'>"+response[0].title+ "</a> " + "$("#chatMessage").val();
+                           var message = "<a href='../index.html#listing?listingId="+response[0].listing_id+"'>"+response[0].title+ "</a> :" + $("#chatMessage").val();
+
                         $.ajax({
                             url: apiEndPoint+"user/message",
                             type: "POST",
