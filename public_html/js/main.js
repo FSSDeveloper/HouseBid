@@ -69,20 +69,20 @@ $(document).ready(function () {
     loadHomePage();
 
     // Cities AJAX
-        $.ajax({
-            url: apiEndPoint+"listing/cities",
-            type: "get",
-            success: function(data) {
-               data.forEach(function(element){
-                    $('#city').append($('<option>', {         
-                     text: element.City           
-                    }));
-                });
-            },
-            error: function(data, status, er) {
-                console.log("Error while fetching cities.");
-            }
-        });
+        // $.ajax({
+        //     url: apiEndPoint+"listing/cities",
+        //     type: "get",
+        //     success: function(data) {
+        //        data.forEach(function(element){
+        //             $('#city').append($('<option>', {         
+        //              text: element.City           
+        //             }));
+        //         });
+        //     },
+        //     error: function(data, status, er) {
+        //         console.log("Error while fetching cities.");
+        //     }
+        // });
     function searchListings(){
     	apiCalled = true;
         $('#status').fadeOut();
@@ -90,7 +90,7 @@ $(document).ready(function () {
         //$('body').delay(350).css({'overflow': 'visible'});
 		var searchLocation = $('#searchLocation').val();
         var city = $('#city').val();
-        console.log("city",city,"location",location);
+        console.log("city",city,"location",searchLocation);
 
         if(city || searchLocation){
         	window.location.hash = "search?city="+city+"&location="+searchLocation;
@@ -123,7 +123,10 @@ $(document).ready(function () {
             apiCalled = false;
             counterForOptions = counterForOptions+1;
             $('#uiView').load("./pages/searchListings.html", function(){
-                $('#searchLocation').val("");
+                //$('#searchLocation').val("");
+                 console.log(city,searchLocation,"debba");
+                        $('#searchLocation').val(searchLocation);
+                        $('#city').val(city); 
                     $.ajax({
                         url: apiEndPoint+"listing/cities",
                         type: "get",
@@ -151,7 +154,6 @@ $(document).ready(function () {
                             var template = $('#searchListingTemplate').clone();
                             var searchIdx = "searchListingTemplate"+i;
                             template.attr('id',searchIdx);
-                            console.log("response[i]",template.find("#listingPrice"));
                             template.attr("data",response[i].listing_id);
                             template.attr("class","view-listing-details col-sm-6 col-md-4");
                             template.find('#listingId')[0].innerHTML = response[i].listing_id;
@@ -174,7 +176,8 @@ $(document).ready(function () {
                                 var idx = element.getAttribute("data");
                                 getListingDetails(idx);
                             });
-                        } 
+                        }
+
                 }else{
                     $(".appendHere").append("<h3 style='margin-left:20px;'> <i> No results Matching your criteria!</i> </h3>");
                 }
@@ -206,7 +209,7 @@ $(document).ready(function () {
                 template.find("#listingGarageVal")[0].innerHTML = "2";
                 template.find("#listingBaths")[0].innerHTML = response[0].baths;
                 template.find("#listingBeds")[0].innerHTML = response[0].beds;
-                template.find("#listingAreaVal")[0].innerHTML = response[i].area+"m2";
+                template.find("#listingAreaVal")[0].innerHTML = response[0].area+"m2";
                 template.find("#listingAgentPic")[0].innerHTML = "<img src="+apiEndPoint+"user/image?userId="+response[0].agent_id+"/>";
                 template.find("#listingAgentName")[0].innerHTML = response[0].agent_name;
                 template.find("#listingAgentEmail")[0].innerHTML = response[0].agent_email;
