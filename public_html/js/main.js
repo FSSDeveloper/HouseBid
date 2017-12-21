@@ -193,6 +193,8 @@ $(document).ready(function () {
                             template.find("#listingPrice")[0].innerHTML = response[i].price+"EUR";
                             template.find("#listingDescription")[0].innerHTML = response[i].description;      
                             template.find("#listingCity")[0].innerHTML = response[i].city;
+                            template.find("#searchListingBeds")[0].innerHTML = response[i].beds;
+                            template.find("#searchListingBaths")[0].innerHTML = response[i].baths; 
                             if(response[i].total_images > 0){
                                 template.find("#searchListingImg")[0].innerHTML = "<img style='width:300px;height:248px;' src='"+apiEndPoint+"listing/image?listingId="+response[i].listing_id+"&number=1'>"; 
                             }else{
