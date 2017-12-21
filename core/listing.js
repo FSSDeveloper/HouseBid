@@ -13,9 +13,9 @@ function getListings(query, callback) {
     var bathNo = query.bathNo;
     var bedNo = query.bedNo;
     mysql.getConnection(function(err, con) {
-        var sql = "SELECT * FROM listing";
+        var sql = "SELECT * FROM listing WHERE status NOT IN (2,4) ";
         if (city || location || priceFrom || priceTo || bathNo || bedNo) {
-            sql += " WHERE status NOT IN (2,4) ";
+            //sql += " WHERE status NOT IN (2,4) ";
             if (city) {
                 sql += (" AND UPPER(city) LIKE UPPER('%" + city + "%')");
             }
